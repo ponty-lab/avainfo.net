@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 // @ts-ignore
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+import { format, addDays } from "date-fns";
 import AvaColors from "../styles/colors.style";
 import Sidebar from "../components/sidebar";
 import ToggleButton from "../components/toggleButton";
@@ -38,16 +39,18 @@ const Home = () => {
         "interpolate",
         ["linear"],
         ["get", "maxDangerRating_later_numeric"],
+        -1,
+        AvaColors["-1"],
         1,
-        AvaColors[1],
+        AvaColors["1"],
         2,
-        AvaColors[2],
+        AvaColors["2"],
         3,
-        AvaColors[3],
+        AvaColors["3"],
         4,
-        AvaColors[4],
+        AvaColors["4"],
         5,
-        AvaColors[5],
+        AvaColors["5"],
       ],
     },
   ];
@@ -59,8 +62,19 @@ const Home = () => {
   const [regionName, setRegionName] = useState<string | null>(null);
   const [dangerAM, setDangerAM] = useState<number>(0);
   const [dangerPM, setDangerPM] = useState<number>(0);
+  const [date, setDate] = useState<string>("");
 
   useEffect(() => {
+
+    let date = new Date();
+
+    if (date.getHours() > 18) {
+      date = addDays(date, 1)
+    }
+
+    const dateString = format(date, "yyyy-MM-dd");
+    setDate(format(date, "d MMMM y"));
+
     const map = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/light-v10",
@@ -73,7 +87,7 @@ const Home = () => {
     map.on("load", (e: any) => {
       map.addSource("avalanche-map", {
         type: "vector",
-        url: "mapbox://avainfo.avalanche-map-en-2022-11-11",
+        url: `mapbox://avainfo.avalanche-map-en-${dateString}`,
       });
 
       map.addLayer({
@@ -122,16 +136,16 @@ const Home = () => {
         }); */
 
     map.on("mousemove", "avalanche-danger", (e: any) => {
-      console.log(e.point);
+      //console.log(e.point);
       const features = map.queryRenderedFeatures(e.point);
       if (features.length) {
         const feature = features[0];
         if (feature.properties) {
-        setRegionName(feature.properties.regionName);
-        setDangerAM(feature.properties.maxDangerRating_earlier_numeric);
-        setDangerPM(feature.properties.maxDangerRating_later_numeric);
+          setRegionName(feature.properties.regionName);
+          setDangerAM(feature.properties.maxDangerRating_earlier_numeric);
+          setDangerPM(feature.properties.maxDangerRating_later_numeric);
+        }
       }
-    }
     });
 
     // Change the cursor to a pointer when the mouse is over the places layer.
@@ -186,7 +200,7 @@ const Home = () => {
           backgroundColor: "transparent",
         }}
       >
-        <h2 className="theme-color">6 April 2022</h2>
+        <h2 className="theme-color">{date}</h2>
       </div>
     </div>
   );
