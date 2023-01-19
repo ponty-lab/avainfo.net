@@ -1,10 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 // @ts-ignore
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
-import { format, addDays } from "date-fns";
+import { format, parse } from "date-fns";
+//import fetch from "node-fetch";
 import AvaColors from "../styles/colors.style";
 import Sidebar from "../components/sidebar";
 import ToggleButton from "../components/toggleButton";
+
+const URL = "https://us-central1-avainfo-net.cloudfunctions.net/fetchLatestTilesetDate"
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYXZhaW5mbyIsImEiOiJjbDVxbDVjOTIxNDFjM2lvZWQzcDF4dndoIn0.W8Q4-jsphhQfIfCQ3grrsw";
@@ -62,18 +65,9 @@ const Home = () => {
   const [regionName, setRegionName] = useState<string | null>(null);
   const [dangerAM, setDangerAM] = useState<number>(0);
   const [dangerPM, setDangerPM] = useState<number>(0);
-  const [date, setDate] = useState<string>("");
+  const [date, setDate] = useState<string | null>(null);
 
   useEffect(() => {
-
-    let date = new Date();
-
-    if (date.getHours() > 18) {
-      date = addDays(date, 1)
-    }
-
-    const dateString = format(date, "yyyy-MM-dd");
-    setDate(format(date, "d MMMM y"));
 
     const map = new mapboxgl.Map({
       container: mapContainer.current,
@@ -84,10 +78,16 @@ const Home = () => {
       zoom: 5.9,
     });
 
-    map.on("load", (e: any) => {
+    map.on("load", async (e: any) => {
+      // Fetch the latest date so we can call the latest tileset 
+      const resp = await fetch(URL);
+      const latest =  await resp.text()
+      const dateString = parse(latest, "yyyy-MM-dd", new Date())
+      setDate(format(dateString, "dd MMMM yyyy"))
+
       map.addSource("avalanche-map", {
         type: "vector",
-        url: `mapbox://avainfo.avalanche-map-en-${dateString}`,
+        url: `mapbox://avainfo.avalanche-map-en-${latest}`,
       });
 
       map.addLayer({
