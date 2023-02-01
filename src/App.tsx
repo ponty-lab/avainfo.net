@@ -6,7 +6,7 @@ import { lightTheme } from "./styles/theme";
 import Home from "./pages";
 import Docs from "./pages/docs";
 import GlobalStyle from "./styles/global.style";
-//import SignUp from './pages/signup';
+import About from "./pages/about";
 //import Contact from './pages/contact';
 
 const App = () => {
@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           {/*<Route exact path='/index' element={<Home />} /> */}
           <Route path="/docs" element={<Docs />} />
-          {/*<Route path='/sign-up' element={<SignUp />} /> */}
+          <Route path="/about" element={<About />} />
         </Routes>
       </Router>
     </ThemeProvider>
