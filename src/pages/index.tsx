@@ -4,8 +4,9 @@ import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-load
 import { format, parse } from "date-fns";
 //import fetch from "node-fetch";
 import AvaColors from "../styles/colors.style";
-import Sidebar from "../components/sidebar";
-import ToggleButton from "../components/toggleButton";
+import Sidebar from "../components/Sidebar";
+import ToggleButton from "../components/ToggleButton";
+import { DateContainer, Homepage, MapContainer} from "../styles/map.style";
 
 const URL = "https://us-central1-avainfo-net.cloudfunctions.net/fetchLatestTilesetDate"
 
@@ -16,7 +17,7 @@ const Home = () => {
   const options = [
     {
       name: "AM",
-      property: "maxDanger_earlier",
+      property: "earlier",
       paint: [
         "interpolate",
         ["linear"],
@@ -37,7 +38,7 @@ const Home = () => {
     },
     {
       name: "PM",
-      property: "maxDanger_later",
+      property: "later",
       paint: [
         "interpolate",
         ["linear"],
@@ -62,10 +63,9 @@ const Home = () => {
 
   const [active, setActive] = useState<Record<string, any>>(options[0]);
   const [map, setMap] = useState<any>(null);
-  const [regionName, setRegionName] = useState<string | null>(null);
-  const [dangerAM, setDangerAM] = useState<number>(0);
-  const [dangerPM, setDangerPM] = useState<number>(0);
+  const [properties, setProperties] = useState<Record<string, any> | null>(null);
   const [date, setDate] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
 
   useEffect(() => {
 
@@ -135,15 +135,15 @@ const Home = () => {
             }
         }); */
 
-    map.on("mousemove", "avalanche-danger", (e: any) => {
+    map.on("click", "avalanche-danger", (e: any) => {
       //console.log(e.point);
       const features = map.queryRenderedFeatures(e.point);
       if (features.length) {
         const feature = features[0];
         if (feature.properties) {
-          setRegionName(feature.properties.regionName);
-          setDangerAM(feature.properties.maxDangerRating_earlier_numeric);
-          setDangerPM(feature.properties.maxDangerRating_later_numeric);
+          console.log(feature.properties);
+          setModalOpen(true);
+          setProperties(feature.properties)
         }
       }
     });
@@ -175,33 +175,26 @@ const Home = () => {
 
   const changeState = (i: number) => {
     setActive(options[i]);
+    
   };
 
   return (
     <div>
+    {modalOpen ?
       <Sidebar
-        regionName={regionName}
-        dangerAM={dangerAM}
-        dangerPM={dangerPM}
-        name={active.name}
-      />
-      <div ref={mapContainer} className="map-container" />
-      <ToggleButton
-        options={options}
-        property={active.property}
-        changeState={changeState}
-      />
-      <div
-        style={{
-          position: "absolute",
-          top: 100,
-          right: 30,
-          zIndex: 1,
-          backgroundColor: "transparent",
-        }}
-      >
-        <h2 className="theme-color">{date}</h2>
-      </div>
+        properties={properties}
+        onPress={() => setModalOpen(false)}
+        validTimePeriod={active.property}
+      /> : null
+    }
+      <MapContainer ref={mapContainer}>
+      {/* <SidebarContainer>
+        <h1>SideBar</h1>
+      </SidebarContainer> */}
+      </MapContainer>
+      <DateContainer>
+        <h3 className="theme-color">{date}</h3>
+      </DateContainer>
     </div>
   );
 };
