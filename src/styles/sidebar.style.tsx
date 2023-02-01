@@ -142,3 +142,9 @@ export const ColumnColor = styled.div<styledColor>`
   margin-bottom: 10px;
   margin-right: 10px;
 `;
+
+export const BoxCenter = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+`;
