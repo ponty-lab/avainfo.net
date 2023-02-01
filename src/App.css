@@ -161,3 +161,7 @@ html {
     font-size: 22px;
   }
 }
+
+ul {
+  list-style-type: none;
+}

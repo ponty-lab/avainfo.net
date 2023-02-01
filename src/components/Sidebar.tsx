@@ -15,6 +15,8 @@ import BulletinRiskLevel from "./sidebar/BulletinRiskLevel";
 import BulletinTendency from "./sidebar/BulletinTendency";
 import BulletinDangerStatus from "./sidebar/BulletinDangerStatus";
 import BulletinAvalancheProblems from "./sidebar/BulletinAvalancheProblems";
+import BulletinStability from "./sidebar/BulletinStability";
+import BulletinWeather from "./sidebar/BulletinWeather";
 
 type Props = {
   properties: Record<string, any> | null;
@@ -104,10 +106,8 @@ const Sidebar = ({ properties, onPress, validTimePeriod }: Props) => {
                   properties={properties}
                   validTimePeriod={validTimePeriod}
                 />
-                <BulletinParagraph
-                  title="Snowpack Stability"
-                  content={properties?.avalancheActivity_1_comment}
-                />
+                <BulletinStability properties={properties} />
+                <BulletinWeather properties={properties} />
                 <BulletinFooter
                   url={properties?.bulletinURI}
                   pdfURL={properties?.pdfURI}
