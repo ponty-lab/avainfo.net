@@ -50,9 +50,9 @@ const BulletinAvalancheProblems: React.FC<Props> = ({
           } else if (new RegExp("terrainFeature").test(key)) {
             val = { terrainFeature: properties[key] };
           } else if (new RegExp("elevation_lowerBound_string").test(key)) {
-            val = { elevationLow: properties[key] };
-          } else if (new RegExp("elevation_upperBound_string").test(key)) {
             val = { elevationHigh: properties[key] };
+          } else if (new RegExp("elevation_upperBound_string").test(key)) {
+            val = { elevationLow: properties[key] };
           }
           return { ...obj, ...val };
         }, {});
@@ -89,7 +89,7 @@ const BulletinAvalancheProblems: React.FC<Props> = ({
                   {labelType ? (
                     <Caption
                       validDate={false}
-                      style={{ color: "gray", fontSize: 12 }}
+                      style={{ color: "gray", fontSize: 12, marginBottom: 10 }}
                     >
                       {labelDay}
                       {labelType}
@@ -176,7 +176,7 @@ function ImageElevation({ elevationHigh, elevationLow }: IEProps) {
             alignSelf: "center",
             fontSize: 12,
             color: "black",
-            marginBottom: 10,
+            marginTop: 10,
             marginLeft: 5,
           }}
         >
