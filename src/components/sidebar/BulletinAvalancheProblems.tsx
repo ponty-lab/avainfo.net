@@ -2,8 +2,7 @@ import React, { memo, useEffect, useState } from "react";
 import { ExpositionIcon } from "../ExpositionIcon";
 import { AvalancheProblems, WarningLevels } from "../../utils";
 import { TAvalancheSituations } from "../../models";
-import { SubHeader } from "../../styles/sidebar.style";
-import { Caption } from "../../styles/typography.styles";
+import { Caption, SubHeader } from "../../styles/typography.styles";
 
 const SIZE = 45;
 
@@ -70,13 +69,15 @@ const BulletinAvalancheProblems: React.FC<Props> = ({
           <SubHeader style={styles.title}>Avalanche Problems</SubHeader>
           <div>
             {avalancheSituations.map((problem, index: number) => {
-              const uri = problem.type
-                ? AvalancheProblems[problem.type].uri
-                : null;
+              const uri =
+                problem.type !== "no_distinct_pattern"
+                  ? AvalancheProblems[problem.type].uri
+                  : null;
 
-              const labelType = problem.type
-                ? AvalancheProblems[problem.type].label
-                : null;
+              const labelType =
+                problem.type !== "no_distinct_pattern"
+                  ? AvalancheProblems[problem.type].label
+                  : null;
               const labelDay =
                 problem.validTimePeriod === "earlier"
                   ? `${AvalancheSituationsLabel[0]}: `
@@ -86,44 +87,54 @@ const BulletinAvalancheProblems: React.FC<Props> = ({
 
               return (
                 <div key={`problem_${index}`} style={{ marginTop: 10 }}>
-                  {labelType ? (
-                    <Caption
-                      validDate={false}
-                      style={{ color: "gray", fontSize: 12, marginBottom: 10 }}
-                    >
-                      {labelDay}
-                      {labelType}
-                    </Caption>
-                  ) : null}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      marginTop: 5,
-                      marginLeft: 10,
-                    }}
-                  >
-                    {uri ? (
-                      <img
-                        src={uri}
+                  {problem.type === "no_distinct_pattern" ? (
+                    <p>No distinct avalanche pattern</p>
+                  ) : (
+                    <div key={`problem_${index}`} style={{ marginTop: 10 }}>
+                      {labelType ? (
+                        <Caption
+                          validDate={false}
+                          style={{
+                            color: "gray",
+                            fontSize: 12,
+                            marginBottom: 10,
+                          }}
+                        >
+                          {labelDay}
+                          {labelType}
+                        </Caption>
+                      ) : null}
+                      <div
                         style={{
-                          width: SIZE * 1.2,
-                          height: SIZE * 1.2,
-                          marginRight: 20,
-                          alignSelf: "center",
+                          display: "flex",
+                          flexDirection: "row",
+                          marginTop: 5,
+                          marginLeft: 10,
                         }}
-                      />
-                    ) : null}
-                    <ExpositionIcon
-                      aspects={problem.aspects}
-                      size={SIZE * 1.2}
-                    />
+                      >
+                        {uri ? (
+                          <img
+                            src={uri}
+                            style={{
+                              width: SIZE * 1.2,
+                              height: SIZE * 1.2,
+                              marginRight: 20,
+                              alignSelf: "center",
+                            }}
+                          />
+                        ) : null}
+                        <ExpositionIcon
+                          aspects={problem.aspects}
+                          size={SIZE * 1.2}
+                        />
 
-                    <ImageElevation
-                      elevationHigh={problem.elevationHigh}
-                      elevationLow={problem.elevationLow}
-                    />
-                  </div>
+                        <ImageElevation
+                          elevationHigh={problem.elevationHigh}
+                          elevationLow={problem.elevationLow}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -164,8 +175,8 @@ function ImageElevation({ elevationHigh, elevationLow }: IEProps) {
     if (elevationHigh && elevationLow) {
       return (
         <div style={styles.text}>
-          <p>below {elevationHigh}</p>
           <p>above {elevationLow}</p>
+          <p>below {elevationHigh}</p>
         </div>
       );
     } else if (elevationHigh) {
@@ -208,7 +219,7 @@ function ImageElevation({ elevationHigh, elevationLow }: IEProps) {
         style={{
           width: SIZE * 1.3,
           height: SIZE,
-          marginLeft: 20,
+          //marginLeft: 20,
           alignSelf: "center",
         }}
       />
@@ -226,8 +237,11 @@ const styles = {
     flexDirection: "row",
   },
   text: {
-    marginLeft: 10,
-    marginTop: 15,
-    marginBottom: 20,
+    alignSelf: "center",
+    fontSize: 12,
+    color: "black",
+    //marginBottom: 20,
+    marginLeft: 5,
+    //marginTop: 20,
   },
 };
