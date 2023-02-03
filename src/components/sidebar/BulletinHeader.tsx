@@ -1,38 +1,42 @@
-import { format } from "date-fns";
 import React, { memo } from "react";
-import { Caption } from "../../styles/typography.styles";
-import {
-  ButtonClose,
-  Divider,
-  Header,
-  Title,
-} from "../../styles/sidebar.style";
+import { Caption, Title } from "../../styles/typography.styles";
+import { CloseButton, Divider, Header } from "../../styles/sidebar.style";
 import { toTitleCase } from "../../utils/toTitleCase";
+import { formatDate } from "../../utils/formatDate";
+import BulletinDangerStatus from "./BulletinDangerStatus";
 
 type HeaderProps = {
   region: string;
   onPress: () => void;
   validDate: Date;
+  dangerColor: string;
+  dangerLevel: string;
+  dangerLevelString: string;
 };
 
-const BulletinHeader = ({ region, onPress, validDate }: HeaderProps) => {
-  const _getTime = (date: Date) => {
-    if (date) {
-      return format(date, "do MMMM, HH:mm (z)");
-    }
-    return null;
-  };
-
-  const _validDate = _getTime(validDate);
+const BulletinHeader = ({
+  region,
+  onPress,
+  validDate,
+  dangerColor,
+  dangerLevel,
+  dangerLevelString,
+}: HeaderProps) => {
+  const gmtDate = formatDate(validDate);
 
   return (
     <div>
       <Header>
-        <Title style={{ flex: "70%" }}>{toTitleCase(region)}</Title>
-        <ButtonClose onClick={onPress}>X</ButtonClose>
+        <Title style={{ flex: "60%" }}>{toTitleCase(region)}</Title>
+        <CloseButton onClick={onPress} />
       </Header>
+      <BulletinDangerStatus
+        dangerColor={dangerColor}
+        dangerLevel={dangerLevel}
+        dangerLevelString={dangerLevelString}
+      />
       <Caption validDate={validDate < new Date() ? true : false}>
-        Valid until: {_validDate}
+        Valid until: {gmtDate}
       </Caption>
       <Divider />
     </div>

@@ -6,12 +6,11 @@ export const SidebarContainer = styled.div`
   top: 60px;
   left: 0px;
   height: calc(100vh - 60px);
-  max-width: 35vw;
+  max-width: 40vw;
   border-right: 2px solid #eaecef;
   background-color: white;
   z-index: 10;
   border-radius: 0pt 30pt 30pt 0pt;
-
   @media (max-width: 900px) {
     min-width: 100vw;
   }
@@ -36,7 +35,7 @@ export const Header = styled.div`
   flex-direction: row;
 `;
 
-export const ButtonClose = styled.button`
+export const CloseButton = styled.button`
   overflow: hidden;
   position: relative;
   border: none;
@@ -45,13 +44,14 @@ export const ButtonClose = styled.button`
   height: 2em;
   border-radius: 50%;
   background: transparent;
-  color: #286882f2;
+  color: ${(props) => props.theme.primaryColor};
   font: inherit;
   text-indent: 100%;
   cursor: pointer;
+  content: "X";
 
   &:hover {
-    background: rgba(29, 161, 142, 0.1);
+    background: ${(props) => hexToRGB(props.theme.primaryColor, "0.1")};
   }
 
   &:before,
@@ -74,18 +74,7 @@ export const ButtonClose = styled.button`
 export const Divider = styled.div`
   height: 1px;
   margin-top: 15px;
-  background: lightgray;
-`;
-
-export const Title = styled.h1`
-  font-size: calc(22px + (32 - 22) * ((100vw - 300px) / (1600 - 300)));
-  color: ${(props) => props.theme.primaryColor};
-`;
-
-export const SubHeader = styled.h2`
-  font-size: calc(16px + (24 - 16) * ((100vw - 300px) / (1600 - 300)));
-  font-weight: 600;
-  line-height: 1.6em;
+  background: #ececf1;
 `;
 
 interface styledIcon {
