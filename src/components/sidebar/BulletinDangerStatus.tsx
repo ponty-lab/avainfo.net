@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { SubHeader } from "../../styles/sidebar.style";
+import { SubHeader } from "../../styles/typography.styles";
 
 type Props = {
   dangerColor: string;

@@ -64,7 +64,7 @@ const BulletinWeather: React.FC<WeatherProps> = ({ properties }) => {
         return (
           <div key={`weather_${index}`}>
             <BulletinParagraph title={w.highlight} content={w.comment} />
-            <ul>
+            <ul key={`list_${index}`}>
               {Object.entries(w).map(([key, value], index) => {
                 if (conditions.indexOf(key) !== -1 && value !== "-") {
                   return (

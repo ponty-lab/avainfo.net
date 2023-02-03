@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import BulletinParagraph from "./BulletinParagraph";
-import { SubHeader } from "../../styles/sidebar.style";
+import { SubHeader } from "../../styles/typography.styles";
 
 type Props = {
   properties: any;

@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { SubHeader } from "../../styles/sidebar.style";
+import { SubHeader } from "../../styles/typography.styles";
 
 type SummaryProps = {
   title?: string;

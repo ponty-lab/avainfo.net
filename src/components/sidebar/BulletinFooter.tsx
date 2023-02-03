@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import { Divider, IconButton, SubHeader } from "../../styles/sidebar.style";
-import { Caption, Footer } from "../../styles/typography.styles";
+import { Divider, IconButton } from "../../styles/sidebar.style";
+import { Caption, SubHeader, Footer } from "../../styles/typography.styles";
 
 type FooterProps = {
   url: string;

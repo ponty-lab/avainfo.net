@@ -11,6 +11,17 @@ export const Caption = styled.div<styledCaptionProps>`
   font-weight: ${(props) => (props.validDate ? "bold" : "normal")};
 `;
 
+export const Title = styled.h1`
+  font-size: calc(22px + (32 - 22) * ((100vw - 300px) / (1600 - 300)));
+  color: ${(props) => props.theme.primaryColor};
+`;
+
+export const SubHeader = styled.h2`
+  font-size: calc(16px + (24 - 16) * ((100vw - 300px) / (1600 - 300)));
+  font-weight: 600;
+  line-height: 1.6em;
+`;
+
 export const Footer = styled.div`
   &:before {
     color: #fff;
