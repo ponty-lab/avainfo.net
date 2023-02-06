@@ -49,6 +49,7 @@ const BulletinTendency: React.FC<Props> = ({ tendency, validDate, size }) => {
                   display: "flex",
                   fontSize: 12,
                   textAlign: "center",
+                  maxWidth: "70%",
                 }}
               >
                 {toTitleCase(tendency)} danger on {trendDate}

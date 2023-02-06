@@ -15,7 +15,7 @@ const BulletinRiskLevel: React.FC<Props> = ({
   validTimePeriod,
   dangerLevel,
 }) => {
-  const SIZE = 85;
+  const SIZE = 80;
 
   const [label, setLabel] = React.useState<string | null>(null);
   const [riskLevel, setRiskLevel] = React.useState<TDualRiskLevel>(
@@ -50,6 +50,8 @@ const BulletinRiskLevel: React.FC<Props> = ({
 
       dangerRatings.push(rating);
     }
+
+    console.log(`dangerRatings is ${JSON.stringify(dangerRatings)}`);
 
     const level = dangerRatings
       .filter(
@@ -90,7 +92,7 @@ const BulletinRiskLevel: React.FC<Props> = ({
         <HorizontalBar>
           <img
             src={WarningLevels[riskLevel].uri}
-            style={{ width: SIZE * 1.3, height: SIZE }}
+            style={{ width: SIZE * 1.2, height: SIZE }}
           />
           {label ? (
             <Caption

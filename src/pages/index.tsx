@@ -179,7 +179,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div style={{position: "relative", maxHeight: "calc(100vh - 60px)"}}>
     {modalOpen ?
       <Sidebar
         properties={properties}

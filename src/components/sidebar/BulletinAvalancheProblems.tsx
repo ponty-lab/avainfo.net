@@ -59,7 +59,7 @@ const BulletinAvalancheProblems: React.FC<Props> = ({
       avalancheProblems.push(problem);
     }
     setAvalancheSituations(avalancheProblems);
-    console.log(avalancheProblems);
+    //console.log(avalancheProblems);
   }, [properties]);
 
   return (
@@ -90,14 +90,23 @@ const BulletinAvalancheProblems: React.FC<Props> = ({
                   {problem.type === "no_distinct_pattern" ? (
                     <p>No distinct avalanche pattern</p>
                   ) : (
-                    <div key={`problem_${index}`} style={{ marginTop: 10 }}>
+                    <div
+                      key={`problem_${index}`}
+                      style={{
+                        marginTop: 10,
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
                       {labelType ? (
                         <Caption
                           validDate={false}
                           style={{
+                            display: "flex",
                             color: "gray",
-                            fontSize: 12,
+                            //fontSize: 12,
                             marginBottom: 10,
+                            marginTop: 20,
                           }}
                         >
                           {labelDay}
@@ -116,6 +125,7 @@ const BulletinAvalancheProblems: React.FC<Props> = ({
                           <img
                             src={uri}
                             style={{
+                              display: "flex",
                               width: SIZE * 1.2,
                               height: SIZE * 1.2,
                               marginRight: 20,
@@ -174,9 +184,22 @@ function ImageElevation({ elevationHigh, elevationLow }: IEProps) {
   const ElevationCaption = () => {
     if (elevationHigh && elevationLow) {
       return (
-        <div style={styles.text}>
-          <p>above {elevationLow}</p>
-          <p>below {elevationHigh}</p>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignSelf: "center",
+            height: "90%",
+            fontSize: 12,
+            color: "black",
+            //marginBottom: 20,
+            marginLeft: 5,
+            //marginTop: 20
+          }}
+        >
+          <span>below {elevationLow}</span>
+          <span>above {elevationHigh}</span>
         </div>
       );
     } else if (elevationHigh) {
@@ -185,7 +208,7 @@ function ImageElevation({ elevationHigh, elevationLow }: IEProps) {
           validDate={false}
           style={{
             alignSelf: "center",
-            fontSize: 12,
+            //fontSize: 12,
             color: "black",
             marginTop: 10,
             marginLeft: 5,
@@ -237,7 +260,10 @@ const styles = {
     flexDirection: "row",
   },
   text: {
-    alignSelf: "center",
+    display: "flex",
+    //flexDirection: "column",
+    justifyContent: "center",
+    height: "90%",
     fontSize: 12,
     color: "black",
     //marginBottom: 20,

@@ -29,7 +29,14 @@ export const ExpositionIcon = ({ aspects, size, caption, padding }: Props) => {
   );
 
   return (
-    <div style={{ position: "relative", flex: 0.5, marginRight: 30 }}>
+    <div
+      style={{
+        position: "relative",
+        display: "flex",
+        minWidth: SIZE,
+        marginRight: 20,
+      }}
+    >
       {caption ? <p>Aspects</p> : null}
       <div>
         {[...images]}

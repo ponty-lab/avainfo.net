@@ -32,7 +32,7 @@ const BulletinWeather: React.FC<WeatherProps> = ({ properties }) => {
       const match = new RegExp(`weather_${i}`);
 
       const forecast = keys
-        .filter((key) => match.test(key))
+        .filter((key) => match.test(key) === true)
         .reduce((obj, key) => {
           let val;
           if (new RegExp("highlight").test(key)) {
@@ -49,9 +49,14 @@ const BulletinWeather: React.FC<WeatherProps> = ({ properties }) => {
           return { ...obj, ...val };
         }, {});
 
-      outlook.push(forecast);
+      if (Object.keys(forecast).length) {
+        outlook.push(forecast);
+      }
     }
-    setWeather(outlook);
+
+    if (outlook.length) {
+      setWeather(outlook);
+    }
   }, [properties]);
 
   if (!weather) {
@@ -64,55 +69,54 @@ const BulletinWeather: React.FC<WeatherProps> = ({ properties }) => {
         return (
           <div key={`weather_${index}`}>
             <BulletinParagraph title={w.highlight} content={w.comment} />
-            <ul key={`list_${index}`}>
-              {Object.entries(w).map(([key, value], index) => {
-                if (conditions.indexOf(key) !== -1 && value !== "-") {
-                  return (
-                    <HorizontalBar>
-                      <li
-                        key={`w_${index}`}
+            {conditions.map((key) => {
+              const value = w[key];
+              if (value !== "-") {
+                return (
+                  <HorizontalBar>
+                    <li
+                      key={`w_${index}`}
+                      style={{
+                        display: "flex",
+                        //alignSelf: "center",
+                        //marginRight: 20,
+                        marginBlockStart: 0,
+                        minWidth: 48,
+                      }}
+                    >
+                      <i
+                        className={`${icons[key]}`}
+                        style={{ fontSize: 28, color: "#286882" }}
+                      ></i>
+                    </li>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <span
                         style={{
-                          display: "flex",
-                          alignSelf: "center",
-                          flex: 0.1,
+                          fontSize: 18,
+                          fontWeight: 400,
+                          marginBottom: 5,
                         }}
                       >
-                        <i
-                          className={`${icons[key]}`}
-                          style={{ fontSize: 28, color: "#286882" }}
-                        ></i>
-                      </li>
-                      <div
+                        {toTitleCase(key)}
+                      </span>
+                      <p
                         style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          flex: 0.9,
+                          fontSize: 14,
+                          marginTop: 0,
+                          color: "gray",
                         }}
-                      >
-                        <p
-                          style={{
-                            fontSize: 18,
-                            fontWeight: 400,
-                            marginBottom: 5,
-                          }}
-                        >
-                          {toTitleCase(key)}
-                        </p>
-                        <p
-                          style={{
-                            fontSize: 14,
-                            marginTop: 0,
-                            color: "gray",
-                          }}
-                        >
-                          {value}
-                        </p>
-                      </div>
-                    </HorizontalBar>
-                  );
-                }
-              })}
-            </ul>
+                        dangerouslySetInnerHTML={{ __html: value }}
+                      />
+                    </div>
+                  </HorizontalBar>
+                );
+              }
+            })}
           </div>
         );
       })}

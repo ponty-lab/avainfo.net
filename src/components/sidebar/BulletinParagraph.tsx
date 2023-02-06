@@ -13,9 +13,12 @@ const BulletinParagraph: React.FC<SummaryProps> = ({ title, content }) => {
   return (
     <div>
       {title ? (
-        <SubHeader style={{ marginBottom: "0px" }}>{title}</SubHeader>
+        <SubHeader style={{ marginBottom: 0 }}>{title}</SubHeader>
       ) : null}
-      <p style={{ fontSize: "15px" }}>{content}</p>
+      <p
+        style={{ fontSize: "15px" }}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
     </div>
   );
 };
