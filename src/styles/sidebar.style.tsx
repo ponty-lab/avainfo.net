@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { hexToRGB } from "../utils/hexToRGB";
-import { SubHeader } from "./typography.styles";
 import AvaColors from "./colors.style";
 
 export const Container = styled.div`
@@ -28,11 +27,6 @@ export const SidebarContainer = styled(Container)`
     border-right: 0px;
     border-radius: 0;
   }
-`;
-
-export const View = styled(Container)<{ margin?: string; height?: string }>`
-  height: ${(props) => props.height ?? "auto"};
-  margin: ${(props) => props.margin ?? "25px"};
 `;
 
 export const CloseButton = styled.button`
@@ -124,11 +118,9 @@ export const IconButton = styled.button`
   }
 `;
 
-export const ScrollBar = styled.div`
+export const ScrollView = styled.div`
   display: flex;
-  //flex: 1;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0px;
   overflow-y: auto;
 `;
 
@@ -136,13 +128,11 @@ interface styledColor {
   dangerColor: string;
 }
 
-export const ColumnColor = styled.div<styledColor>`
-  min-width: 15px;
+export const ColorColumn = styled.div<styledColor>`
+  min-width: 10px;
   background: ${(props) => props.dangerColor};
   border-radius: 2px;
-  margin-top: 20px;
-  //margin-bottom: 10px;
-  margin-right: 10px;
+  margin: 20px 10px 0px 0px;
   box-shadow: rgba(17, 17, 26, 0.1) 1px 1px 0px;
 `;
 
@@ -150,4 +140,9 @@ export const BoxCenter = styled.div`
   display: flex;
   flex: 1;
   justify-content: center;
+`;
+
+export const IconContainer = styled(HorizontalBar)`
+  margin: 30px 0px 10px 15px;
+  align-items: center;
 `;

@@ -1,5 +1,5 @@
 import React, { MouseEventHandler, memo } from "react";
-import { ThemedCaption, Title } from "../../styles/typography.styles";
+import { ThemedCaption, Title } from "../../styles/typography.style";
 import {
   CloseButton,
   DangerH2,

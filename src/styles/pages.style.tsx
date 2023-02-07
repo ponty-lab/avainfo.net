@@ -1,16 +1,31 @@
 import styled from "styled-components";
 
-interface styledNavProps {
-  extendNavBar?: boolean;
-  reverse?: boolean;
+interface styledPage {
+  height?: string;
 }
 
-export const Page = styled.div<styledNavProps>`
-  margin: 10px;
-  margin-left: 50px;
-  margin-right: 20px;
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
-  @media (max-width: 900px) {
-    margin-left: 30px;
-  }
+export const HorizontalBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+`;
+
+export const Page = styled(Container)<styledPage>`
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 30px;
+  margin-right: 20px;
+  height: auto;
+`;
+
+export const View = styled(Container)`
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 25px;
+  margin-right: 30px;
 `;
