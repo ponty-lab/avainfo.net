@@ -1,47 +1,48 @@
 import styled from "styled-components";
 import { hexToRGB } from "../utils/hexToRGB";
+import { SubHeader } from "./typography.styles";
+import AvaColors from "./colors.style";
 
-export const SidebarContainer = styled.div`
-  position: absolute;
-  top: 60px;
-  left: 0px;
-  height: calc(100vh - 60px);
-  max-width: 40vw;
-  border-right: 2px solid #eaecef;
-  background-color: white;
-  z-index: 10;
-  border-radius: 0pt 30pt 30pt 0pt;
-  @media (max-width: 900px) {
-    min-width: 100vw;
-  }
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-interface styledPageProps {
-  margin?: string;
-}
-
-export const Page = styled.div<styledPageProps>`
-  margin: ${(props) => props.margin ?? "20px"};
-  //margin-left: 50px;
-  //margin-right: 20px;
-
-  @media (max-width: 900px) {
-    margin-left: 30px;
-  }
-`;
-
-export const Header = styled.div`
+export const HorizontalBar = styled.div`
   display: flex;
   flex-direction: row;
+  flex: 1;
+`;
+
+export const SidebarContainer = styled(Container)`
+  position: absolute;
+  height: calc(100vh - 60px);
+  width: 420px;
+  border-right: 2px solid #eaecef;
+  background: white;
+  z-index: 10;
+  border-radius: 0pt 30pt 30pt 0pt;
+
+  @media (max-width: 768px) {
+    min-width: 100vw;
+    border-right: 0px;
+    border-radius: 0;
+  }
+`;
+
+export const View = styled(Container)<{ margin?: string; height?: string }>`
+  height: ${(props) => props.height ?? "auto"};
+  margin: ${(props) => props.margin ?? "25px"};
 `;
 
 export const CloseButton = styled.button`
+  display: flex;
   overflow: hidden;
   position: relative;
   border: none;
   padding: 0;
-  width: 2em;
-  height: 2em;
+  width: 1.5em;
+  height: 1.5em;
   border-radius: 50%;
   background: transparent;
   color: ${(props) => props.theme.primaryColor};
@@ -71,8 +72,25 @@ export const CloseButton = styled.button`
   }
 `;
 
+export const DangerHeader = styled.div<{ level: string }>`
+  margin-top: 20px;
+  background: ${(props) => AvaColors[props.level]};
+  border-radius: 4px;
+  padding: 2px;
+  text-align: center;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+`;
+
+export const DangerH2 = styled.h2<{ level: number }>`
+  font-weight: ${(props) =>
+    props.level === 4 || props.level === 5 ? 600 : 500};
+  margin: 0;
+  color: ${(props) =>
+    props.level === 4 || props.level === 5 ? "white" : "black"};
+`;
+
 export const Divider = styled.div`
-  height: 1px;
+  height: 2px;
   margin-top: 15px;
   background: #ececf1;
 `;
@@ -107,16 +125,11 @@ export const IconButton = styled.button`
 `;
 
 export const ScrollBar = styled.div`
+  display: flex;
+  //flex: 1;
   margin-top: 10px;
   margin-bottom: 10px;
-  height: 800px;
-  overflow-y: scroll;
-`;
-
-export const HorizontalBar = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex: 1;
+  overflow-y: auto;
 `;
 
 interface styledColor {
@@ -124,12 +137,13 @@ interface styledColor {
 }
 
 export const ColumnColor = styled.div<styledColor>`
-  width: 15px;
+  min-width: 15px;
   background: ${(props) => props.dangerColor};
   border-radius: 2px;
   margin-top: 20px;
-  margin-bottom: 10px;
+  //margin-bottom: 10px;
   margin-right: 10px;
+  box-shadow: rgba(17, 17, 26, 0.1) 1px 1px 0px;
 `;
 
 export const BoxCenter = styled.div`
