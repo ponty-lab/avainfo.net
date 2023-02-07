@@ -44,10 +44,6 @@ export const LeftContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   margin-left: 30px;
-
-  @media (max-width: 900px) {
-    margin-left: 10px;
-  }
 `;
 
 export const NavbarLinkContainer = styled.div`
@@ -81,7 +77,8 @@ export const NavLinkExtended = styled(Link)`
 `;
 
 export const Logo = styled.img`
-  margin: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   max-width: 125px;
   height: auto;
 `;
