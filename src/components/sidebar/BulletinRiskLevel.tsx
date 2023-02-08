@@ -1,117 +1,180 @@
 import React, { memo, useEffect } from "react";
 import { WarningLevels } from "../../utils";
 import { TDualRiskLevel } from "../../models";
-import { Caption } from "../../styles/typography.styles";
-import { BoxCenter, HorizontalBar } from "../../styles/sidebar.style";
+import { Caption, Label } from "../../styles/typography.style";
+import { Container, HorizontalBar } from "../../styles/sidebar.style";
+
+const SIZE = 70;
 
 type Props = {
   properties: any;
-  validTimePeriod: string;
-  dangerLevel: string;
 };
 
-const BulletinRiskLevel: React.FC<Props> = ({
-  properties,
-  validTimePeriod,
-  dangerLevel,
-}) => {
-  const SIZE = 80;
-
-  const [label, setLabel] = React.useState<string | null>(null);
-  const [riskLevel, setRiskLevel] = React.useState<TDualRiskLevel>(
-    `${dangerLevel}_${dangerLevel}` as TDualRiskLevel
+const BulletinRiskLevel: React.FC<Props> = ({ properties }) => {
+  const [label, setLabel] = React.useState<string | undefined>(undefined);
+  const [risk, setRisk] = React.useState<TDualRiskLevel | undefined>(undefined);
+  const [labelPM, setLabelPM] = React.useState<string | undefined>(undefined);
+  const [riskPM, setRiskPM] = React.useState<TDualRiskLevel | undefined>(
+    undefined
   );
+  const [caption, setCaption] = React.useState<boolean>(false);
+  const [justifyContent, setJustifyContent] =
+    React.useState<string>("flex-start");
 
   useEffect(() => {
-    const dangerRatings: Record<string, string>[] = [];
-    // Filters dangerRating keys
-    const match = new RegExp("dangerRating_");
-    const keys = Object.keys(properties).filter(
-      (key) => match.test(key) == true
-    );
+    const dangerRatings = getDangerRatings(properties);
 
-    for (let i = 1; i <= properties.dangerRatings_count; i++) {
-      const match = new RegExp(`dangerRating_${i}`);
-      const rating = keys
-        .filter((key) => match.test(key))
-        .reduce((obj, key) => {
-          let val;
-          if (new RegExp("mainValue_numeric").test(key)) {
-            val = { mainValue: properties[key] };
-          } else if (new RegExp("validTimePeriod").test(key)) {
-            val = { validTimePeriod: properties[key] };
-          } else if (new RegExp("elevation_lowerBound_string").test(key)) {
-            val = { lowerElev: properties[key] };
-          } else if (new RegExp("elevation_upperBound_string").test(key)) {
-            val = { upperElev: properties[key] };
-          }
-          return { ...obj, ...val };
-        }, {});
+    const timePeriods = getValidTimePeriods(dangerRatings);
 
-      dangerRatings.push(rating);
-    }
+    // Timeperiods can be either "allDay" or "earlier" & "later"
+    // Plot two danger icons if there is a daytimeDependency
+    // labelled as AM / PM
+    timePeriods.forEach((timePeriod: string) => {
+      const level = getRiskByElevation(dangerRatings, timePeriod);
 
-    console.log(`dangerRatings is ${JSON.stringify(dangerRatings)}`);
-
-    const level = dangerRatings
-      .filter(
-        (dangerRating) =>
-          dangerRating.validTimePeriod === validTimePeriod ||
-          dangerRating.validTimePeriod === "allDay"
-      )
-      .reduce((obj, dangerRating) => {
-        let val;
-        setLabel(
-          dangerRating.lowerElev
-            ? dangerRating.lowerElev
-            : dangerRating.upperElev
+      // Data for afternoon risk levels
+      if (timePeriod === "later") {
+        setCaption(true);
+        setRiskPM(
+          `${level.dangerRatingBelow}_${level.dangerRatingAbove}` as TDualRiskLevel
         );
-        if (dangerRating.upperElev) {
-          val = { dangerRatingBelow: dangerRating.mainValue };
-        } else if (dangerRating.lowerElev) {
-          val = { dangerRatingAbove: dangerRating.mainValue };
+        setLabelPM(level.elev ?? undefined);
+        setJustifyContent("space-evenly");
+      } else {
+        // Data for AM or allDay risk levels
+
+        // If no risk level for lower levels, set to 0
+        const dangerRatingBelow = level.dangerRatingBelow ?? 0;
+        setRisk(
+          `${dangerRatingBelow}_${level.dangerRatingAbove}` as TDualRiskLevel
+        );
+        //Sets elevation label for AM risk levels if available
+        setLabel(
+          timePeriod === "earlier" && level.elev ? level.elev : undefined
+        );
+      }
+    });
+  }, [properties]);
+
+  if (!risk) {
+    return null;
+  }
+
+  return (
+    <HorizontalBar style={{ justifyContent: justifyContent }}>
+      <DangerIcon risk={risk} caption={caption} label={label} timePeriod="AM" />
+      {riskPM ? (
+        <DangerIcon
+          risk={risk}
+          caption={caption}
+          label={labelPM}
+          timePeriod="PM"
+        />
+      ) : null}
+    </HorizontalBar>
+  );
+};
+
+type DangerIconProps = {
+  risk: TDualRiskLevel;
+  caption: boolean;
+  label?: string | undefined;
+  timePeriod?: string | undefined;
+};
+
+const DangerIcon: React.FC<DangerIconProps> = ({
+  risk,
+  caption,
+  label,
+  timePeriod,
+}) => {
+  return (
+    <Container>
+      {caption ? <Caption>{timePeriod}</Caption> : null}
+      <HorizontalBar style={{ margin: "0px 10px" }}>
+        <img
+          src={WarningLevels[risk].uri}
+          style={{ width: SIZE * 1.2, height: SIZE }}
+        />
+        {label ? <Label>{label}</Label> : null}
+      </HorizontalBar>
+    </Container>
+  );
+};
+
+function getDangerRatings(properties: any) {
+  const dangerRatings: Record<string, string>[] = [];
+
+  // Returns all keys matching dangerRating
+  const match = new RegExp("dangerRating_");
+  const keys = Object.keys(properties).filter((key) => match.test(key) == true);
+
+  // Loops through each dangerRating object up to a maximum of 4 coolections.
+  // Danger Ratings can have a daytime dependency and/or an elevation dependency
+  for (let i = 1; i <= properties.dangerRatings_count; i++) {
+    const match = new RegExp(`dangerRating_${i}`);
+
+    // Creates an object for each dangerRating with its
+    // - numeric value
+    // - validTimePeriod
+    // - elevation lowerBound - optional
+    // - elevation upperBound - optional
+    const rating = keys
+      .filter((key) => match.test(key))
+      .reduce((obj, key) => {
+        let val;
+        if (new RegExp("mainValue_numeric").test(key)) {
+          val = { mainValue: properties[key] };
+        } else if (new RegExp("validTimePeriod").test(key)) {
+          val = { validTimePeriod: properties[key] };
+        } else if (new RegExp("elevation_lowerBound_string").test(key)) {
+          val = { lowerElev: properties[key] };
+        } else if (new RegExp("elevation_upperBound_string").test(key)) {
+          val = { upperElev: properties[key] };
         }
         return { ...obj, ...val };
       }, {});
 
-    if (Object.keys(level).length === 2) {
-      setRiskLevel(
-        `${level.dangerRatingBelow}_${level.dangerRatingAbove}` as TDualRiskLevel
-      );
-    } else if (Object.keys(level).length === 1) {
-      setRiskLevel(`0_${level.dangerRatingAbove}` as TDualRiskLevel);
-    } else {
-      setLabel("");
-      setRiskLevel(`${dangerLevel}_${dangerLevel}` as TDualRiskLevel);
-    }
-  }, [properties]);
+    // Pushes object to list of dangerRatings
+    dangerRatings.push(rating);
+  }
 
-  return (
-    <div>
-      {riskLevel ? (
-        <HorizontalBar>
-          <img
-            src={WarningLevels[riskLevel].uri}
-            style={{ width: SIZE * 1.2, height: SIZE }}
-          />
-          {label ? (
-            <Caption
-              validDate={false}
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                color: "black",
-                alignContent: "center",
-                fontSize: 12,
-              }}
-            >
-              {label}
-            </Caption>
-          ) : null}
-        </HorizontalBar>
-      ) : null}
-    </div>
+  return dangerRatings;
+}
+
+function getValidTimePeriods(dangerRatings: Record<string, any>[]): string[] {
+  // Returns a list of validTimePeriods
+  // either ['allDay'] or ['earlier', 'later']
+  const validTimePeriod = new Set<string>();
+
+  dangerRatings.forEach((dangerRating) =>
+    validTimePeriod.add(dangerRating.validTimePeriod)
   );
-};
+
+  return Array.from(validTimePeriod);
+}
+
+function getRiskByElevation(
+  dangerRatings: Record<string, any>[],
+  validTimePeriod: string
+) {
+  return dangerRatings
+    .filter((dangerRating) => dangerRating.validTimePeriod === validTimePeriod)
+    .reduce((obj, dangerRating) => {
+      let val;
+      if (dangerRating.upperElev) {
+        val = {
+          dangerRatingBelow: dangerRating.mainValue,
+          elev: dangerRating.upperElev,
+        };
+      } else if (dangerRating.lowerElev) {
+        val = {
+          dangerRatingAbove: dangerRating.mainValue,
+          elev: dangerRating.lowerElev,
+        };
+      }
+      return { ...obj, ...val };
+    }, {});
+}
 
 export default memo(BulletinRiskLevel);

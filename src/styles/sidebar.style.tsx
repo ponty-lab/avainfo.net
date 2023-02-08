@@ -143,6 +143,6 @@ export const BoxCenter = styled.div`
 `;
 
 export const IconContainer = styled(HorizontalBar)`
-  margin: 30px 0px 10px 15px;
+  margin: 40px 0px 10px 15px;
   align-items: center;
 `;

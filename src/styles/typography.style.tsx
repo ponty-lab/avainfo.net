@@ -1,20 +1,27 @@
 import styled, { css, DefaultTheme } from "styled-components";
 
 interface styledCaptionProps {
-  validDate: boolean;
+  validDate?: boolean;
 }
 
 export const Caption = styled.p<styledCaptionProps>`
   margin-block-start: 0.7em;
   margin-block-end: 0em;
-  font-size: 0.65em;
-  color: ${(props) => (props.validDate ? "red" : props.theme.primaryColor)};
-  font-weight: ${(props) => (props.validDate ? "bold" : 400)};
+  //font-size: 14px;
+  font-weight: 500;
 `;
 
 export const ThemedCaption = styled(Caption)<{ validDate: boolean }>`
   color: ${(props) => (props.validDate ? "red" : props.theme.primaryColor)};
   font-weight: ${(validDate) => (validDate ? 500 : 400)};
+`;
+
+export const Label = styled(Caption)`
+  margin-top: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  font-size: 14px;
 `;
 
 export const Title = styled.h1`
