@@ -26,9 +26,6 @@ const BulletinRiskLevel: React.FC<Props> = ({ properties }) => {
 
     const timePeriods = getValidTimePeriods(dangerRatings);
 
-    // Timeperiods can be either "allDay" or "earlier" & "later"
-    // Plot two danger icons if there is a daytimeDependency
-    // labelled as AM / PM
     timePeriods.forEach((timePeriod: string) => {
       const level = getRiskByElevation(dangerRatings, timePeriod);
 
@@ -41,17 +38,18 @@ const BulletinRiskLevel: React.FC<Props> = ({ properties }) => {
         setLabelPM(level.elev ?? undefined);
         setJustifyContent("space-evenly");
       } else {
-        // Data for AM or allDay risk levels
-
         // If no risk level for lower levels, set to 0
         const dangerRatingBelow = level.dangerRatingBelow ?? 0;
-        setRisk(
-          `${dangerRatingBelow}_${level.dangerRatingAbove}` as TDualRiskLevel
-        );
         //Sets elevation label for AM risk levels if available
-        setLabel(
-          timePeriod === "earlier" && level.elev ? level.elev : undefined
-        );
+        const label =
+          dangerRatingBelow !== level.dangerRatingAbove && level.elev
+            ? level.elev
+            : undefined;
+        const risk =
+          `${dangerRatingBelow}_${level.dangerRatingAbove}` as TDualRiskLevel;
+
+        setRisk(risk);
+        setLabel(label);
       }
     });
   }, [properties]);
