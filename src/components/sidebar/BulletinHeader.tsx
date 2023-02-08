@@ -16,7 +16,7 @@ type Props = {
 
 const BulletinHeader: React.FC<Props> = ({ properties, onPress }) => {
   const validDate = new Date(properties.validEndTime);
-  const gmtDate = formatDate(validDate);
+  const gmtDate = formatDate(properties.validEndTime, "gmt");
   const level: number = properties?.maxDangerRating_allDay_numeric;
   const rating: string = properties?.maxDangerRating_allDay_string;
 
