@@ -2,7 +2,8 @@ import React, { memo, useEffect } from "react";
 import { WarningLevels } from "../../utils";
 import { TDualRiskLevel } from "../../models";
 import { Caption, Label } from "../../styles/typography.style";
-import { Container, HorizontalBar } from "../../styles/sidebar.style";
+import { HorizontalBar } from "../../styles/pages.style";
+import { IconContainer } from "../../styles/sidebar.style";
 
 const SIZE = 70;
 
@@ -18,16 +19,18 @@ const BulletinRiskLevel: React.FC<Props> = ({ properties }) => {
     undefined
   );
   const [caption, setCaption] = React.useState<boolean>(false);
-  const [justifyContent, setJustifyContent] =
-    React.useState<string>("flex-start");
 
   useEffect(() => {
     const dangerRatings = getDangerRatings(properties);
+    console.log(`dangerRatings: ${JSON.stringify(dangerRatings)}`);
 
     const timePeriods = getValidTimePeriods(dangerRatings);
+    console.log(`timePeriods: ${timePeriods}`);
 
     timePeriods.forEach((timePeriod: string) => {
+      console.log(`timePeriod is ${timePeriod}`);
       const level = getRiskByElevation(dangerRatings, timePeriod);
+      console.log(`level: ${JSON.stringify(level)}`);
 
       // Data for afternoon risk levels
       if (timePeriod === "later") {
@@ -36,10 +39,10 @@ const BulletinRiskLevel: React.FC<Props> = ({ properties }) => {
           `${level.dangerRatingBelow}_${level.dangerRatingAbove}` as TDualRiskLevel
         );
         setLabelPM(level.elev ?? undefined);
-        setJustifyContent("space-evenly");
       } else {
         // If no risk level for lower levels, set to 0
         const dangerRatingBelow = level.dangerRatingBelow ?? 0;
+        console.log(`Setting dangerRatingBelow to ${dangerRatingBelow}`);
         //Sets elevation label for AM risk levels if available
         const label =
           dangerRatingBelow !== level.dangerRatingAbove && level.elev
@@ -59,7 +62,7 @@ const BulletinRiskLevel: React.FC<Props> = ({ properties }) => {
   }
 
   return (
-    <HorizontalBar style={{ justifyContent: justifyContent }}>
+    <>
       <DangerIcon risk={risk} caption={caption} label={label} timePeriod="AM" />
       {riskPM ? (
         <DangerIcon
@@ -69,7 +72,7 @@ const BulletinRiskLevel: React.FC<Props> = ({ properties }) => {
           timePeriod="PM"
         />
       ) : null}
-    </HorizontalBar>
+    </>
   );
 };
 
@@ -87,16 +90,16 @@ const DangerIcon: React.FC<DangerIconProps> = ({
   timePeriod,
 }) => {
   return (
-    <Container>
-      {caption ? <Caption>{timePeriod}</Caption> : null}
-      <HorizontalBar style={{ margin: "0px 10px" }}>
+    <IconContainer>
+      {caption ? <h4>{timePeriod}</h4> : null}
+      <HorizontalBar style={{ marginLeft: "15px" }}>
         <img
           src={WarningLevels[risk].uri}
           style={{ width: SIZE * 1.2, height: SIZE }}
         />
         {label ? <Label>{label}</Label> : null}
       </HorizontalBar>
-    </Container>
+    </IconContainer>
   );
 };
 
@@ -169,6 +172,11 @@ function getRiskByElevation(
         val = {
           dangerRatingAbove: dangerRating.mainValue,
           elev: dangerRating.lowerElev,
+        };
+      } else {
+        val = {
+          dangerRatingAbove: dangerRating.mainValue,
+          dangerRatingBelow: dangerRating.mainValue,
         };
       }
       return { ...obj, ...val };

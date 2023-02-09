@@ -1,9 +1,14 @@
-import { format } from "date-fns";
 import React, { memo } from "react";
 import { TRiskTrend } from "../../models";
-import { Caption } from "../../styles/typography.styles";
-import { Icon, IconButton } from "../../styles/sidebar.style";
+import { Caption, Label } from "../../styles/typography.style";
+import { Container, HorizontalBar } from "../../styles/pages.style";
+import {
+  Icon,
+  IconContainer,
+  TendencyIconContainer,
+} from "../../styles/sidebar.style";
 import { toTitleCase } from "../../utils/toTitleCase";
+import { formatDate } from "../../utils/formatDate";
 //import i18n from "i18n-js";
 
 const RiskTrend: Record<string, string> = {
@@ -13,54 +18,37 @@ const RiskTrend: Record<string, string> = {
 };
 
 type Props = {
-  validDate: Date;
-  tendency: TRiskTrend;
-  size?: number;
+  validDate: string | undefined;
+  tendency: TRiskTrend | undefined;
 };
 
-const BulletinTendency: React.FC<Props> = ({ tendency, validDate, size }) => {
-  const _getDate = (date: Date) => {
-    if (date) {
-      return format(date, "EEEE, dd.MM.yy");
-    }
-    return null;
-  };
-
-  const trendDate = _getDate(validDate);
-  const [trendData, setTrendData] = React.useState<boolean>(true);
+const BulletinTendency: React.FC<Props> = ({ tendency, validDate }) => {
+  const trendDate = formatDate(validDate, "day");
+  const [trendData, setTrendData] = React.useState<string | undefined>(
+    undefined
+  );
 
   React.useEffect(() => {
-    if (tendency === "n/a") {
-      setTrendData(false);
+    if (tendency !== "n/a") {
+      setTrendData(tendency);
     }
   }, [tendency]);
 
-  if (trendData) {
-    return (
-      <>
-        {tendency != "n/a" ? (
-          <div style={{ flex: 1 }}>
-            <Icon rotate={RiskTrend[tendency]}>
-              <i className="fa fa-arrow-right-long"></i>
-            </Icon>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <p
-                style={{
-                  display: "flex",
-                  fontSize: 12,
-                  textAlign: "center",
-                  maxWidth: "70%",
-                }}
-              >
-                {toTitleCase(tendency)} danger on {trendDate}
-              </p>
-            </div>
-          </div>
-        ) : null}
-      </>
-    );
+  if (!trendData) {
+    return null;
   }
-  return null;
+
+  return (
+    <IconContainer>
+      <h4 style={{ inlineSize: "max-content" }}> TENDENCY: {trendDate}</h4>
+      <TendencyIconContainer>
+        <Icon rotate={RiskTrend[trendData]}>
+          <i className="fa fa-arrow-right-long"></i>
+        </Icon>
+        <Caption>{toTitleCase(trendData)} avalanche danger</Caption>
+      </TendencyIconContainer>
+    </IconContainer>
+  );
 };
 
 export default memo(BulletinTendency);

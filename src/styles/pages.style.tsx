@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { hexToRGB } from "../utils";
 
 interface styledPage {
   height?: string;
@@ -24,8 +25,9 @@ export const Page = styled(Container)<styledPage>`
 `;
 
 export const View = styled(Container)`
-  margin-bottom: 10px;
-  margin-top: 10px;
-  margin-left: 25px;
-  margin-right: 30px;
+  margin: 10px 30px 10px 25px;
+
+  @media (max-width: 768px && min-width: 414px) {
+    margin: 10px 70px;
+  }
 `;

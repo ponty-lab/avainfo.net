@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { ThemeConsumer } from "styled-components";
 import { hexToRGB } from "../utils/hexToRGB";
 import AvaColors from "./colors.style";
 
@@ -7,10 +7,12 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const HorizontalBar = styled.div`
+export const HorizontalBar = styled.div<{ background?: boolean }>`
   display: flex;
   flex-direction: row;
   flex: 1;
+  background: ${(props) =>
+    props.background ? props.theme.accentColor : "white"};
 `;
 
 export const SidebarContainer = styled(Container)`
@@ -91,14 +93,16 @@ export const Divider = styled.div`
 
 interface styledIcon {
   rotate: string;
+  size?: string;
 }
 
 export const Icon = styled.i<styledIcon>`
   display: flex;
   rotate: ${(props) => props.rotate};
   color: black;
-  font-size: 50px;
+  font-size: ${(props) => (props.size ? props.size : "48px")};
   background-color: transparent;
+  background: transparent;
   justify-content: center;
 `;
 
@@ -142,7 +146,21 @@ export const BoxCenter = styled.div`
   justify-content: center;
 `;
 
-export const IconContainer = styled(HorizontalBar)`
-  margin: 40px 0px 10px 15px;
+export const IconContainer = styled(Container)`
+  flex: 1;
+  margin-bottom: 12px;
+`;
+
+export const TendencyIconContainer = styled(HorizontalBar)`
+  margin: 15px 0px 0px;
+  justify-content: space-around;
   align-items: center;
+  background: rgba(14, 33, 39, 0.05);
+  border-radius: 4px;
+`;
+
+export const WrappedIconContainer = styled(HorizontalBar)`
+  margin: 30px 0px 0px 15px;
+  align-items: center;
+  flex-wrap: wrap;
 `;

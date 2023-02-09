@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { addDays, format } from "date-fns";
 
 export const formatDate = (
   validDate: string | undefined,
@@ -9,7 +9,7 @@ export const formatDate = (
     if (type === "gmt") {
       return format(date, "do MMMM, HH:mm (z)");
     } else if (type === "day") {
-      return format(date, "EEEE, dd MMMM");
+      return format(addDays(date, 1), "EEEE, do MMMM");
     }
   }
   return null;

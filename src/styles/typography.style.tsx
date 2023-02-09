@@ -5,13 +5,13 @@ interface styledCaptionProps {
 }
 
 export const Caption = styled.p<styledCaptionProps>`
-  margin-block-start: 0.7em;
-  margin-block-end: 0em;
-  //font-size: 14px;
+  margin-top: 0;
+  margin-bottom: 0;
   font-weight: 500;
 `;
 
 export const ThemedCaption = styled(Caption)<{ validDate: boolean }>`
+  margin-top: 10px;
   color: ${(props) => (props.validDate ? "red" : props.theme.primaryColor)};
   font-weight: ${(validDate) => (validDate ? 500 : 400)};
 `;
