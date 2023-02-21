@@ -70,6 +70,7 @@ export const CloseButton = styled.button`
 
 export const DangerHeader = styled.div<{ level: string }>`
   margin-top: 20px;
+  margin-right: 30px;
   background: ${(props) => AvaColors[props.level]};
   border-radius: 4px;
   padding: 2px;
@@ -92,28 +93,32 @@ export const Divider = styled.div`
 `;
 
 interface styledIcon {
-  rotate: string;
+  rotate?: string;
   size?: string;
+  color?: string;
+  marginTop?: string;
 }
 
 export const Icon = styled.i<styledIcon>`
   display: flex;
   rotate: ${(props) => props.rotate};
-  color: black;
+  color: ${(props) => (props.color ? props.theme.primaryColor : "#0e2127")};
+  min-width: 48px;
   font-size: ${(props) => (props.size ? props.size : "48px")};
+  margin-top: ${(props) => props.marginTop};
   background-color: transparent;
   background: transparent;
   justify-content: center;
 `;
 
-export const IconButton = styled.button`
+export const PDFButton = styled.i`
   background-color: ${(props) => hexToRGB(props.theme.accentColor, "0.8")};
   border: none;
   color: white;
   padding: 12px 16px;
   font-size: 16px;
   border-radius: 4px;
-  margin-right: 10px;
+  margin: 15px 0px 0px 0px;
   cursor: pointer;
 
   /* Darker background on mouse-over */
@@ -128,16 +133,12 @@ export const ScrollView = styled.div`
   overflow-y: auto;
 `;
 
-interface styledColor {
-  dangerColor: string;
-}
-
-export const ColorColumn = styled.div<styledColor>`
+export const ColorColumn = styled.div<{ dangerColor: string }>`
   min-width: 10px;
   background: ${(props) => props.dangerColor};
   border-radius: 2px;
   margin: 20px 10px 0px 0px;
-  box-shadow: rgba(17, 17, 26, 0.1) 1px 1px 0px;
+  //box-shadow: rgba(17, 17, 26, 0.1) 1px 1px 0px;
 `;
 
 export const BoxCenter = styled.div`
@@ -152,7 +153,8 @@ export const IconContainer = styled(Container)`
 `;
 
 export const TendencyIconContainer = styled(HorizontalBar)`
-  margin: 15px 0px 0px;
+  display: flex;
+  flex: 1;
   justify-content: space-around;
   align-items: center;
   background: rgba(14, 33, 39, 0.05);
@@ -160,7 +162,32 @@ export const TendencyIconContainer = styled(HorizontalBar)`
 `;
 
 export const WrappedIconContainer = styled(HorizontalBar)`
-  margin: 30px 0px 0px 15px;
+  margin: 30px 0px 0px 0px;
   align-items: center;
   flex-wrap: wrap;
+`;
+
+export const AvalancheImg = styled.img<{
+  width: string;
+  height: string;
+  position?: string;
+}>`
+  position: ${(props) => props.position};
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+`;
+
+export const AvalancheContainer = styled.div<{ size: string }>`
+  position: relative;
+  display: flex;
+  min-width: ${(props) => props.size};
+  margin-right: 20px;
+`;
+
+export const ElevationContainer = styled(Container)`
+  justify-content: center;
+  align-self: center;
+  height: 90%;
+  font-size: 12px;
+  margin-left: 5px;
 `;

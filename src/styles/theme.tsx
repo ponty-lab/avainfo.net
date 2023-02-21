@@ -10,6 +10,9 @@ declare module "styled-components" {
 
 export const lightTheme: DefaultTheme = {
   primaryColor: "#286882",
+  //primaryColor: "#AECBCC",
+  //primaryColor: "#003942",
+  //primaryColor: "#008289",
   accentColor: "#d86623",
   background: "#ffffff",
 };

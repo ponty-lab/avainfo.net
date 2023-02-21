@@ -10,7 +10,7 @@ export const Caption = styled.p<styledCaptionProps>`
   font-weight: 500;
 `;
 
-export const ThemedCaption = styled(Caption)<{ validDate: boolean }>`
+export const ThemedCaption = styled(Caption)<{ validDate?: boolean }>`
   margin-top: 10px;
   color: ${(props) => (props.validDate ? "red" : props.theme.primaryColor)};
   font-weight: ${(validDate) => (validDate ? 500 : 400)};
@@ -28,24 +28,18 @@ export const Title = styled.h1`
   color: ${(props) => props.theme.primaryColor};
 `;
 
-export const Header3 = styled.h3<{ marginTop?: string }>`
+export const H3 = styled.h3<{ marginTop?: string }>`
   margin-top: ${(props) => props.marginTop};
 `;
 
 export const Footer = styled.div`
   &:before {
+    background: gray;
     color: #fff;
     display: block;
-    font-size: 110%;
-    font-weight: 700;
+    //font-size: 110%;
+    //font-weight: 700;
     text-align: center;
     margin-bottom: 40px;
-  }
-  &:a {
-    color: #fff;
-    text-align: right;
-  }
-  #page {
-    margin-bottom: 0;
   }
 `;
