@@ -10,22 +10,22 @@ import { Container, HorizontalBar } from "../../styles/pages.style";
 import { formatDate } from "../../utils/formatDate";
 
 type Props = {
-  properties: any;
+  data: any;
   onPress: MouseEventHandler<HTMLButtonElement>;
 };
 
-const BulletinHeader: React.FC<Props> = ({ properties, onPress }) => {
-  const validDate = new Date(properties.validEndTime);
-  const gmtDate = formatDate(properties.validEndTime, "gmt");
-  const level: number = properties?.maxDangerRating_allDay_numeric;
-  const rating: string = properties?.maxDangerRating_allDay_string;
+const BulletinHeader: React.FC<Props> = ({ data, onPress }) => {
+  const validDate = new Date(data.validEndTime);
+  const gmtDate = formatDate(data.validEndTime, "gmt");
+  const level: number = data.maxDangerRating.allDay.numeric;
+  const rating: string = data.maxDangerRating.allDay.string;
 
   return (
     <Container>
       <HorizontalBar style={{ justifyContent: "flex-end" }}>
         <CloseButton onClick={onPress} />
       </HorizontalBar>
-      <Title>{properties.regionName}</Title>
+      <Title>{data.regionName}</Title>
       <ThemedCaption validDate={validDate < new Date() ? true : false}>
         Valid until: {gmtDate}
       </ThemedCaption>

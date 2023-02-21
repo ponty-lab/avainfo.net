@@ -1,11 +1,10 @@
 import {
-  ColumnColor,
-  HorizontalBar,
-  Page,
-  ScrollBar,
+  ColorColumn,
+  WrappedIconContainer,
+  ScrollView,
   SidebarContainer,
-  SubHeader,
 } from "../styles/sidebar.style";
+import { HorizontalBar, View } from "../styles/pages.style";
 import AvaColors from "../styles/colors.style";
 import BulletinHeader from "./sidebar/BulletinHeader";
 import { hexToRGB } from "../utils/hexToRGB";
@@ -13,119 +12,73 @@ import BulletinParagraph from "./sidebar/BulletinParagraph";
 import BulletinFooter from "./sidebar/BulletinFooter";
 import BulletinRiskLevel from "./sidebar/BulletinRiskLevel";
 import BulletinTendency from "./sidebar/BulletinTendency";
-import BulletinDangerStatus from "./sidebar/BulletinDangerStatus";
 import BulletinAvalancheProblems from "./sidebar/BulletinAvalancheProblems";
 import BulletinStability from "./sidebar/BulletinStability";
 import BulletinWeather from "./sidebar/BulletinWeather";
 
 type Props = {
   properties: Record<string, any> | null;
+  data: Record<string, any> | null;
   onPress: () => void;
   validTimePeriod: string;
 };
 
-const DangerName: Record<number, string> = {
-  0: "No Snow",
-  1: "Low",
-  2: "Moderate",
-  3: "Considerable",
-  4: "High",
-  5: "Very High",
-};
-
-const Sidebar = ({ properties, onPress, validTimePeriod }: Props) => {
-  const dangerLevel =
-    validTimePeriod === "earlier"
-      ? properties?.maxDangerRating_earlier_numeric
-      : properties?.maxDangerRating_later_numeric;
-
-  const dangerLevelString =
-    validTimePeriod === "earlier"
-      ? properties?.maxDangerRating_earlier_string
-      : properties?.maxDangerRating_later_string;
-
-  const validDate = properties?.validEndTime
-    ? new Date(properties.validEndTime)
-    : undefined;
-
+const Sidebar = ({ properties, data, onPress, validTimePeriod }: Props) => {
+  const dangerLevel = data?.maxDangerRating.allDay.numeric;
   const dangerColor = hexToRGB(AvaColors[dangerLevel], "0.9");
 
+  const validDate = data?.validEndTime
+    ? new Date(data?.validEndTime)
+    : undefined;
+
   return (
-    <div>
+    <>
       {validDate ? (
         <SidebarContainer>
-          <Page>
-            <BulletinHeader
-              region={properties?.regionName}
-              onPress={onPress}
-              validDate={validDate}
-            />
-            <ScrollBar>
-              <Page margin={"10px"}>
-                <BulletinDangerStatus
-                  dangerColor={dangerColor}
-                  dangerLevel={dangerLevel}
-                  dangerLevelString={dangerLevelString}
-                />
-                <HorizontalBar>
-                  <ColumnColor dangerColor={dangerColor} />
-                  <div style={{ flex: 1 }}>
-                    <BulletinParagraph
-                      title="Summary"
-                      content={properties?.highlights}
-                    />
-                  </div>
-                </HorizontalBar>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    marginTop: "20px",
-                    alignItems: "center",
-                    flex: "1",
-                    justifyContent: "center",
-                  }}
-                >
-                  <BulletinRiskLevel
-                    properties={properties}
-                    validTimePeriod={validTimePeriod}
-                    dangerLevel={dangerLevel}
+          <View style={{ height: "calc(100vh - 110px)" }}>
+            <BulletinHeader data={data} onPress={onPress} />
+            <ScrollView>
+              <View style={{ marginLeft: 0, marginRight: 10 }}>
+                <HorizontalBar style={{ flex: 0 }}>
+                  <ColorColumn dangerColor={dangerColor} />
+                  <BulletinParagraph
+                    title="Summary"
+                    content={data?.highlights}
+                    marginTop="20px"
                   />
-                  {properties?.tendencyType ? (
-                    <BulletinTendency
-                      tendency={properties?.tendencyType}
-                      validDate={validDate}
-                    />
-                  ) : null}
-                </div>
+                </HorizontalBar>
+                <WrappedIconContainer>
+                  <BulletinRiskLevel data={data?.dangerRating} />
+                  <BulletinTendency
+                    tendency={data?.tendencyType}
+                    validDate={data?.validEndTime}
+                  />
+                </WrappedIconContainer>
+                <BulletinStability data={data?.avalancheActivity} />
+                <BulletinAvalancheProblems data={data?.avalancheProblem} />
                 <BulletinParagraph
                   title="Snow Quality"
-                  content={properties?.snowpackStructureComment}
+                  content={data?.snowpackStructureComment}
                 />
-                <BulletinAvalancheProblems
-                  properties={properties}
-                  validTimePeriod={validTimePeriod}
-                />
-                <BulletinStability properties={properties} />
-                <BulletinWeather properties={properties} />
+                <BulletinWeather data={data?.weather} />
                 <BulletinFooter
-                  url={properties?.bulletinURI}
-                  pdfURL={properties?.pdfURI}
-                  issuedDate={properties?.publicationTime}
-                  source={properties?.source}
+                  url={data?.bulletinURI}
+                  pdfURL={data?.pdfURI}
+                  issuedDate={data?.publicationTime}
+                  source={data?.source}
                 />
-              </Page>
-            </ScrollBar>
-          </Page>
+              </View>
+            </ScrollView>
+          </View>
         </SidebarContainer>
       ) : (
         <SidebarContainer>
-          <Page>
+          <View style={{ height: "calc(100vh - 110px)" }}>
             <h1>No data</h1>
-          </Page>
+          </View>
         </SidebarContainer>
       )}
-    </div>
+    </>
   );
 };
 

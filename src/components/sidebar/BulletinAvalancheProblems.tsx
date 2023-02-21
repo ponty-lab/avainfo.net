@@ -1,20 +1,24 @@
 import React, { memo, useEffect, useState } from "react";
 import { ExpositionIcon } from "../ExpositionIcon";
 import { AvalancheProblems, WarningLevels } from "../../utils";
-import { TAvalancheSituations } from "../../models";
-import { Caption, SubHeader } from "../../styles/typography.styles";
+import { Label } from "../../styles/typography.style";
+import {
+  AvalancheContainer,
+  AvalancheImg,
+  Container,
+  ElevationContainer,
+  HorizontalBar,
+} from "../../styles/sidebar.style";
 
-const SIZE = 45;
+const SIZE = 36;
 
 type Props = {
-  properties: any;
-  validTimePeriod: string;
+  data: any;
 };
 
-const BulletinAvalancheProblems: React.FC<Props> = ({
-  properties,
-  validTimePeriod,
-}) => {
+const BulletinAvalancheProblems: React.FC<Props> = ({ data }) => {
+  const imgSize = `${SIZE * 1.2}px`;
+
   const AvalancheSituationsLabel: Record<number, string> = {
     0: "AM",
     1: "PM",
@@ -24,133 +28,65 @@ const BulletinAvalancheProblems: React.FC<Props> = ({
   );
 
   useEffect(() => {
-    const avalancheProblems = [];
-    const match = new RegExp("avalancheProblem_");
-    const keys = Object.keys(properties).filter(
-      (key) => match.test(key) == true
-    );
-
-    for (let i = 1; i <= properties.avalancheProblems_count; i++) {
-      const match = new RegExp(`avalancheProblem_${i}`);
-
-      const problem = keys
-        .filter((key) => match.test(key))
-        .reduce((obj, key) => {
-          let val;
-          if (new RegExp("type").test(key)) {
-            val = { type: properties[key] };
-          } else if (
-            new RegExp("aspects").test(key) &&
-            properties[key].length
-          ) {
-            val = { aspects: properties[key].split(",") };
-          } else if (new RegExp("validTimePeriod").test(key)) {
-            val = { validTimePeriod: properties[key] };
-          } else if (new RegExp("terrainFeature").test(key)) {
-            val = { terrainFeature: properties[key] };
-          } else if (new RegExp("elevation_lowerBound_string").test(key)) {
-            val = { elevationHigh: properties[key] };
-          } else if (new RegExp("elevation_upperBound_string").test(key)) {
-            val = { elevationLow: properties[key] };
-          }
-          return { ...obj, ...val };
-        }, {});
-
-      avalancheProblems.push(problem);
+    console.log("Avalanche Problems", data);
+    if (data) {
+      const avalancheProblems = Object.values(data)
+        .filter((problem: any) => problem.type !== "no_distinct_pattern")
+        .map((_problem: any) => {
+          const problem: any = { ..._problem };
+          problem.aspects = problem.aspects?.length
+            ? problem.aspects.split(",")
+            : undefined;
+          problem.uri = AvalancheProblems[problem.type].uri;
+          problem.labelType = AvalancheProblems[problem.type].label;
+          problem.labelDay =
+            problem.validTimePeriod === "earlier"
+              ? `${AvalancheSituationsLabel[0]}: `
+              : problem.validTimePeriod === "later"
+              ? `${AvalancheSituationsLabel[1]}: `
+              : null;
+          return problem;
+        });
+      setAvalancheSituations(avalancheProblems);
+      console.log(avalancheProblems);
     }
-    setAvalancheSituations(avalancheProblems);
-    //console.log(avalancheProblems);
-  }, [properties]);
+  }, [data]);
+
+  if (!data) {
+    return null;
+  }
 
   return (
-    <div>
-      {avalancheSituations.length ? (
-        <div>
-          <SubHeader style={styles.title}>Avalanche Problems</SubHeader>
-          <div>
-            {avalancheSituations.map((problem, index: number) => {
-              const uri =
-                problem.type !== "no_distinct_pattern"
-                  ? AvalancheProblems[problem.type].uri
-                  : null;
+    <div style={{ marginBottom: 18 }}>
+      <h3>Avalanche Problems</h3>
+      <>
+        {avalancheSituations.map((problem, index: number) => {
+          return (
+            <Container key={`problem_${index}`}>
+              <Label style={{ marginTop: 10 }}>
+                {problem.labelDay} {problem.labelType}
+              </Label>
+              <HorizontalBar
+                style={{
+                  marginTop: 10,
+                  marginLeft: 15,
+                }}
+              >
+                <AvalancheContainer size={imgSize}>
+                  <AvalancheImg
+                    src={problem.uri}
+                    width={imgSize}
+                    height={imgSize}
+                  />
+                </AvalancheContainer>
+                <ExpositionIcon aspects={problem.aspects} size={imgSize} />
 
-              const labelType =
-                problem.type !== "no_distinct_pattern"
-                  ? AvalancheProblems[problem.type].label
-                  : null;
-              const labelDay =
-                problem.validTimePeriod === "earlier"
-                  ? `${AvalancheSituationsLabel[0]}: `
-                  : problem.validTimePeriod === "later"
-                  ? `${AvalancheSituationsLabel[1]}: `
-                  : null;
-
-              return (
-                <div key={`problem_${index}`} style={{ marginTop: 10 }}>
-                  {problem.type === "no_distinct_pattern" ? (
-                    <p>No distinct avalanche pattern</p>
-                  ) : (
-                    <div
-                      key={`problem_${index}`}
-                      style={{
-                        marginTop: 10,
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
-                    >
-                      {labelType ? (
-                        <Caption
-                          validDate={false}
-                          style={{
-                            display: "flex",
-                            color: "gray",
-                            //fontSize: 12,
-                            marginBottom: 10,
-                            marginTop: 20,
-                          }}
-                        >
-                          {labelDay}
-                          {labelType}
-                        </Caption>
-                      ) : null}
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          marginTop: 5,
-                          marginLeft: 10,
-                        }}
-                      >
-                        {uri ? (
-                          <img
-                            src={uri}
-                            style={{
-                              display: "flex",
-                              width: SIZE * 1.2,
-                              height: SIZE * 1.2,
-                              marginRight: 20,
-                              alignSelf: "center",
-                            }}
-                          />
-                        ) : null}
-                        <ExpositionIcon
-                          aspects={problem.aspects}
-                          size={SIZE * 1.2}
-                        />
-
-                        <ImageElevation
-                          elevationHigh={problem.elevationHigh}
-                          elevationLow={problem.elevationLow}
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      ) : null}
+                <ImageElevation elevation={problem.elevation} />
+              </HorizontalBar>
+            </Container>
+          );
+        })}
+      </>
     </div>
   );
 };
@@ -158,14 +94,15 @@ const BulletinAvalancheProblems: React.FC<Props> = ({
 export default memo(BulletinAvalancheProblems);
 
 type IEProps = {
-  elevationHigh?: string;
-  elevationLow?: string;
+  elevation: any;
 };
 
 type TBounds = "middle" | "above" | "below";
 
-function ImageElevation({ elevationHigh, elevationLow }: IEProps) {
+function ImageElevation({ elevation }: IEProps) {
   const [bounds, setBounds] = useState<string>("above");
+  const elevationHigh = elevation?.lowerBound?.string;
+  const elevationLow = elevation?.upperBound?.string;
 
   useEffect(() => {
     if (elevationHigh && elevationLow) {
@@ -177,97 +114,27 @@ function ImageElevation({ elevationHigh, elevationLow }: IEProps) {
     }
   }, [elevationLow, elevationHigh]);
 
-  if (!elevationHigh && !elevationLow) {
+  if (!elevation) {
     return null;
   }
 
   const ElevationCaption = () => {
-    if (elevationHigh && elevationLow) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignSelf: "center",
-            height: "90%",
-            fontSize: 12,
-            color: "black",
-            //marginBottom: 20,
-            marginLeft: 5,
-            //marginTop: 20
-          }}
-        >
-          <span>below {elevationLow}</span>
-          <span>above {elevationHigh}</span>
-        </div>
-      );
-    } else if (elevationHigh) {
-      return (
-        <Caption
-          validDate={false}
-          style={{
-            alignSelf: "center",
-            //fontSize: 12,
-            color: "black",
-            marginTop: 10,
-            marginLeft: 5,
-          }}
-        >
-          {elevationHigh}
-        </Caption>
-      );
-    } else {
-      return (
-        <Caption
-          validDate={false}
-          style={{
-            alignSelf: "center",
-            fontSize: 12,
-            color: "black",
-            marginBottom: 10,
-            marginLeft: 5,
-          }}
-        >
-          {elevationLow}
-        </Caption>
-      );
-    }
+    return (
+      <ElevationContainer>
+        <span>{elevationLow ? `below ${elevationLow}` : ""}</span>
+        <span>{elevationHigh ? `above ${elevationHigh}` : ""}</span>
+      </ElevationContainer>
+    );
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
-      <img
+    <HorizontalBar>
+      <AvalancheImg
         src={WarningLevels[bounds as TBounds].uri}
-        style={{
-          width: SIZE * 1.3,
-          height: SIZE,
-          //marginLeft: 20,
-          alignSelf: "center",
-        }}
+        width={`${SIZE * 1.4}px`}
+        height={`${SIZE * 1.2}px`}
       />
       <ElevationCaption />
-    </div>
+    </HorizontalBar>
   );
 }
-
-const styles = {
-  title: {
-    marginTop: 20,
-  },
-  imageRow: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  text: {
-    display: "flex",
-    //flexDirection: "column",
-    justifyContent: "center",
-    height: "90%",
-    fontSize: 12,
-    color: "black",
-    //marginBottom: 20,
-    marginLeft: 5,
-    //marginTop: 20,
-  },
-};

@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Header3 } from "../../styles/typography.style";
+import { H3 } from "../../styles/typography.style";
 import { Container } from "../../styles/sidebar.style";
 
 type SummaryProps = {
@@ -19,7 +19,7 @@ const BulletinParagraph: React.FC<SummaryProps> = ({
 
   return (
     <Container>
-      {title ? <Header3 marginTop={marginTop}>{title}</Header3> : null}
+      {title ? <H3 marginTop={marginTop}>{title}</H3> : null}
       <p dangerouslySetInnerHTML={{ __html: content }} />
     </Container>
   );

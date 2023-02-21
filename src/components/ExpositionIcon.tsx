@@ -1,17 +1,13 @@
 import { TAspect } from "../models";
+import { AvalancheContainer, AvalancheImg } from "../styles/sidebar.style";
 import { Exposition } from "../utils";
 
 type Props = {
   aspects: TAspect[];
-  size?: number;
-  caption?: boolean;
-  padding?: number;
-  //captionText?: string
+  size: string;
 };
 
-export const ExpositionIcon = ({ aspects, size, caption, padding }: Props) => {
-  const SIZE = size;
-
+export const ExpositionIcon = ({ aspects, size }: Props) => {
   if (!aspects) {
     return null;
   }
@@ -19,40 +15,26 @@ export const ExpositionIcon = ({ aspects, size, caption, padding }: Props) => {
   const images = Array.from(
     aspects.map((aspect, index) => {
       return (
-        <img
+        <AvalancheImg
           key={`aspect_${index}`}
           src={Exposition[aspect].uri}
-          style={{ position: "absolute", width: SIZE, height: SIZE }}
+          width={size}
+          height={size}
+          position={"absolute"}
         />
       );
     })
   );
 
   return (
-    <div
-      style={{
-        position: "relative",
-        display: "flex",
-        minWidth: SIZE,
-        marginRight: 20,
-      }}
-    >
-      {caption ? <p>Aspects</p> : null}
-      <div>
-        {[...images]}
-        <img
-          src={Exposition.BG.uri}
-          style={{ position: "absolute", width: SIZE, height: SIZE }}
-        />
-      </div>
-    </div>
+    <AvalancheContainer size={size}>
+      {[...images]}
+      <AvalancheImg
+        src={Exposition.BG.uri}
+        height={size}
+        width={size}
+        position={"absolute"}
+      />
+    </AvalancheContainer>
   );
-};
-
-const styles = {
-  container: {
-    position: "relative",
-    //justifyContent: "center",
-    //alignItems: "center",
-  },
 };

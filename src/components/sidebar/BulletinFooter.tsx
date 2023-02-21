@@ -1,6 +1,12 @@
 import React, { memo } from "react";
-import { Divider, IconButton } from "../../styles/sidebar.style";
-import { Caption, SubHeader, Footer } from "../../styles/typography.styles";
+import {
+  Container,
+  Divider,
+  HorizontalBar,
+  PDFButton,
+} from "../../styles/sidebar.style";
+import { Label, Footer, ThemedCaption } from "../../styles/typography.style";
+import { formatDate } from "../../utils/formatDate";
 
 type FooterProps = {
   url: string;
@@ -15,49 +21,23 @@ const BulletinFooter: React.FC<FooterProps> = ({
   source,
   issuedDate,
 }) => {
+  const date = formatDate(issuedDate, "gmt");
   return (
-    <>
-      <Divider style={styles.divider} />
-      <div style={styles.acknowledgement}>
-        <a href={url} style={{ textDecoration: "none" }}>
-          <span
-            style={{
-              color: "#286882",
-              fontSize: "16px",
-            }}
-          >
-            Source: {source}
-          </span>
-          <Caption validDate={false} style={{ marginTop: "5px" }}>
-            Issued {issuedDate}
-          </Caption>
-        </a>
+    <Footer>
+      <Divider />
+      <HorizontalBar style={{ justifyContent: "space-between" }}>
+        <Container>
+          <a href={url}>
+            <ThemedCaption>Source: {source}</ThemedCaption>
+            {date ? <Label>Issued on: {date}</Label> : null}
+          </a>
+        </Container>
         <a href={pdfURL}>
-          <IconButton>
-            <i className="fa fa-file-pdf-o"></i>
-          </IconButton>
+          <PDFButton className="fa fa-file-pdf-o" />
         </a>
-        {/* <IconButton
-          color="red"
-          icon="file-pdf-box"
-          size={40}
-          onPress={() => handlePress(pdfURL)}
-        /> */}
-      </div>
-    </>
+      </HorizontalBar>
+    </Footer>
   );
 };
 
 export default memo(BulletinFooter);
-
-const styles = {
-  divider: {
-    marginTop: 20,
-  },
-  acknowledgement: {
-    display: "flex",
-    //flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-};

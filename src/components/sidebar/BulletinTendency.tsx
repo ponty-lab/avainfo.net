@@ -40,11 +40,13 @@ const BulletinTendency: React.FC<Props> = ({ tendency, validDate }) => {
 
   return (
     <IconContainer>
-      <h4 style={{ inlineSize: "max-content" }}> TENDENCY: {trendDate}</h4>
+      <h5 style={{ inlineSize: "max-content" }}> TENDENCY: {trendDate}</h5>
       <TendencyIconContainer>
-        <Icon rotate={RiskTrend[trendData]}>
-          <i className="fa fa-arrow-right-long"></i>
-        </Icon>
+        <Icon
+          rotate={RiskTrend[trendData]}
+          className="fa fa-arrow-right-long"
+          size="36px"
+        />
         <Caption>{toTitleCase(trendData)} avalanche danger</Caption>
       </TendencyIconContainer>
     </IconContainer>
