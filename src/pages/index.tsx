@@ -15,14 +15,14 @@ const URL = "https://us-central1-avainfo-net.cloudfunctions.net/fetchLatestTiles
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYXZhaW5mbyIsImEiOiJjbDVxbDVjOTIxNDFjM2lvZWQzcDF4dndoIn0.W8Q4-jsphhQfIfCQ3grrsw";
 
-const theme = useTheme()
+
 
 const paintColor = [
         "case",
         ["boolean", ["feature-state", "click"], false],
         "#FF9F00",
         ["boolean", ["feature-state", "hover"], false],
-        theme.accentColor,
+        "#FFA52C",
         [
           "interpolate",
           ["linear"],
@@ -71,6 +71,7 @@ const Home = () => {
   let _geojson_source = "avalanche-map"
   let __id = "avalanche-danger";
   let _layer_name = "avalanche-danger-ratings"
+  const theme = useTheme()
 
   useEffect(() => {
 
