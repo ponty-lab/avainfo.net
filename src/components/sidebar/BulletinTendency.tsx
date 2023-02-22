@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import { TRiskTrend } from "../../models";
-import { Caption, Label } from "../../styles/typography.style";
-import { Container, HorizontalBar } from "../../styles/pages.style";
+import { Caption } from "../../styles/typography.style";
 import {
   Icon,
   IconContainer,
@@ -40,14 +39,17 @@ const BulletinTendency: React.FC<Props> = ({ tendency, validDate }) => {
 
   return (
     <IconContainer>
-      <h5 style={{ inlineSize: "max-content" }}> TENDENCY: {trendDate}</h5>
+      <h4> TENDENCY: {trendDate}</h4>
       <TendencyIconContainer>
         <Icon
           rotate={RiskTrend[trendData]}
           className="fa fa-arrow-right-long"
           size="36px"
+          style={{ flex: 0.3 }}
         />
-        <Caption>{toTitleCase(trendData)} avalanche danger</Caption>
+        <Caption style={{ flex: 0.7 }}>
+          {toTitleCase(trendData)} avalanche danger
+        </Caption>
       </TendencyIconContainer>
     </IconContainer>
   );

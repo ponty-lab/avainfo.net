@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import {
   ColorColumn,
   WrappedIconContainer,
@@ -17,13 +18,11 @@ import BulletinStability from "./sidebar/BulletinStability";
 import BulletinWeather from "./sidebar/BulletinWeather";
 
 type Props = {
-  properties: Record<string, any> | null;
   data: Record<string, any> | null;
   onPress: () => void;
-  validTimePeriod: string;
 };
 
-const Sidebar = ({ properties, data, onPress, validTimePeriod }: Props) => {
+const Sidebar = ({ data, onPress }: Props) => {
   const dangerLevel = data?.maxDangerRating.allDay.numeric;
   const dangerColor = hexToRGB(AvaColors[dangerLevel], "0.9");
 
@@ -31,13 +30,24 @@ const Sidebar = ({ properties, data, onPress, validTimePeriod }: Props) => {
     ? new Date(data?.validEndTime)
     : undefined;
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scroll({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [data]);
+
   return (
     <>
       {validDate ? (
         <SidebarContainer>
           <View style={{ height: "calc(100vh - 110px)" }}>
             <BulletinHeader data={data} onPress={onPress} />
-            <ScrollView>
+            <ScrollView ref={scrollRef}>
               <View style={{ marginLeft: 0, marginRight: 10 }}>
                 <HorizontalBar style={{ flex: 0 }}>
                   <ColorColumn dangerColor={dangerColor} />
@@ -47,13 +57,11 @@ const Sidebar = ({ properties, data, onPress, validTimePeriod }: Props) => {
                     marginTop="20px"
                   />
                 </HorizontalBar>
-                <WrappedIconContainer>
-                  <BulletinRiskLevel data={data?.dangerRating} />
-                  <BulletinTendency
-                    tendency={data?.tendencyType}
-                    validDate={data?.validEndTime}
-                  />
-                </WrappedIconContainer>
+                <BulletinRiskLevel data={data?.dangerRating} />
+                <BulletinTendency
+                  tendency={data?.tendencyType}
+                  validDate={data?.validEndTime}
+                />
                 <BulletinStability data={data?.avalancheActivity} />
                 <BulletinAvalancheProblems data={data?.avalancheProblem} />
                 <BulletinParagraph

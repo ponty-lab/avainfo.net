@@ -40,11 +40,11 @@ const BulletinWeather: React.FC<WeatherProps> = ({ data }) => {
           <div key={`div_${index}`} style={{ marginBottom: 12 }}>
             <h4>{w.highlight}</h4>
             <p>{w.comment}</p>
-            {conditions.map((key) => {
+            {conditions.map((key, index) => {
               const value = w[key];
               if (value !== "-") {
                 return (
-                  <HorizontalBar>
+                  <HorizontalBar key={`conditionsbar_${index}`}>
                     <Icon
                       className={`${icons[key]}`}
                       size="20px"

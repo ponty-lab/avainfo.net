@@ -161,10 +161,16 @@ export const TendencyIconContainer = styled(HorizontalBar)`
   border-radius: 4px;
 `;
 
-export const WrappedIconContainer = styled(HorizontalBar)`
+export const WrappedIconContainer = styled.div`
   margin: 30px 0px 0px 0px;
-  align-items: center;
-  flex-wrap: wrap;
+  display: flex;
+
+  @media (max-width: 768px) {
+    flex-wrap: none;
+    flex-direction: horizontal;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 `;
 
 export const AvalancheImg = styled.img<{

@@ -9,7 +9,7 @@ export const formatDate = (
     if (type === "gmt") {
       return format(date, "do MMMM, HH:mm (z)");
     } else if (type === "day") {
-      return format(addDays(date, 1), "EEEE, do MMMM");
+      return format(addDays(date, 1), "EEEE dd MMM");
     }
   }
   return null;

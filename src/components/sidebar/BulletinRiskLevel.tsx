@@ -63,7 +63,7 @@ const BulletinRiskLevel: React.FC<Props> = ({ data }) => {
   }
 
   return (
-    <>
+    <div style={{ marginTop: 30 }}>
       <DangerIcon risk={risk} caption={caption} label={label} timePeriod="AM" />
       {riskPM ? (
         <DangerIcon
@@ -73,7 +73,7 @@ const BulletinRiskLevel: React.FC<Props> = ({ data }) => {
           timePeriod="PM"
         />
       ) : null}
-    </>
+    </div>
   );
 };
 

@@ -13,6 +13,7 @@ export const lightTheme: DefaultTheme = {
   //primaryColor: "#AECBCC",
   //primaryColor: "#003942",
   //primaryColor: "#008289",
-  accentColor: "#d86623",
+  //accentColor: "#d86623",
+  accentColor: "#FFA52C",
   background: "#ffffff",
 };

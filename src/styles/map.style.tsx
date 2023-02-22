@@ -19,7 +19,7 @@ export const MapContainer = styled.div`
 
 export const DateContainer = styled.div`
   position: absolute;
-  top: 100px;
+  top: 0px;
   right: 30px;
   z-index: 1;
   background-color: transparent;
