@@ -22,5 +22,4 @@ export const DateContainer = styled.div`
   top: 0px;
   right: 30px;
   z-index: 1;
-  background-color: transparent;
 `;

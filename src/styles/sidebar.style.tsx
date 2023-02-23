@@ -1,4 +1,4 @@
-import styled, { ThemeConsumer } from "styled-components";
+import styled, { ThemeConsumer, css, keyframes } from "styled-components";
 import { hexToRGB } from "../utils/hexToRGB";
 import AvaColors from "./colors.style";
 
@@ -15,14 +15,35 @@ export const HorizontalBar = styled.div<{ background?: boolean }>`
     props.background ? props.theme.accentColor : "white"};
 `;
 
-export const SidebarContainer = styled(Container)`
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+`;
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+export const SidebarContainer = styled(Container)<{ visible: boolean }>`
   position: absolute;
-  height: calc(100vh - 60px);
-  width: 420px;
-  border-right: 2px solid #eaecef;
+  top: 15px;
+  left: 15px;
+  height: calc(100vh - 95px);
+  width: 380px;
   background: white;
   z-index: 10;
-  border-radius: 0pt 30pt 30pt 0pt;
+  border-radius: 4px 4px 4px 4px;
+  animation: ${(props) => (props.visible ? fadeIn : fadeOut)} 1000ms 1 forwards;
 
   @media (max-width: 768px) {
     min-width: 100vw;
@@ -70,7 +91,7 @@ export const CloseButton = styled.button`
 
 export const DangerHeader = styled.div<{ level: string }>`
   margin-top: 20px;
-  margin-right: 30px;
+  margin-right: 5px;
   background: ${(props) => AvaColors[props.level]};
   border-radius: 4px;
   padding: 2px;

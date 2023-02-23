@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, memo } from "react";
+import React, { MouseEventHandler, memo, useEffect, useState } from "react";
 import { ThemedCaption, Title } from "../../styles/typography.style";
 import {
   CloseButton,
@@ -21,7 +21,7 @@ const BulletinHeader: React.FC<Props> = ({ data, onPress }) => {
   const rating: string = data.maxDangerRating.allDay.string;
 
   return (
-    <Container>
+    <Container style={{ marginRight: 15 }}>
       <HorizontalBar style={{ justifyContent: "flex-end" }}>
         <CloseButton onClick={onPress} />
       </HorizontalBar>

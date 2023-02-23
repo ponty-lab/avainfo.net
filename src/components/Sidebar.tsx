@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ColorColumn,
   WrappedIconContainer,
@@ -20,9 +20,10 @@ import BulletinWeather from "./sidebar/BulletinWeather";
 type Props = {
   data: Record<string, any> | null;
   onPress: () => void;
+  visible: boolean;
 };
 
-const Sidebar = ({ data, onPress }: Props) => {
+const Sidebar = ({ data, onPress, visible }: Props) => {
   const dangerLevel = data?.maxDangerRating.allDay.numeric;
   const dangerColor = hexToRGB(AvaColors[dangerLevel], "0.9");
 
@@ -44,11 +45,11 @@ const Sidebar = ({ data, onPress }: Props) => {
   return (
     <>
       {validDate ? (
-        <SidebarContainer>
-          <View style={{ height: "calc(100vh - 110px)" }}>
+        <SidebarContainer visible={visible}>
+          <View style={{ height: "calc(100vh - 100px)" }}>
             <BulletinHeader data={data} onPress={onPress} />
             <ScrollView ref={scrollRef}>
-              <View style={{ marginLeft: 0, marginRight: 10 }}>
+              <View style={{ marginLeft: 0, marginRight: 15 }}>
                 <HorizontalBar style={{ flex: 0 }}>
                   <ColorColumn dangerColor={dangerColor} />
                   <BulletinParagraph
@@ -80,7 +81,7 @@ const Sidebar = ({ data, onPress }: Props) => {
           </View>
         </SidebarContainer>
       ) : (
-        <SidebarContainer>
+        <SidebarContainer visible={visible}>
           <View style={{ height: "calc(100vh - 110px)" }}>
             <h1>No data</h1>
           </View>
@@ -91,19 +92,3 @@ const Sidebar = ({ data, onPress }: Props) => {
 };
 
 export default Sidebar;
-
-// <div
-//   className="sidebar"
-//   style={{
-//     backgroundColor: AvaColors[dangerLevel],
-//     opacity: 0.65,
-//     borderBottomColor: AvaColors[dangerLevel],
-//     borderLeftColor: AvaColors[dangerLevel],
-//     borderLeftStyle: "solid",
-//     borderLeftWidth: 5,
-//     borderBottomStyle: "solid",
-//     borderBottomWidth: 3,
-//   }}
-// >
-//   {props.regionName} | {DangerName[dangerLevel]}
-// </div>
