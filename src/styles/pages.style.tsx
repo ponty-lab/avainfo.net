@@ -25,7 +25,7 @@ export const Page = styled(Container)<styledPage>`
 `;
 
 export const View = styled(Container)`
-  margin: 10px 30px 10px 25px;
+  margin: 10px 0px 10px 20px;
 
   @media (max-width: 768px && min-width: 414px) {
     margin: 10px 70px;
