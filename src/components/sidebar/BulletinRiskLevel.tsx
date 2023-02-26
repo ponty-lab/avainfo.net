@@ -1,9 +1,8 @@
 import React, { memo, useEffect } from "react";
 import { WarningLevels } from "../../utils";
 import { TDualRiskLevel } from "../../models";
-import { Caption, Label } from "../../styles/typography.style";
 import { HorizontalBar } from "../../styles/pages.style";
-import { IconContainer } from "../../styles/sidebar.style";
+import { ElevationContainer, IconContainer } from "../../styles/sidebar.style";
 
 const SIZE = 60;
 
@@ -41,9 +40,9 @@ const BulletinRiskLevel: React.FC<Props> = ({ data }) => {
       } else {
         // If no risk level for lower levels, set to 0
         const dangerRatingBelow = level.dangerRatingBelow ?? 0;
-        console.log(
-          `Setting dangerRatingBelow to ${JSON.stringify(dangerRatingBelow)}`
-        );
+        // console.log(
+        //   `Setting dangerRatingBelow to ${JSON.stringify(dangerRatingBelow)}`
+        // );
         //Sets elevation label for AM risk levels if available
         const label =
           dangerRatingBelow !== level.dangerRatingAbove && level.elev
@@ -63,7 +62,7 @@ const BulletinRiskLevel: React.FC<Props> = ({ data }) => {
   }
 
   return (
-    <div style={{ marginTop: 30 }}>
+    <HorizontalBar style={{ marginTop: 30 }}>
       <DangerIcon risk={risk} caption={caption} label={label} timePeriod="AM" />
       {riskPM ? (
         <DangerIcon
@@ -73,7 +72,7 @@ const BulletinRiskLevel: React.FC<Props> = ({ data }) => {
           timePeriod="PM"
         />
       ) : null}
-    </div>
+    </HorizontalBar>
   );
 };
 
@@ -98,7 +97,11 @@ const DangerIcon: React.FC<DangerIconProps> = ({
           src={WarningLevels[risk].uri}
           style={{ width: SIZE * 1.2, height: SIZE }}
         />
-        {label ? <Label>{label}</Label> : null}
+        {label ? (
+          <ElevationContainer>
+            <span>{label}</span>
+          </ElevationContainer>
+        ) : null}
       </HorizontalBar>
     </IconContainer>
   );
@@ -127,12 +130,12 @@ function getRiskByElevation(
       if (dangerRating.elevation?.upperBound) {
         val = {
           dangerRatingBelow: dangerRating.mainValue.numeric,
-          elev: dangerRating.elevation.upperBound.numeric,
+          elev: dangerRating.elevation.upperBound.string,
         };
       } else if (dangerRating.elevation?.lowerBound) {
         val = {
           dangerRatingAbove: dangerRating.mainValue.numeric,
-          elev: dangerRating.elevation.lowerBound.numeric,
+          elev: dangerRating.elevation.lowerBound.string,
         };
       } else {
         val = {
