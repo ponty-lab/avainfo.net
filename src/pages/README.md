@@ -5,10 +5,16 @@
 ## Endpoint
 
 ```
-mapbox://avainfo.avalanche-danger-map
+mapbox://avainfo.avalanche-map-${date}
 ```
 
-You can request tilesets directly using the tileset ID: `avainfo.avalanche-danger-map` in a request to [Mapbox Vector Tiles API](https://docs.mapbox.com/help/glossary/vector-tiles-api/).
+You can request tilesets directly using the tileset ID: `avainfo.avalanche-map-en-${date}` in a request to [Mapbox Vector Tiles API](https://docs.mapbox.com/help/glossary/vector-tiles-api/). Replace the `{date}` placeholder with the date format `yyyy-MM-dd`, for example: ` avainfo.avalanche-map-en-2022-02-26`.
+
+You can request the latest avalanche tileset ID using:
+
+```
+https://us-central1-avainfo-net.cloudfunctions.net/fetchLatestTilesetDate
+```
 
 ## Fields
 
