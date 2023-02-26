@@ -28,7 +28,7 @@ const BulletinAvalancheProblems: React.FC<Props> = ({ data }) => {
   );
 
   useEffect(() => {
-    console.log("Avalanche Problems", data);
+    //console.log("Avalanche Problems", data);
     if (data) {
       const avalancheProblems = Object.values(data)
         .filter((problem: any) => problem.type !== "no_distinct_pattern")
@@ -48,7 +48,7 @@ const BulletinAvalancheProblems: React.FC<Props> = ({ data }) => {
           return problem;
         });
       setAvalancheSituations(avalancheProblems);
-      console.log(avalancheProblems);
+      //console.log(avalancheProblems);
     }
   }, [data]);
 

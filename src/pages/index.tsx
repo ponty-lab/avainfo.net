@@ -60,7 +60,6 @@ const Home = () => {
   const [active, setActive] = useState<Record<string, any>>(options[0]);
   const [map, setMap] = useState<any>(null);
   const [data, setData] = useState<Record<string, any> | null>(null);
-  const [feature, setFeature] = useState<Record<string, any> | null>(null);
   const [date, setDate] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   // const [loading, setLoading] = useState<boolean>(true)
@@ -228,7 +227,7 @@ const Home = () => {
           },
           { hover: true }
         );
-        setFeature(e.features[0].properties);
+
         const description = `
           ${e.features[0].properties.regionName} | ${e.features[0].properties.maxDangerRating_allDay_string}
           `;
@@ -248,7 +247,7 @@ const Home = () => {
             { hover: false }
           );
         }
-        setFeature(null);
+
         hoveredRegionId = null;
         map.getCanvas().style.cursor = "";
       });

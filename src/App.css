@@ -128,7 +128,7 @@ input:checked + .toggle--active-white {
   color: rgba(40, 104, 130, 0.95);
 }
 
-html {
+/* html {
   font-size: 16px;
 }
 @media screen and (min-width: 320px) {
@@ -140,7 +140,7 @@ html {
   html {
     font-size: 22px;
   }
-}
+} */
 
 h1 {
   margin-block-start: 0em;
