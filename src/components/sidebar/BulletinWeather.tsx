@@ -1,7 +1,4 @@
 import React, { memo, useEffect, useState } from "react";
-
-import BulletinParagraph from "./BulletinParagraph";
-import { Caption, Label } from "../../styles/typography.style";
 import { Container, HorizontalBar, Icon } from "../../styles/sidebar.style";
 import { toTitleCase } from "../../utils/toTitleCase";
 
@@ -49,7 +46,7 @@ const BulletinWeather: React.FC<WeatherProps> = ({ data }) => {
                       className={`${icons[key]}`}
                       size="20px"
                       color="theme"
-                      marginTop="5px"
+                      marginTop="2px"
                     />
                     <Container>
                       <p>
