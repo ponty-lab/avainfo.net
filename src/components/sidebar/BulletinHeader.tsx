@@ -2,8 +2,8 @@ import React, { MouseEventHandler, memo, useEffect, useState } from "react";
 import { ThemedCaption, Title } from "../../styles/typography.style";
 import {
   CloseButton,
-  DangerH2,
-  DangerHeader,
+  DangerBanner,
+  DangerText,
   Divider,
 } from "../../styles/sidebar.style";
 import { Container, HorizontalBar } from "../../styles/pages.style";
@@ -29,11 +29,11 @@ const BulletinHeader: React.FC<Props> = ({ data, onPress }) => {
       <ThemedCaption validDate={validDate < new Date() ? true : false}>
         Valid until: {gmtDate}
       </ThemedCaption>
-      <DangerHeader level={String(level)}>
-        <DangerH2 level={level}>
+      <DangerBanner level={String(level)}>
+        <DangerText level={level}>
           Danger Level {level} - {rating}
-        </DangerH2>
-      </DangerHeader>
+        </DangerText>
+      </DangerBanner>
       <Divider />
     </Container>
   );

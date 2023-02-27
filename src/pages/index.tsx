@@ -5,7 +5,7 @@ import { format, parse } from "date-fns";
 import AvaColors from "../styles/colors.style";
 import Sidebar from "../components/Sidebar";
 import ToggleButton from "../components/ToggleButton";
-import { DateContainer, MapContainer } from "../styles/map.style";
+import { DateTime, DateContainer, MapContainer } from "../styles/map.style";
 // import { TailSpin} from  "react-loader-spinner";
 import { processMapboxData } from "../utils/processMapboxData";
 import { useTheme } from "styled-components";
@@ -285,7 +285,12 @@ const Home = () => {
   };
 
   return (
-    <div style={{ position: "relative", maxHeight: "calc(100vh - 60px)" }}>
+    <div
+      style={{
+        position: "relative",
+        maxHeight: "calc(100vh - 60px)",
+      }}
+    >
       <Sidebar data={data} onPress={onPress} visible={modalOpen} />
       {/* {loading ?         
     <TailSpin
@@ -305,19 +310,7 @@ const Home = () => {
         changeState={changeState}
       />
       <DateContainer>
-        <h3
-          style={{
-            paddingLeft: 20,
-            paddingRight: 20,
-            fontWeight: 400,
-            fontSize: 20,
-            background: theme.primaryColor,
-            color: "white",
-            borderRadius: 50,
-          }}
-        >
-          {date}
-        </h3>
+        <DateTime>{date}</DateTime>
       </DateContainer>
     </div>
   );

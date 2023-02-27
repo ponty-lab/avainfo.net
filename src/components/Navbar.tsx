@@ -15,6 +15,8 @@ import {
 import Icon from "../assets/logo.png";
 import { GoMarkGithub } from "react-icons/go";
 import { VscChromeClose, VscDebugPause } from "react-icons/vsc";
+import { useTheme } from "styled-components";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [extendNavBar, setExtendNavBar] = useState(false);
@@ -25,11 +27,15 @@ const Navbar = () => {
     setExtendNavBar((curr) => !curr);
   };
 
+  const theme = useTheme();
+
   return (
     <Nav extendNavBar={extendNavBar}>
       <NavbarInnerContainer>
         <LeftContainer>
-          <Logo src={Icon}></Logo>
+          <Link to="/">
+            <Logo src={Icon} alt="AvaInfo logo"></Logo>
+          </Link>
         </LeftContainer>
         <RightContainer>
           <NavbarLinkContainer>
@@ -40,7 +46,7 @@ const Navbar = () => {
               <a href="https://github.com/ponty-lab/ponty-lab.github.io">
                 <GoMarkGithub
                   style={{ verticalAlign: "middle" }}
-                  color="#286882"
+                  color={theme.colors.primary}
                   size={30}
                   aria-label="Github"
                 />

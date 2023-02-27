@@ -1,27 +1,15 @@
 import AvaColors from "../styles/colors.style";
-
-type BoxProps = {
-  color: string;
-  number: number;
-};
-
-const Box = ({ color, number }: BoxProps) => {
-  return (
-    <div className="box" style={{ backgroundColor: color, opacity: 0.8 }}>
-      {number}
-    </div>
-  );
-};
+import { ColorBox, DangerScaleBar } from "../styles/map.style";
 
 const DangerScale = () => {
   return (
-    <div className="scale">
+    <DangerScaleBar>
       {[...Object.keys(AvaColors)].map((_, index) =>
         index < 5 ? (
-          <Box color={AvaColors[String(index + 1)]} number={index + 1} />
+          <ColorBox level={String(index + 1)}>index + 1</ColorBox>
         ) : null
       )}
-    </div>
+    </DangerScaleBar>
   );
 };
 

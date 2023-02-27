@@ -21,11 +21,11 @@ const BulletinStability: React.FC<Props> = ({ data }) => {
 
   return (
     <>
-      <h3>Snow Stability</h3>
+      <h2>Snow Stability</h2>
       {stability.map((activity, index: number) => (
         <div key={`stability_${index}`}>
           {activity.highlight ? (
-            <h4 key={`h4_${index}`}>{activity.highlight}</h4>
+            <h3 key={`h3_${index}`}>{activity.highlight}</h3>
           ) : null}
           <BulletinParagraph key={`para_${index}`} content={activity.comment} />
         </div>

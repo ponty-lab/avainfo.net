@@ -39,7 +39,7 @@ const BulletinTendency: React.FC<Props> = ({ tendency, validDate }) => {
 
   return (
     <IconContainer>
-      <h4> TENDENCY: {trendDate}</h4>
+      <h3> TENDENCY: {trendDate}</h3>
       <TendencyIconContainer>
         <Icon
           rotate={RiskTrend[trendData]}

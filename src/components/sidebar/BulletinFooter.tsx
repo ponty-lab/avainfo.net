@@ -29,8 +29,8 @@ const BulletinFooter: React.FC<FooterProps> = ({
         <Container>
           <a href={url}>
             <ThemedCaption>Source: {source}</ThemedCaption>
-            {date ? <Label>Issued on: {date}</Label> : null}
           </a>
+          {date ? <Label>Issued on: {date}</Label> : null}
         </Container>
         <a href={pdfURL}>
           <PDFButton className="fa fa-file-pdf-o" />

@@ -1,11 +1,10 @@
 import { ThemeProvider } from "styled-components";
-import "./App.css";
-import Navbar from "./components/Navbar";
+import GlobalStyle from "./styles/global.style";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lightTheme } from "./styles/theme";
+import Navbar from "./components/Navbar";
 import Home from "./pages";
 import Docs from "./pages/docs";
-import GlobalStyle from "./styles/global.style";
 import About from "./pages/about";
 //import Contact from './pages/contact';
 

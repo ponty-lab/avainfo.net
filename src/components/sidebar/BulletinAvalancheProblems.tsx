@@ -58,7 +58,7 @@ const BulletinAvalancheProblems: React.FC<Props> = ({ data }) => {
 
   return (
     <div style={{ marginBottom: 18 }}>
-      <h3>Avalanche Problems</h3>
+      <h2>Avalanche Problems</h2>
       <>
         {avalancheSituations.map((problem, index: number) => {
           return (

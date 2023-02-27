@@ -91,7 +91,7 @@ const DangerIcon: React.FC<DangerIconProps> = ({
 }) => {
   return (
     <IconContainer style={{ marginLeft: 15 }}>
-      {caption ? <h5>{timePeriod}</h5> : null}
+      {caption ? <h4>{timePeriod}</h4> : null}
       <HorizontalBar style={{ marginLeft: "15px" }}>
         <img
           src={WarningLevels[risk].uri}

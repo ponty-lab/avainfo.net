@@ -31,11 +31,11 @@ const BulletinWeather: React.FC<WeatherProps> = ({ data }) => {
 
   return (
     <div>
-      <h3>Weather</h3>
+      <h2>Weather</h2>
       {weather.map((w, index: number) => {
         return (
           <div key={`div_${index}`} style={{ marginBottom: 12 }}>
-            <h4>{w.highlight}</h4>
+            <h3>{w.highlight}</h3>
             <p>{w.comment}</p>
             {conditions.map((key, index) => {
               const value = w[key];

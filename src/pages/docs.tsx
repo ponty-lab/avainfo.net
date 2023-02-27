@@ -3,7 +3,6 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Page } from "../styles/pages.style";
 import readme from "./README.md";
-import style from "../styles/markdown-styles.module.css";
 import rehypeRaw from "rehype-raw";
 
 const Docs = () => {
@@ -21,7 +20,6 @@ const Docs = () => {
         children={markdown}
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
-        className={style.reactMarkDown}
       />
     </Page>
   );

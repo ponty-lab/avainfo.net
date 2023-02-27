@@ -1,4 +1,5 @@
 import React from "react";
+import { Toggle, ToggleContainer, ToggleGroup } from "../styles/map.style";
 
 type Props = {
   changeState: (i: number) => void;
@@ -9,27 +10,18 @@ type Props = {
 const ToggleButton = (props: Props) => {
   const renderOptions = (option: any, i: number) => {
     return (
-      <label key={i} className="toggle-container">
+      <ToggleContainer key={i}>
         <input
           onChange={() => props.changeState(i)}
           checked={option.property === props.property}
           name="toggle"
           type="radio"
         />
-        <div className="toggle txt-s py3 toggle--active-white">
-          {option.name}
-        </div>
-      </label>
+        <Toggle>{option.name}</Toggle>
+      </ToggleContainer>
     );
   };
-  return (
-    <div
-      className="toggle-group"
-      style={{ position: "absolute", top: 70, right: 0 }}
-    >
-      {props.options.map(renderOptions)}
-    </div>
-  );
+  return <ToggleGroup>{props.options.map(renderOptions)}</ToggleGroup>;
 };
 
 export default ToggleButton;
