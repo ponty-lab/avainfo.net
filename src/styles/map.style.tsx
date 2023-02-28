@@ -13,22 +13,28 @@ export const MapContainer = styled.div`
 
 // CSS for the map's date
 export const DateContainer = styled.div`
+  display: flex;
+  justify-content: center;
   position: absolute;
   top: 30px;
   right: 30px;
   z-index: 1;
+  width: 215px;
+  height: 32px;
+  border-radius: 50px;
+  background: ${(props) => props.theme.colors.primary};
 `;
 
 export const DateTime = styled.div`
+  display: flex;
+  justify-content: center;
   padding: 3px 18px;
   padding-top: 3px !important;
   padding-bottom: 3px !important;
   font-weight: 400;
   font-size: 20px;
   line-height: 26px;
-  background: ${(props) => props.theme.colors.primary};
   color: white;
-  border-radius: 50px;
 `;
 
 // CSS for the toggle button
