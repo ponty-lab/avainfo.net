@@ -15,7 +15,7 @@ const BulletinStability: React.FC<Props> = ({ data }) => {
     setStability(stability);
   }, [data]);
 
-  if (!stability) {
+  if (!stability || !data) {
     return null;
   }
 

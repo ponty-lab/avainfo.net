@@ -25,7 +25,7 @@ const BulletinWeather: React.FC<WeatherProps> = ({ data }) => {
     setWeather(outlook);
   }, [data]);
 
-  if (!weather) {
+  if (!weather || !data) {
     return null;
   }
 

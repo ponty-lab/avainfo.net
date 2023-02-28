@@ -5,8 +5,8 @@ import { hexToRGB } from "../utils";
 
 // Map styles
 
-export const MapContainer = styled.div`
-  position: absolute;
+export const MapContainer = styled.div<{ position: string }>`
+  position: ${(props) => props.position};
   width: 100%;
   height: calc(100vh - 60px);
 `;

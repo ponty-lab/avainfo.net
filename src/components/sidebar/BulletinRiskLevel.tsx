@@ -57,7 +57,7 @@ const BulletinRiskLevel: React.FC<Props> = ({ data }) => {
     });
   }, [data]);
 
-  if (!risk) {
+  if (!data || !risk) {
     return null;
   }
 

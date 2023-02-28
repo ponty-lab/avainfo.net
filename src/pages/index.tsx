@@ -285,14 +285,26 @@ const Home = () => {
   };
 
   return (
-    <div
-      style={{
-        position: "relative",
-        maxHeight: "calc(100vh - 60px)",
-      }}
-    >
+    <MapContainer position="relative">
+      <MapContainer position="absolute" ref={mapContainer} />
+      <ToggleButton
+        options={options}
+        property={active.property}
+        changeState={changeState}
+      />
+      <DateContainer>
+        <DateTime>{date}</DateTime>
+      </DateContainer>
+
       <Sidebar data={data} onPress={onPress} visible={modalOpen} />
-      {/* {loading ?         
+    </MapContainer>
+  );
+};
+
+export default Home;
+
+{
+  /* {loading ?         
     <TailSpin
           height="80"
           width="80"
@@ -302,18 +314,5 @@ const Home = () => {
           wrapperStyle={{position: "absolute", top: "50vh", left: "50vw"}}
           wrapperClass=""
         visible={true}
-      /> : null} */}
-      <MapContainer ref={mapContainer} />
-      <ToggleButton
-        options={options}
-        property={active.property}
-        changeState={changeState}
-      />
-      <DateContainer>
-        <DateTime>{date}</DateTime>
-      </DateContainer>
-    </div>
-  );
-};
-
-export default Home;
+      /> : null} */
+}

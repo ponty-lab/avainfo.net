@@ -33,7 +33,7 @@ const BulletinTendency: React.FC<Props> = ({ tendency, validDate }) => {
     }
   }, [tendency]);
 
-  if (!trendData) {
+  if (!trendData || !tendency) {
     return null;
   }
 

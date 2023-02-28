@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import {
   ColorColumn,
-  WrappedIconContainer,
   ScrollView,
+  SideBarView,
   SidebarContainer,
 } from "../styles/sidebar.style";
 import { HorizontalBar, View } from "../styles/pages.style";
@@ -23,10 +23,9 @@ type Props = {
   visible: boolean;
 };
 
-const Sidebar = ({ data, onPress, visible }: Props) => {
+const Sidebar: React.FC<Props> = ({ data, onPress, visible }) => {
   const dangerLevel = data?.maxDangerRating.allDay.numeric;
   const dangerColor = hexToRGB(AvaColors[dangerLevel], "0.9");
-
   const validDate = data?.validEndTime
     ? new Date(data?.validEndTime)
     : undefined;
@@ -42,53 +41,49 @@ const Sidebar = ({ data, onPress, visible }: Props) => {
     }
   }, [data]);
 
+  if (!data) {
+    return null;
+  }
+
   return (
-    <>
-      {validDate ? (
-        <SidebarContainer visible={visible}>
-          <View style={{ height: "calc(100vh - 100px)" }}>
-            <BulletinHeader data={data} onPress={onPress} />
-            <ScrollView ref={scrollRef}>
-              <View style={{ marginLeft: 0, marginRight: 15 }}>
-                <HorizontalBar style={{ flex: 0 }}>
-                  <ColorColumn dangerColor={dangerColor} />
-                  <BulletinParagraph
-                    title="Summary"
-                    content={data?.highlights}
-                    marginTop="20px"
-                  />
-                </HorizontalBar>
-                <BulletinRiskLevel data={data?.dangerRating} />
-                <BulletinTendency
-                  tendency={data?.tendencyType}
-                  validDate={data?.validEndTime}
-                />
-                <BulletinStability data={data?.avalancheActivity} />
-                <BulletinAvalancheProblems data={data?.avalancheProblem} />
+    <SidebarContainer show={visible}>
+      <SideBarView validDate={validDate}>
+        <BulletinHeader data={data} onPress={onPress} validDate={validDate} />
+        {validDate ? (
+          <ScrollView ref={scrollRef}>
+            <View style={{ marginLeft: 0, marginRight: 15 }}>
+              <HorizontalBar style={{ flex: 0 }}>
+                <ColorColumn dangerColor={dangerColor} />
                 <BulletinParagraph
-                  title="Snow Quality"
-                  content={data?.snowpackStructureComment}
+                  title="Summary"
+                  content={data?.highlights}
+                  marginTop="20px"
                 />
-                <BulletinWeather data={data?.weather} />
-                <BulletinFooter
-                  url={data?.bulletinURI}
-                  pdfURL={data?.pdfURI}
-                  issuedDate={data?.publicationTime}
-                  source={data?.source}
-                />
-              </View>
-            </ScrollView>
-          </View>
-        </SidebarContainer>
-      ) : (
-        <SidebarContainer visible={visible}>
-          <View style={{ height: "calc(100vh - 110px)" }}>
-            <h1>No data</h1>
-          </View>
-        </SidebarContainer>
-      )}
-    </>
+              </HorizontalBar>
+              <BulletinRiskLevel data={data?.dangerRating} />
+              <BulletinTendency
+                tendency={data?.tendencyType}
+                validDate={data?.validEndTime}
+              />
+              <BulletinStability data={data?.avalancheActivity} />
+              <BulletinAvalancheProblems data={data?.avalancheProblem} />
+              <BulletinParagraph
+                title="Snow Quality"
+                content={data?.snowpackStructureComment}
+              />
+              <BulletinWeather data={data?.weather} />
+              <BulletinFooter
+                url={data?.bulletinURI}
+                pdfURL={data?.pdfURI}
+                issuedDate={data?.publicationTime}
+                source={data?.source}
+              />
+            </View>
+          </ScrollView>
+        ) : null}
+      </SideBarView>
+    </SidebarContainer>
   );
 };
 
-export default Sidebar;
+export default memo(Sidebar);

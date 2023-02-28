@@ -1,18 +1,23 @@
-import styled, { ThemeConsumer, css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { hexToRGB } from "../utils/hexToRGB";
 import AvaColors from "./colors.style";
+import { View } from "./pages.style";
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: ${(props) => props.theme.colors.background};
 `;
 
 export const HorizontalBar = styled.div<{ background?: boolean }>`
+  background-color: ${(props) => props.theme.colors.background};
   display: flex;
   flex-direction: row;
   flex: 1;
   background: ${(props) =>
-    props.background ? props.theme.accentColor : "white"};
+    props.background
+      ? props.theme.colors.accent
+      : props.theme.colors.background};
 `;
 
 const fadeOut = keyframes`
@@ -34,16 +39,13 @@ const fadeIn = keyframes`
   }
 `;
 
-export const SidebarContainer = styled(Container)<{ visible: boolean }>`
+export const SidebarContainer = styled(Container)<{ show: boolean }>`
   position: absolute;
   top: 15px;
   left: 15px;
-  height: calc(100vh - 95px);
   width: 380px;
-  background: white;
-  z-index: 10;
-  border-radius: 4px 4px 4px 4px;
-  animation: ${(props) => (props.visible ? fadeIn : fadeOut)} 1000ms 1 forwards;
+  border-radius: 4px 4px;
+  animation: ${(props) => (props.show ? fadeIn : fadeOut)} 1000ms 1 forwards;
 
   @media (max-width: 768px) {
     min-width: 100vw;
@@ -52,6 +54,9 @@ export const SidebarContainer = styled(Container)<{ visible: boolean }>`
   }
 `;
 
+export const SideBarView = styled(View)<{ validDate: Date | undefined }>`
+  height: ${(props) => (props.validDate ? "calc(100vh - 115px)" : "auto")};
+`;
 export const CloseButton = styled.button`
   display: flex;
   overflow: hidden;
@@ -62,14 +67,14 @@ export const CloseButton = styled.button`
   height: 1.5em;
   border-radius: 50%;
   background: transparent;
-  color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.colors.primary};
   font: inherit;
   text-indent: 100%;
   cursor: pointer;
   content: "X";
 
   &:hover {
-    background: ${(props) => hexToRGB(props.theme.primaryColor, "0.1")};
+    background: ${(props) => hexToRGB(props.theme.colors.primary, "0.1")};
   }
 
   &:before,
@@ -89,8 +94,8 @@ export const CloseButton = styled.button`
   }
 `;
 
-export const DangerHeader = styled.div<{ level: string }>`
-  margin-top: 20px;
+export const DangerBanner = styled.div<{ level: string }>`
+  margin-top: 10px;
   margin-right: 5px;
   background: ${(props) => AvaColors[props.level]};
   border-radius: 4px;
@@ -99,7 +104,11 @@ export const DangerHeader = styled.div<{ level: string }>`
   box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
 `;
 
-export const DangerH2 = styled.h2<{ level: number }>`
+export const DangerText = styled.span<{ level: number }>`
+  font-weight: 700;
+  font-size: 20px;
+  padding: 1px 0px;
+  line-height: 26px;
   font-weight: ${(props) =>
     props.level === 4 || props.level === 5 ? 600 : 500};
   margin: 0;
@@ -123,7 +132,7 @@ interface styledIcon {
 export const Icon = styled.i<styledIcon>`
   display: flex;
   rotate: ${(props) => props.rotate};
-  color: ${(props) => (props.color ? props.theme.primaryColor : "#0e2127")};
+  color: ${(props) => (props.color ? props.theme.colors.primary : "#0e2127")};
   min-width: 48px;
   font-size: ${(props) => (props.size ? props.size : "48px")};
   margin-top: ${(props) => props.marginTop};
@@ -133,7 +142,7 @@ export const Icon = styled.i<styledIcon>`
 `;
 
 export const PDFButton = styled.i`
-  background-color: ${(props) => hexToRGB(props.theme.accentColor, "0.8")};
+  background-color: ${(props) => hexToRGB(props.theme.colors.accent, "1")};
   border: none;
   color: white;
   padding: 12px 16px;
@@ -144,13 +153,13 @@ export const PDFButton = styled.i`
 
   /* Darker background on mouse-over */
   &:hover {
-    background-color: ${(props) => props.theme.accentColor};
+    background-color: ${(props) => props.theme.colors.accent};
   }
 `;
 
 export const ScrollView = styled.div`
   display: flex;
-  margin: 10px 0px;
+  margin: 0px 0px 20px;
   overflow-y: auto;
 `;
 
@@ -194,16 +203,6 @@ export const WrappedIconContainer = styled.div`
   }
 `;
 
-export const AvalancheImg = styled.img<{
-  width: string;
-  height: string;
-  position?: string;
-}>`
-  position: ${(props) => props.position};
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-`;
-
 export const AvalancheContainer = styled.div<{ size: string }>`
   position: relative;
   display: flex;
@@ -217,4 +216,14 @@ export const ElevationContainer = styled(Container)`
   height: 90%;
   font-size: 12px;
   margin-left: 5px;
+`;
+
+export const AvalancheImg = styled.img<{
+  width: string;
+  height: string;
+  position?: string;
+}>`
+  position: ${(props) => props.position};
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
 `;

@@ -11,8 +11,8 @@ export const Caption = styled.p<styledCaptionProps>`
 `;
 
 export const ThemedCaption = styled(Caption)<{ validDate?: boolean }>`
-  margin-top: 10px;
-  color: ${(props) => (props.validDate ? "red" : props.theme.primaryColor)};
+  margin: 10px 0px;
+  color: ${(props) => (props.validDate ? "red" : props.theme.colors.primary)};
   font-weight: ${(validDate) => (validDate ? 500 : 400)};
 `;
 
@@ -25,11 +25,9 @@ export const Label = styled(Caption)`
 `;
 
 export const Title = styled.h1`
-  color: ${(props) => props.theme.primaryColor};
-`;
-
-export const H3 = styled.h3<{ marginTop?: string }>`
-  margin-top: ${(props) => props.marginTop};
+  color: ${(props) => props.theme.colors.primary};
+  margin-top: 12px;
+  margin-bottom: 12px;
 `;
 
 export const Footer = styled.div`
