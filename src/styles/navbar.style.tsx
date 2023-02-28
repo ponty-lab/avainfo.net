@@ -12,7 +12,7 @@ const navHeight = "60px";
 export const Nav = styled.nav<styledNavProps>`
   width: 100%;
   height: ${(props) => (props.extendNavBar ? "100vh" : navHeight)};
-  background-color: ${({ theme }) => theme.background};
+  background-color: ${({ theme }) => theme.colors.background};
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -43,7 +43,7 @@ export const LeftContainer = styled.div`
   flex: 30%;
   display: flex;
   justify-content: flex-start;
-  margin-left: 30px;
+  margin-left: 20px;
 `;
 
 export const NavbarLinkContainer = styled.div`
@@ -51,15 +51,16 @@ export const NavbarLinkContainer = styled.div`
 `;
 
 export const NavLink = styled(Link)`
-  color: ${({ theme }) => theme.primaryColor};
+  color: ${({ theme }) => theme.colors.primary};
   font-weight: 600;
+  font-size: 1.25em;
   text-decoration: none;
   margin: 10px;
   display: flex;
   align-items: center;
 
   &:hover {
-    color: ${({ theme }) => theme.accentColor};
+    color: ${({ theme }) => theme.colors.accent};
     z-index: 1;
   }
 
@@ -69,7 +70,7 @@ export const NavLink = styled(Link)`
 `;
 
 export const NavLinkExtended = styled(Link)`
-  color: ${({ theme }) => theme.primaryColor};
+  color: ${({ theme }) => theme.colors.primary};
   font-size: 1.25em;
   font-weight: 600;
   text-decoration: none;
@@ -77,10 +78,14 @@ export const NavLinkExtended = styled(Link)`
 `;
 
 export const Logo = styled.img`
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 10px;
+  width: 125;
+  height: 38;
   max-width: 125px;
-  height: auto;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const OpenLinkButton = styled.button<styledNavProps>`
@@ -91,7 +96,7 @@ export const OpenLinkButton = styled.button<styledNavProps>`
   justify-content: center;
   align-items: center;
   border: none;
-  color: ${({ theme }) => theme.primaryColor};
+  color: ${({ theme }) => theme.colors.primary};
   //font-size: ${(props) => (props.extendNavBar ? "40px" : "45px")};
   cursor: pointer;
   animation-name: ${(props) => (props.animate ? "spin" : null)};
@@ -99,6 +104,11 @@ export const OpenLinkButton = styled.button<styledNavProps>`
     props.extendNavBar ? "normal" : "reverse"};
   animation-duration: ${(props) => (props.extendNavBar ? "300ms" : "150ms")};
   animation-fill-mode: both;
+
+  &:hover {
+    background: #eaecef;
+    border-radius: 50%;
+  }
 
   @keyframes spin {
     from {
@@ -121,6 +131,11 @@ export const IconContainer = styled.div`
   background: none;
   width: 45px;
   height: 45px;
+
+  &:hover {
+    background: #eaecef;
+    border-radius: 50%;
+  }
 `;
 
 export const NavbarExtendedContainer = styled.div`
