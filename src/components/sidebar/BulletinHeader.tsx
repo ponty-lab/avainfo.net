@@ -5,8 +5,9 @@ import {
   DangerBanner,
   DangerText,
   Divider,
+  HeaderContainer,
 } from "../../styles/sidebar.style";
-import { Container, HorizontalBar } from "../../styles/pages.style";
+import { HorizontalBar } from "../../styles/pages.style";
 import { formatDate } from "../../utils/formatDate";
 
 type Props = {
@@ -36,7 +37,7 @@ const BulletinHeader: React.FC<Props> = ({ data, onPress, validDate }) => {
     : "No Danger Rating";
 
   return (
-    <Container style={{ marginRight: 15 }}>
+    <HeaderContainer>
       <HorizontalBar style={{ justifyContent: "flex-end" }}>
         <CloseButton onClick={onPress} />
       </HorizontalBar>
@@ -46,7 +47,7 @@ const BulletinHeader: React.FC<Props> = ({ data, onPress, validDate }) => {
         <DangerText level={level}>{text}</DangerText>
       </DangerBanner>
       <Divider />
-    </Container>
+    </HeaderContainer>
   );
 };
 

@@ -25,9 +25,9 @@ export const Page = styled(Container)<styledPage>`
 `;
 
 export const View = styled(Container)`
-  margin: 10px 0px 10px 20px;
+  margin: 10px 15px 10px 0px;
 
-  @media (max-width: 768px && min-width: 414px) {
-    margin: 10px 70px;
+  @media (max-width: 768px) {
+    margin: 0px 0px;
   }
 `;

@@ -37,6 +37,10 @@ export const RightContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   margin-right: 25px;
+
+  @media (max-width: 414px) {
+    margin-right: 10px;
+  }
 `;
 
 export const LeftContainer = styled.div`

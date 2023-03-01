@@ -46,17 +46,41 @@ export const SidebarContainer = styled(Container)<{ show: boolean }>`
   width: 380px;
   border-radius: 4px 4px;
   animation: ${(props) => (props.show ? fadeIn : fadeOut)} 1000ms 1 forwards;
+  z-index: 2;
 
   @media (max-width: 768px) {
-    min-width: 100vw;
-    border-right: 0px;
-    border-radius: 0;
+    width: 100vw;
+    border-radius: 0px;
+    top: 0px;
+    left: 0px;
   }
 `;
 
 export const SideBarView = styled(View)<{ validDate: Date | undefined }>`
   height: ${(props) => (props.validDate ? "calc(100vh - 115px)" : "auto")};
+  margin: 10px 0px 10px 20px;
+
+  @media (max-width: 768px && min-width: 414px) {
+    margin: 10px 70px;
+  }
+
+  @media (max-width: 414px) {
+    margin: 10px 15px 10px 20px;
+  }
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `;
+
+export const HeaderContainer = styled(Container)`
+  margin-right: 15px;
+
+  @media (max-width: 768px) {
+    margin-right: 0px;
+  }
+`;
+
 export const CloseButton = styled.button`
   display: flex;
   overflow: hidden;
@@ -161,6 +185,10 @@ export const ScrollView = styled.div`
   display: flex;
   margin: 0px 0px 20px;
   overflow-y: auto;
+
+  @media (max-width: 768px) {
+    margin: 0px 0px 0px;
+  }
 `;
 
 export const ColorColumn = styled.div<{ dangerColor: string }>`

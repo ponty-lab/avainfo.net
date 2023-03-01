@@ -51,7 +51,7 @@ const Sidebar: React.FC<Props> = ({ data, onPress, visible }) => {
         <BulletinHeader data={data} onPress={onPress} validDate={validDate} />
         {validDate ? (
           <ScrollView ref={scrollRef}>
-            <View style={{ marginLeft: 0, marginRight: 15 }}>
+            <View>
               <HorizontalBar style={{ flex: 0 }}>
                 <ColorColumn dangerColor={dangerColor} />
                 <BulletinParagraph

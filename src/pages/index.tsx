@@ -295,7 +295,6 @@ const Home = () => {
       <DateContainer>
         <DateTime>{date}</DateTime>
       </DateContainer>
-
       <Sidebar data={data} onPress={onPress} visible={modalOpen} />
     </MapContainer>
   );
