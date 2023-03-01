@@ -33,7 +33,7 @@ const Navbar = () => {
     <Nav extendNavBar={extendNavBar}>
       <NavbarInnerContainer>
         <LeftContainer>
-          <Link to="/">
+          <Link to="/" onClick={onClick}>
             <Logo src={Icon} alt="AvaInfo logo"></Logo>
           </Link>
         </LeftContainer>
