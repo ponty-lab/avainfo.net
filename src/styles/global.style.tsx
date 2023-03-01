@@ -96,10 +96,15 @@ export default createGlobalStyle`
         color: #273d56;
     }
 
+    table {
+        margin-top: 20px;
+    }
+
     th,
     td {
         padding-right: 10px;
         padding-bottom: 5px;
+        vertical-align: top;
     }
 
     #root{
