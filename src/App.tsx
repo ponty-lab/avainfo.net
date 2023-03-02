@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages";
 import Docs from "./pages/docs";
 import About from "./pages/about";
+import Privacy from "./pages/privacy";
 //import Contact from './pages/contact';
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
           {/*<Route exact path='/index' element={<Home />} /> */}
           <Route path="/docs" element={<Docs />} />
           <Route path="/about" element={<About />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes>
       </Router>
     </ThemeProvider>
