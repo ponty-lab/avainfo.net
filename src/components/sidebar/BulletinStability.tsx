@@ -11,7 +11,9 @@ const BulletinStability: React.FC<Props> = ({ data }) => {
   );
 
   useEffect(() => {
-    const stability: Record<string, string>[] = Object.values(data);
+    const stability: Record<string, string>[] = Object.keys(data)
+      .filter((key) => key !== "count")
+      .map((key) => data[key]);
     setStability(stability);
   }, [data]);
 

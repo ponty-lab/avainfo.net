@@ -28,27 +28,29 @@ const BulletinAvalancheProblems: React.FC<Props> = ({ data }) => {
   );
 
   useEffect(() => {
-    //console.log("Avalanche Problems", data);
     if (data) {
       const avalancheProblems = Object.values(data)
         .filter((problem: any) => problem.type !== "no_distinct_pattern")
         .map((_problem: any) => {
-          const problem: any = { ..._problem };
-          problem.aspects = problem.aspects?.length
-            ? problem.aspects.split(",")
-            : undefined;
-          problem.uri = AvalancheProblems[problem.type].uri;
-          problem.labelType = AvalancheProblems[problem.type].label;
-          problem.labelDay =
-            problem.validTimePeriod === "earlier"
-              ? `${AvalancheSituationsLabel[0]}: `
-              : problem.validTimePeriod === "later"
-              ? `${AvalancheSituationsLabel[1]}: `
-              : null;
-          return problem;
-        });
+          if (_problem instanceof Object) {
+            const problem: any = { ..._problem };
+            delete problem.count;
+            problem.aspects = problem.aspects?.length
+              ? problem.aspects.split(",")
+              : undefined;
+            problem.uri = AvalancheProblems[problem.type].uri;
+            problem.labelType = AvalancheProblems[problem.type].label;
+            problem.labelDay =
+              problem.validTimePeriod === "earlier"
+                ? `${AvalancheSituationsLabel[0]}: `
+                : problem.validTimePeriod === "later"
+                ? `${AvalancheSituationsLabel[1]}: `
+                : null;
+            return problem;
+          } else return undefined;
+        })
+        .filter((value) => value !== undefined);
       setAvalancheSituations(avalancheProblems);
-      //console.log(avalancheProblems);
     }
   }, [data]);
 

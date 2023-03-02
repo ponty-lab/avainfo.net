@@ -20,7 +20,9 @@ const BulletinRiskLevel: React.FC<Props> = ({ data }) => {
   const [caption, setCaption] = React.useState<boolean>(false);
 
   useEffect(() => {
-    const dangerRatings = Object.keys(data).map((key) => data[key]);
+    const dangerRatings = Object.keys(data)
+      .filter((key) => key !== "count")
+      .map((key) => data[key]);
     const timePeriods = getValidTimePeriods(dangerRatings);
 
     timePeriods.forEach((timePeriod: string) => {

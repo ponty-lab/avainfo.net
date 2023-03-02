@@ -20,12 +20,14 @@ const BulletinWeather: React.FC<WeatherProps> = ({ data }) => {
   useEffect(() => {
     let outlook: Record<string, string>[] | null = null;
     if (data) {
-      outlook = Object.values(data);
+      outlook = Object.keys(data)
+        .filter((key) => key !== "count")
+        .map((key) => data[key]);
     }
     setWeather(outlook);
   }, [data]);
 
-  if (!weather || !data) {
+  if (!weather || !weather.length || !data) {
     return null;
   }
 
