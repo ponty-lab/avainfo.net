@@ -60,18 +60,18 @@ const Sidebar: React.FC<Props> = ({ data, onPress, visible }) => {
                   marginTop="20px"
                 />
               </HorizontalBar>
-              <BulletinRiskLevel data={data?.dangerRating} />
+              <BulletinRiskLevel dangerRatings={data?.dangerRating} />
               <BulletinTendency
                 tendency={data?.tendencyType}
                 validDate={data?.validEndTime}
               />
-              <BulletinStability data={data?.avalancheActivity} />
+              <BulletinStability stability={data?.avalancheActivity} />
               <BulletinAvalancheProblems data={data?.avalancheProblem} />
               <BulletinParagraph
                 title="Snow Quality"
                 content={data?.snowpackStructureComment}
               />
-              <BulletinWeather data={data?.weather} />
+              <BulletinWeather weather={data?.weather} />
               <BulletinFooter
                 url={data?.bulletinURI}
                 pdfURL={data?.pdfURI}

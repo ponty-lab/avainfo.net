@@ -1,12 +1,13 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import { Container, HorizontalBar, Icon } from "../../styles/sidebar.style";
 import { toTitleCase } from "../../utils/toTitleCase";
+import { TWeather } from "../../models";
 
 type WeatherProps = {
-  data: any;
+  weather: TWeather[] | undefined;
 };
 
-const BulletinWeather: React.FC<WeatherProps> = ({ data }) => {
+const BulletinWeather: React.FC<WeatherProps> = ({ weather }) => {
   const conditions = ["snow", "wind", "temp"];
 
   const icons: Record<string, string> = {
@@ -15,19 +16,7 @@ const BulletinWeather: React.FC<WeatherProps> = ({ data }) => {
     temp: "fa-solid fa-temperature-half",
   };
 
-  const [weather, setWeather] = useState<Record<string, string>[] | null>(null);
-
-  useEffect(() => {
-    let outlook: Record<string, string>[] | null = null;
-    if (data) {
-      outlook = Object.keys(data)
-        .filter((key) => key !== "count")
-        .map((key) => data[key]);
-    }
-    setWeather(outlook);
-  }, [data]);
-
-  if (!weather || !weather.length || !data) {
+  if (!weather) {
     return null;
   }
 
@@ -39,7 +28,7 @@ const BulletinWeather: React.FC<WeatherProps> = ({ data }) => {
           <div key={`div_${index}`} style={{ marginBottom: 12 }}>
             <h3>{w.highlight}</h3>
             <p>{w.comment}</p>
-            {conditions.map((key, index) => {
+            {conditions.map((key, index: number) => {
               const value = w[key];
               if (value !== "-") {
                 return (

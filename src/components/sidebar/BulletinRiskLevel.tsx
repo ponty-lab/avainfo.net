@@ -7,10 +7,10 @@ import { ElevationContainer, IconContainer } from "../../styles/sidebar.style";
 const SIZE = 60;
 
 type Props = {
-  data: any;
+  dangerRatings: any;
 };
 
-const BulletinRiskLevel: React.FC<Props> = ({ data }) => {
+const BulletinRiskLevel: React.FC<Props> = ({ dangerRatings }) => {
   const [label, setLabel] = React.useState<string | undefined>(undefined);
   const [risk, setRisk] = React.useState<TDualRiskLevel | undefined>(undefined);
   const [labelPM, setLabelPM] = React.useState<string | undefined>(undefined);
@@ -20,9 +20,6 @@ const BulletinRiskLevel: React.FC<Props> = ({ data }) => {
   const [caption, setCaption] = React.useState<boolean>(false);
 
   useEffect(() => {
-    const dangerRatings = Object.keys(data)
-      .filter((key) => key !== "count")
-      .map((key) => data[key]);
     const timePeriods = getValidTimePeriods(dangerRatings);
 
     timePeriods.forEach((timePeriod: string) => {
@@ -57,9 +54,9 @@ const BulletinRiskLevel: React.FC<Props> = ({ data }) => {
         setLabel(label);
       }
     });
-  }, [data]);
+  }, [dangerRatings]);
 
-  if (!data || !risk) {
+  if (!dangerRatings || !risk) {
     return null;
   }
 

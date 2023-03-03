@@ -1,23 +1,13 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import BulletinParagraph from "./BulletinParagraph";
+import { TStability } from "../../models";
 
 type Props = {
-  data: any;
+  stability: TStability[] | undefined;
 };
 
-const BulletinStability: React.FC<Props> = ({ data }) => {
-  const [stability, setStability] = useState<Record<string, string>[] | null>(
-    null
-  );
-
-  useEffect(() => {
-    const stability: Record<string, string>[] = Object.keys(data)
-      .filter((key) => key !== "count")
-      .map((key) => data[key]);
-    setStability(stability);
-  }, [data]);
-
-  if (!stability || !data) {
+const BulletinStability: React.FC<Props> = ({ stability }) => {
+  if (!stability) {
     return null;
   }
 
