@@ -57,52 +57,17 @@
 //   weather_2_wind: "At midday at 2000 m, approximately -2 °C.",
 // };
 
-// export const processMapboxData2 = (obj: Record<string, any>) => {
-//   let newObj: Record<string, any> = {};
-//   for (const [keyString, value] of Object.entries(obj)) {
-//     const keys: string[] = keyString.split("_");
-
-//     const len: number = keys.length - 1;
-//     let dest: Record<string, any> | undefined = undefined;
-//     let index: number | undefined = undefined;
-
-//     // eslint-disable-next-line for-direction
-//     for (let i = len; i >= 0; i--) {
-//       if (i === len) {
-//         dest = { [keys[i]]: value };
-//       } else if (i > 1) {
-//         dest = { [keys[i]]: dest };
-//       } else if (i === 1) {
-//         if (parseInt(keys[i])) {
-//           index = parseInt(keys[i]) - 1;
-//           dest = [dest];
-//         }
-//       }
-//     }
-
-//     if (Object.keys(newObj).length === 0 || newObj[keys[0]] === undefined) {
-//       newObj[keys[0]] = dest && dest[keys[0]] ? dest[keys[0]] : dest;
-//     } else if (dest && dest instanceof Array && typeof index == "number") {
-//       if (newObj[keys[0]][index] && dest && dest[0]) {
-//         newObj[keys[0]][index][keys[2]] = Object.values(dest[0])[0];
-//       } else {
-//         newObj[keys[0]][index] = dest[0];
-//       }
-//     } else if (newObj[keys[0]] && dest) {
-//       newObj[keys[0]][keys[1]] = dest;
-//     }
-//   }
-//   console.log(JSON.stringify(newObj, null, 2));
-//   return newObj;
-// };
+// Function to convert the flat tileset object to a nested object
 
 export const processMapboxData = (obj: Record<string, any>) => {
   let newObj: Record<string, any> = {};
+
   for (const [keyString, value] of Object.entries(obj)) {
     const keys: string[] = keyString.split("_");
 
     let cur = newObj;
 
+    // Create nested objects
     for (let i = 0; i < keys.length - 1; i++) {
       let key: any = keys[i];
 
@@ -114,7 +79,21 @@ export const processMapboxData = (obj: Record<string, any>) => {
     }
     const lastKey = keys[keys.length - 1];
     cur[lastKey] = value;
+
+    const intKey = parseInt(keys[1]);
+    const firstKey = keys[0];
+
+    // If the second key is a number, convert the object to an array
+    if (!isNaN(intKey)) {
+      const array = Object.keys(newObj[firstKey]).map(
+        (key) => newObj[firstKey][key]
+      );
+      newObj[firstKey] = array;
+    }
   }
+
   //console.log(JSON.stringify(newObj, null, 2));
   return newObj;
 };
+
+//processMapboxData(obj);
