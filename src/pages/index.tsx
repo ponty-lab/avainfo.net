@@ -6,9 +6,9 @@ import AvaColors from "../styles/colors.style";
 import Sidebar from "../components/Sidebar";
 import ToggleButton from "../components/ToggleButton";
 import { DateTime, DateContainer, MapContainer } from "../styles/map.style";
-// import { TailSpin} from  "react-loader-spinner";
+import { ProgressBar, TailSpin } from "react-loader-spinner";
 import { processMapboxData } from "../utils/processMapboxData";
-import { useTheme } from "styled-components";
+import { HorizontalBar } from "../styles/pages.style";
 
 const URL =
   "https://us-central1-avainfo-net.cloudfunctions.net/fetchLatestTilesetDate";
@@ -62,7 +62,6 @@ const Home = () => {
   const [data, setData] = useState<Record<string, any> | null>(null);
   const [date, setDate] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  // const [loading, setLoading] = useState<boolean>(true)
   const [id, setId] = useState<string | null>(null);
 
   let hoveredRegionId: string | null = null;
@@ -70,14 +69,32 @@ const Home = () => {
   const _geojson_source = "avalanche-map";
   const __id = "avalanche-danger";
   const _layer_name = "avalanche-danger-ratings";
-  const theme = useTheme();
 
   const sw = new mapboxgl.LngLat(-2, 37);
   const ne = new mapboxgl.LngLat(20, 49);
   const llb = new mapboxgl.LngLatBounds(sw, ne);
 
+  const LoadingSpinner = () => {
+    return (
+      <HorizontalBar style={{ marginLeft: "10px" }}>
+        <ProgressBar
+          height="30"
+          width="30"
+          borderColor="white"
+          barColor="white"
+          ariaLabel="progress-bar-loading"
+          wrapperClass=""
+          visible={true}
+        />
+        <DateTime style={{ padding: "0px 0px 0px 5px" }}>
+          Loading Tileset
+        </DateTime>
+      </HorizontalBar>
+    );
+  };
+
   useEffect(() => {
-    //setLoading(true)
+    setDate(null);
     const map = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/light-v10",
@@ -94,7 +111,6 @@ const Home = () => {
       const resp = await fetch(URL);
       const latest = await resp.text();
       const dateString = parse(latest, "yyyy-MM-dd", new Date());
-      setDate(format(dateString, "dd MMMM yyyy"));
       let _mapbox_tileset = `mapbox://avainfo.avalanche-map-en-${latest}`;
 
       map.addSource(_geojson_source, {
@@ -146,8 +162,8 @@ const Home = () => {
 
       map.setPaintProperty(__id, "fill-color", active.paint);
 
+      setDate(format(dateString, "dd MMMM yyyy"));
       setMap(map);
-      //setLoading(false)
 
       map.on("click", __id, (e: any) => {
         e.preventDefault();
@@ -293,7 +309,7 @@ const Home = () => {
         changeState={changeState}
       />
       <DateContainer>
-        <DateTime>{date}</DateTime>
+        {date ? <DateTime>{date}</DateTime> : <LoadingSpinner />}
       </DateContainer>
       <Sidebar data={data} onPress={onPress} visible={modalOpen} />
     </MapContainer>
@@ -301,17 +317,3 @@ const Home = () => {
 };
 
 export default Home;
-
-{
-  /* {loading ?         
-    <TailSpin
-          height="80"
-          width="80"
-          color="#4fa94d"
-          ariaLabel="tail-spin-loading"
-          radius="1"
-          wrapperStyle={{position: "absolute", top: "50vh", left: "50vw"}}
-          wrapperClass=""
-        visible={true}
-      /> : null} */
-}
