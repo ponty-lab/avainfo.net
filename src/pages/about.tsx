@@ -24,6 +24,7 @@ import {
   AppleImg,
   GoogleLink,
   GoogleImg,
+  SketchContainer,
 } from "../styles/about.styles";
 
 const GOOGLE_PLAY_URL =
@@ -40,9 +41,9 @@ const About = () => {
         <H1Large>Anytime, Anywhere</H1Large>
       </Banner>
       <Content>
-        <HorizontalBar>
-          <LeftContent>
-            <H2Large>About</H2Large>
+        <LeftContent>
+          <H2Large>About</H2Large>
+          <SketchContainer>
             <img
               src={Sketch}
               style={{
@@ -50,28 +51,28 @@ const About = () => {
                 height: size,
               }}
             />
-          </LeftContent>
-          <RightContent>
-            <h3>The App</h3>
-            <p>
-              Hey, I'm Carla. AvaInfo was inspired by my own love for
-              backcountry skiing and my frustration with the limited
-              availability of information on local avalanche conditions. That's
-              why I first created AvaInfo, a mobile app that shares and searches
-              local avalanche conditions for everyone to view. Why not download
-              it and give it a try?
-            </p>
+          </SketchContainer>
+        </LeftContent>
+        <RightContent>
+          <h3>The App</h3>
+          <p>
+            Hey, I'm Carla. AvaInfo was inspired by my own love for backcountry
+            skiing and my frustration with the limited availability of
+            information on local avalanche conditions. That's why I first
+            created AvaInfo, a mobile app that shares and searches local
+            avalanche conditions for everyone to view. Why not download it and
+            give it a try?
+          </p>
 
-            <h3>The Tileset</h3>
-            <p>
-              The AvaInfo Danger Map tileset provides an easy-to-use source for
-              avalanche danger ratings pulled from various weather forecasters
-              across Europe, updated daily to ensure you always have the latest
-              information. The tileset is available for free and can be used in
-              any non-commercial project.
-            </p>
-          </RightContent>
-        </HorizontalBar>
+          <h3>The Tileset</h3>
+          <p>
+            The AvaInfo Danger Map tileset provides an easy-to-use source for
+            avalanche danger ratings pulled from various weather forecasters
+            across Europe, updated daily to ensure you always have the latest
+            information. The tileset is available for free and can be used in
+            any non-commercial project.
+          </p>
+        </RightContent>
       </Content>
       <FooterContainer>
         <CTA>

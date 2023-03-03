@@ -29,19 +29,25 @@ export const H1Large = styled(H1White)`
   font-size: 42px;
 `;
 
-export const Content = styled(Container)`
+export const Content = styled(HorizontalBar)`
   flex: 0.4;
   margin: 0px 30px 30px;
+  //max-width: 1200px;
+  justify-content: space-around;
 `;
 
 export const LeftContent = styled(Container)`
   flex: 1;
-  justify-content: space-between;
 `;
 
 export const H2Large = styled.h1`
   font-weight: 500;
   margin-top: 30px;
+`;
+
+export const SketchContainer = styled(Container)`
+  flex: 1;
+  justify-content: "center";
 `;
 
 export const RightContent = styled(Container)`
@@ -83,6 +89,7 @@ export const RightFooter = styled(FooterBar)`
 
 export const LegalBar = styled(HorizontalBar)`
   background: hsl(210, 8%, 12%);
+  //background: #232b32;
   justify-content: center;
   flex: 0.2;
 `;
