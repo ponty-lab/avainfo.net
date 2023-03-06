@@ -1,36 +1,37 @@
+type AvalancheProblemType = {
+  label: string;
+  uri: string;
+};
+
+type AvalancheProblemsType = Record<string, AvalancheProblemType>;
+
+import {
+  FavourableSituation,
+  GlidingSnow,
+  NewSnow,
+  OldSnow,
+  WetSnow,
+  WindDrift,
+} from "../assets/avalanche-problems";
+
 class AvalancheProblem {
   label;
   uri;
 
-  constructor(label: string, uri: any) {
+  constructor(label: string, uri: string) {
     this.label = label;
     this.uri = uri;
   }
 }
 
-export const AvalancheProblems: Record<string, any> = {
-  new_snow: new AvalancheProblem(
-    "New snow",
-    require("../assets/avalanche-problems/new_snow.png")
-  ),
-  drifting_snow: new AvalancheProblem(
-    "Wind-drifted snow",
-    require("../assets/avalanche-problems/wind_drifted_snow.png")
-  ),
-  old_snow: new AvalancheProblem(
-    "Persistent weak layers",
-    require("../assets/avalanche-problems/persistent_weak_layers.png")
-  ),
-  wet_snow: new AvalancheProblem(
-    "Wet snow",
-    require("../assets/avalanche-problems/wet_snow.png")
-  ),
-  gliding_snow: new AvalancheProblem(
-    "Gliding snow",
-    require("../assets/avalanche-problems/gliding_snow.png")
-  ),
+export const AvalancheProblems: AvalancheProblemsType = {
+  new_snow: new AvalancheProblem("New snow", NewSnow),
+  drifting_snow: new AvalancheProblem("Wind-drifted snow", WindDrift),
+  old_snow: new AvalancheProblem("Persistent weak layers", OldSnow),
+  wet_snow: new AvalancheProblem("Wet snow", WetSnow),
+  gliding_snow: new AvalancheProblem("Gliding snow", GlidingSnow),
   favourable_situation: new AvalancheProblem(
     "Favourable situation",
-    require("../assets/avalanche-problems/favourable_situation.png")
+    FavourableSituation
   ),
 };
