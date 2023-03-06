@@ -1,5 +1,3 @@
-import React from "react";
-import { HorizontalBar } from "../styles/sidebar.style";
 import { MdOutlineEmail } from "react-icons/md";
 import { AppleBadge, GoogleBadge } from "../assets/badges";
 import { Sketch } from "../assets";

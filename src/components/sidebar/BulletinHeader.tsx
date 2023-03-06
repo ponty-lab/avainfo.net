@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, memo, useEffect, useState } from "react";
+import React, { MouseEventHandler, memo } from "react";
 import { ThemedCaption, Title } from "../../styles/typography.style";
 import {
   CloseButton,

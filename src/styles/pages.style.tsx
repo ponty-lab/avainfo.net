@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { hexToRGB } from "../utils";
 
 interface styledPage {
   height?: string;

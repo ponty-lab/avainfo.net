@@ -1,7 +1,7 @@
-import React from "react";
 import { Toggle, ToggleContainer, ToggleGroup } from "../styles/map.style";
 
 type Props = {
+  // eslint-disable-next-line no-unused-vars
   changeState: (i: number) => void;
   property: string;
   options: Record<string, any>;
