@@ -1,9 +1,9 @@
 import { TAspect } from "../models";
-import { AvalancheContainer, AvalancheImg } from "../styles/sidebar.style";
+import { AvalancheImgContainer, AvalancheImg } from "../styles/sidebar.style";
 import { Exposition } from "../utils";
 
 type Props = {
-  aspects: TAspect[];
+  aspects: TAspect[] | undefined;
   size: string;
 };
 
@@ -20,21 +20,21 @@ export const ExpositionIcon = ({ aspects, size }: Props) => {
           src={Exposition[aspect].uri}
           width={size}
           height={size}
-          position={"absolute"}
+          position="absolute"
         />
       );
     })
   );
 
   return (
-    <AvalancheContainer size={size}>
+    <AvalancheImgContainer size={size}>
       {[...images]}
       <AvalancheImg
         src={Exposition.BG.uri}
         height={size}
         width={size}
-        position={"absolute"}
+        position="absolute"
       />
-    </AvalancheContainer>
+    </AvalancheImgContainer>
   );
 };
