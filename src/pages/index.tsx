@@ -7,7 +7,10 @@ import Sidebar from "../components/Sidebar";
 import ToggleButton from "../components/ToggleButton";
 import { DateTime, DateContainer, MapContainer } from "../styles/map.style";
 import { ProgressBar, TailSpin } from "react-loader-spinner";
-import { processMapboxData } from "../utils/processMapboxData";
+import {
+  bulletinFromMapbox,
+  processMapboxData,
+} from "../utils/processMapboxData";
 import { HorizontalBar } from "../styles/pages.style";
 
 const URL =
@@ -173,7 +176,7 @@ const Home = () => {
             center: [e.lngLat.lng - 1, e.lngLat.lat],
             duration: 950,
           });
-          const data = processMapboxData(e.features[0].properties);
+          const data = bulletinFromMapbox(e.features[0].properties);
           console.log("data: ", data);
           setData(data);
           setModalOpen(true);

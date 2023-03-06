@@ -2,6 +2,7 @@ import styled, { keyframes } from "styled-components";
 import { hexToRGB } from "../utils/hexToRGB";
 import AvaColors from "./colors.style";
 import { View } from "./pages.style";
+import { Label } from "./typography.style";
 
 export const Container = styled.div`
   display: flex;
@@ -231,13 +232,6 @@ export const WrappedIconContainer = styled.div`
   }
 `;
 
-export const AvalancheContainer = styled.div<{ size: string }>`
-  position: relative;
-  display: flex;
-  min-width: ${(props) => props.size};
-  margin-right: 20px;
-`;
-
 export const ElevationContainer = styled(Container)`
   justify-content: center;
   align-self: center;
@@ -246,12 +240,38 @@ export const ElevationContainer = styled(Container)`
   margin-left: 5px;
 `;
 
-export const AvalancheImg = styled.img<{
+// Exposition Icon
+
+export const AvalancheImgContainer = styled.div<{ size: string }>`
+  position: relative;
+  display: flex;
+  min-width: ${(props) => props.size};
+  margin-right: 20px;
+`;
+
+type AvalancheImgProps = {
   width: string;
   height: string;
   position?: string;
-}>`
+};
+
+export const AvalancheImg = styled.img<AvalancheImgProps>`
   position: ${(props) => props.position};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
+`;
+
+// Avalanche Problems
+
+export const AvalancheContainer = styled.div`
+  margin-bottom: 18;
+`;
+
+export const AvalancheLabel = styled(Label)`
+  margin-top: 10;
+`;
+
+export const AvalancheBar = styled(HorizontalBar)`
+  margin-top: 10;
+  margin-left: 15;
 `;
