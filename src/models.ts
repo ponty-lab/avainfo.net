@@ -37,7 +37,7 @@ export type TDualRiskLevel =
   | "5_5";
 
 export const Aspects = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"] as const;
-const AvProblemType = [
+const ProblemType = [
   "new_snow",
   "drifting_snow",
   "old_snow",
@@ -46,12 +46,59 @@ const AvProblemType = [
   "favourable_situation",
 ] as const;
 
+type TFrequency = "few" | "some" | "many";
 export type TRiskTrend = "decreasing" | "steady" | "increasing" | "n/a";
-export type TAvProblemType = typeof AvProblemType[number];
+export type TValidTimePeriod = "allDay" | "earlier" | "later";
+export type TAvalancheSize = -1 | 0 | 1 | 2 | 3 | 4 | 5;
+type TSnowpackStability = "very_poor" | "poor" | "fair" | "good";
+export type TProblemType = typeof ProblemType[number];
 export type TAspect = typeof Aspects[number];
 export type TAvalancheSituations = {
   aspects: TAspect[];
-  avalancheSituation: TAvProblemType;
+  avalancheSituation: TProblemType;
   elevationLow?: string;
   elevationHigh?: string;
+};
+export type TTimePeriod = "AM" | "PM";
+
+// types for the Mapbox Vector Tile
+
+export type TStability = {
+  comment: string;
+  highlight: string;
+};
+
+export type TWeather = TStability & {
+  snow: string;
+  wind: string;
+  temp: string;
+};
+
+export type TAvalancheProblem = {
+  type: TProblemType;
+  aspects?: TAspect[];
+  elevation: IElevation;
+  validTimePeriod?: TValidTimePeriod;
+  terrainFeature?: string;
+  avalancheSize?: TAvalancheSize;
+  snowpackStability?: TSnowpackStability;
+  frequency?: TFrequency;
+  uri: string;
+  labelType: string;
+  labelDay: string;
+};
+
+export type IElevation = {
+  lowerBound?: IElevationValue;
+  upperBound?: IElevationValue;
+};
+
+export type IElevationValue = {
+  numeric: number;
+  string: string;
+};
+
+export type IValidTime = {
+  startTime: Date;
+  endTime: Date;
 };

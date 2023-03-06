@@ -57,7 +57,25 @@
 //   weather_2_wind: "At midday at 2000 m, approximately -2 °C.",
 // };
 
+import { AvalancheProblems } from "./avalancheProblems";
+
 // Function to convert the flat tileset object to a nested object
+
+type tBulletinMapbox = Record<string, string>;
+
+export function bulletinFromMapbox(report: tBulletinMapbox) {
+  const bulletin = processMapboxData(report);
+  console.log("bulletin", bulletin);
+  try {
+    return {
+      ...bulletin,
+      avalancheProblem: processAvalancheProblems(bulletin.avalancheProblem),
+    };
+  } catch (err) {
+    console.error("Error processing bulletin from Mapbox Vector Tileset", err);
+    return null;
+  }
+}
 
 export const processMapboxData = (obj: Record<string, any>) => {
   let newObj: Record<string, any> = {};
@@ -79,21 +97,52 @@ export const processMapboxData = (obj: Record<string, any>) => {
     }
     const lastKey = keys[keys.length - 1];
     cur[lastKey] = value;
-
-    const intKey = parseInt(keys[1]);
-    const firstKey = keys[0];
-
-    // If the second key is a number, convert the object to an array
-    if (!isNaN(intKey)) {
-      const array = Object.keys(newObj[firstKey]).map(
-        (key) => newObj[firstKey][key]
-      );
-      newObj[firstKey] = array;
-    }
   }
+
+  const keys = [
+    "dangerRating",
+    "weather",
+    "avalancheProblem",
+    "avalancheActivity",
+  ];
+
+  // If the second key is a number, convert the object to an array
+  Object.keys(newObj).forEach((key) => {
+    if (keys.includes(key)) {
+      newObj[key] = Object.keys(newObj[key]).map(
+        (intKey) => newObj[key][intKey]
+      );
+    }
+  });
 
   //console.log(JSON.stringify(newObj, null, 2));
   return newObj;
 };
+
+function processAvalancheProblems(avalancheProblem: any[]) {
+  if (avalancheProblem === undefined) return [];
+  return avalancheProblem
+    .filter((problem: any) => problem.type !== "no_distinct_pattern")
+    .map((problem) => {
+      const labels: string[] = ["AM", "PM"];
+      if (problem instanceof Object) {
+        return {
+          ...problem,
+          aspects: problem.aspects?.length
+            ? problem.aspects.split(",")
+            : undefined,
+          uri: AvalancheProblems[problem.type].uri,
+          labelType: AvalancheProblems[problem.type].label,
+          labelDay:
+            problem.validTimePeriod === "earlier"
+              ? `${labels[0]}: `
+              : problem.validTimePeriod === "later"
+              ? `${[1]}: `
+              : undefined,
+        };
+      } else return undefined;
+    })
+    .filter((value) => value !== undefined);
+}
 
 //processMapboxData(obj);

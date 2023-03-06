@@ -8,7 +8,7 @@ type WeatherProps = {
 };
 
 const BulletinWeather: React.FC<WeatherProps> = ({ weather }) => {
-  const conditions = ["snow", "wind", "temp"];
+  const conditions: (keyof TWeather)[] = ["snow", "wind", "temp"];
 
   const icons: Record<string, string> = {
     snow: "fa-regular fa-snowflake",

@@ -66,7 +66,7 @@ const Sidebar: React.FC<Props> = ({ data, onPress, visible }) => {
                 validDate={data?.validEndTime}
               />
               <BulletinStability stability={data?.avalancheActivity} />
-              <BulletinAvalancheProblems data={data?.avalancheProblem} />
+              <BulletinAvalancheProblems problems={data?.avalancheProblem} />
               <BulletinParagraph
                 title="Snow Quality"
                 content={data?.snowpackStructureComment}

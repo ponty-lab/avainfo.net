@@ -1,95 +1,58 @@
 import React, { memo, useEffect, useState } from "react";
 import { ExpositionIcon } from "../ExpositionIcon";
-import { AvalancheProblems, WarningLevels } from "../../utils";
-import { Label } from "../../styles/typography.style";
+import { WarningLevels } from "../../utils";
 import {
+  AvalancheBar,
   AvalancheContainer,
   AvalancheImg,
+  AvalancheImgContainer,
+  AvalancheLabel,
   Container,
   ElevationContainer,
   HorizontalBar,
 } from "../../styles/sidebar.style";
+import { TAvalancheProblem } from "../../models";
 
 const SIZE = 36;
 
 type Props = {
-  data: any;
+  problems: TAvalancheProblem[];
 };
 
-const BulletinAvalancheProblems: React.FC<Props> = ({ data }) => {
+const BulletinAvalancheProblems: React.FC<Props> = ({ problems }) => {
   const imgSize = `${SIZE * 1.2}px`;
 
-  const AvalancheSituationsLabel: Record<number, string> = {
-    0: "AM",
-    1: "PM",
-  };
-  const [avalancheSituations, setAvalancheSituations] = React.useState<any[]>(
-    []
-  );
-
-  useEffect(() => {
-    if (data) {
-      const avalancheProblems = Object.values(data)
-        .filter((problem: any) => problem.type !== "no_distinct_pattern")
-        .map((_problem: any) => {
-          if (_problem instanceof Object) {
-            const problem: any = { ..._problem };
-            delete problem.count;
-            problem.aspects = problem.aspects?.length
-              ? problem.aspects.split(",")
-              : undefined;
-            problem.uri = AvalancheProblems[problem.type].uri;
-            problem.labelType = AvalancheProblems[problem.type].label;
-            problem.labelDay =
-              problem.validTimePeriod === "earlier"
-                ? `${AvalancheSituationsLabel[0]}: `
-                : problem.validTimePeriod === "later"
-                ? `${AvalancheSituationsLabel[1]}: `
-                : null;
-            return problem;
-          } else return undefined;
-        })
-        .filter((value) => value !== undefined);
-      setAvalancheSituations(avalancheProblems);
-    }
-  }, [data]);
-
-  if (!data) {
+  if (!problems.length) {
     return null;
   }
 
   return (
-    <div style={{ marginBottom: 18 }}>
+    <AvalancheContainer>
       <h2>Avalanche Problems</h2>
       <>
-        {avalancheSituations.map((problem, index: number) => {
+        {problems.map((problem, index: number) => {
           return (
             <Container key={`problem_${index}`}>
-              <Label style={{ marginTop: 10 }}>
+              <AvalancheLabel>
                 {problem.labelDay} {problem.labelType}
-              </Label>
-              <HorizontalBar
-                style={{
-                  marginTop: 10,
-                  marginLeft: 15,
-                }}
-              >
-                <AvalancheContainer size={imgSize}>
+              </AvalancheLabel>
+              <AvalancheBar>
+                <AvalancheImgContainer size={imgSize}>
                   <AvalancheImg
                     src={problem.uri}
                     width={imgSize}
                     height={imgSize}
                   />
-                </AvalancheContainer>
+                </AvalancheImgContainer>
                 <ExpositionIcon aspects={problem.aspects} size={imgSize} />
 
                 <ImageElevation elevation={problem.elevation} />
-              </HorizontalBar>
+              </AvalancheBar>
             </Container>
           );
         })}
       </>
-    </div>
+    </AvalancheContainer>
   );
 };
 
@@ -109,8 +72,6 @@ function ImageElevation({ elevation }: IEProps) {
   useEffect(() => {
     if (elevationHigh && elevationLow) {
       setBounds("middle");
-    } else if (elevationHigh) {
-      setBounds("above");
     } else if (elevationLow) {
       setBounds("below");
     }
@@ -120,15 +81,6 @@ function ImageElevation({ elevation }: IEProps) {
     return null;
   }
 
-  const ElevationCaption = () => {
-    return (
-      <ElevationContainer>
-        <span>{elevationLow ? `below ${elevationLow}` : ""}</span>
-        <span>{elevationHigh ? `above ${elevationHigh}` : ""}</span>
-      </ElevationContainer>
-    );
-  };
-
   return (
     <HorizontalBar>
       <AvalancheImg
@@ -136,7 +88,10 @@ function ImageElevation({ elevation }: IEProps) {
         width={`${SIZE * 1.4}px`}
         height={`${SIZE * 1.2}px`}
       />
-      <ElevationCaption />
+      <ElevationContainer>
+        <span>{elevationLow ? `below ${elevationLow}` : ""}</span>
+        <span>{elevationHigh ? `above ${elevationHigh}` : ""}</span>
+      </ElevationContainer>
     </HorizontalBar>
   );
 }
