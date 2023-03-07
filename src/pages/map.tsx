@@ -3,19 +3,17 @@ import React, { useRef, useEffect, useState } from "react";
 // eslint-disable-next-line import/no-unresolved
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import { format, parse } from "date-fns";
+import { Sidebar, ToggleButton } from "../components";
 import AvaColors from "../styles/colors.style";
-import Sidebar from "../components/Sidebar";
-import ToggleButton from "../components/ToggleButton";
 import { DateTime, DateContainer, MapContainer } from "../styles/map.style";
+import { HorizontalBar } from "../styles/pages.style";
 import { ProgressBar } from "react-loader-spinner";
 import { bulletinFromMapbox } from "../utils/processMapboxData";
-import { HorizontalBar } from "../styles/pages.style";
 
 const URL =
   "https://us-central1-avainfo-net.cloudfunctions.net/fetchLatestTilesetDate";
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiYXZhaW5mbyIsImEiOiJjbDVxbDVjOTIxNDFjM2lvZWQzcDF4dndoIn0.W8Q4-jsphhQfIfCQ3grrsw";
+mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN;
 
 const paintColor = [
   "case",

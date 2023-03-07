@@ -1,21 +1,23 @@
 import React, { memo, useEffect, useRef } from "react";
+import AvaColors from "../styles/colors.style";
+import { HorizontalBar, View } from "../styles/pages.style";
 import {
   ColorColumn,
   ScrollView,
   SideBarView,
   SidebarContainer,
 } from "../styles/sidebar.style";
-import { HorizontalBar, View } from "../styles/pages.style";
-import AvaColors from "../styles/colors.style";
-import BulletinHeader from "./sidebar/BulletinHeader";
 import { hexToRGB } from "../utils/hexToRGB";
-import BulletinParagraph from "./sidebar/BulletinParagraph";
-import BulletinFooter from "./sidebar/BulletinFooter";
-import BulletinRiskLevel from "./sidebar/BulletinRiskLevel";
-import BulletinTendency from "./sidebar/BulletinTendency";
-import BulletinAvalancheProblems from "./sidebar/BulletinAvalancheProblems";
-import BulletinStability from "./sidebar/BulletinStability";
-import BulletinWeather from "./sidebar/BulletinWeather";
+import {
+  AvalancheProblems,
+  Footer,
+  Header,
+  Paragraph,
+  RiskLevel,
+  Stability,
+  Tendency,
+  Weather,
+} from "./bulletin";
 
 type Props = {
   data: Record<string, any> | null;
@@ -48,31 +50,31 @@ const Sidebar: React.FC<Props> = ({ data, onPress, visible }) => {
   return (
     <SidebarContainer show={visible}>
       <SideBarView validDate={validDate}>
-        <BulletinHeader data={data} onPress={onPress} validDate={validDate} />
+        <Header data={data} onPress={onPress} validDate={validDate} />
         {validDate ? (
           <ScrollView ref={scrollRef}>
             <View>
               <HorizontalBar style={{ flex: 0 }}>
                 <ColorColumn dangerColor={dangerColor} />
-                <BulletinParagraph
+                <Paragraph
                   title="Summary"
                   content={data?.highlights}
                   marginTop="20px"
                 />
               </HorizontalBar>
-              <BulletinRiskLevel dangerRatings={data?.dangerRating} />
-              <BulletinTendency
+              <RiskLevel dangerRatings={data?.dangerRating} />
+              <Tendency
                 tendency={data?.tendencyType}
                 validDate={data?.validEndTime}
               />
-              <BulletinStability stability={data?.avalancheActivity} />
-              <BulletinAvalancheProblems problems={data?.avalancheProblem} />
-              <BulletinParagraph
+              <Stability stability={data?.avalancheActivity} />
+              <AvalancheProblems problems={data?.avalancheProblem} />
+              <Paragraph
                 title="Snow Quality"
                 content={data?.snowpackStructureComment}
               />
-              <BulletinWeather weather={data?.weather} />
-              <BulletinFooter
+              <Weather weather={data?.weather} />
+              <Footer
                 url={data?.bulletinURI}
                 pdfURL={data?.pdfURI}
                 issuedDate={data?.publicationTime}

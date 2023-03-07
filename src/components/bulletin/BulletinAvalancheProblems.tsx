@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { ExpositionIcon } from "../ExpositionIcon";
+import ExpositionIcon from "./ExpositionIcon";
 import { WarningLevels } from "../../utils";
 import {
   AvalancheBar,
@@ -45,7 +45,6 @@ const BulletinAvalancheProblems: React.FC<Props> = ({ problems }) => {
                   />
                 </AvalancheImgContainer>
                 <ExpositionIcon aspects={problem.aspects} size={imgSize} />
-
                 <ImageElevation elevation={problem.elevation} />
               </AvalancheBar>
             </Container>

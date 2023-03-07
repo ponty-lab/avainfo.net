@@ -1,13 +1,16 @@
-import { TAspect } from "../models";
-import { AvalancheImgContainer, AvalancheImg } from "../styles/sidebar.style";
-import { Exposition } from "../utils";
+import { TAspect } from "../../models";
+import {
+  AvalancheImgContainer,
+  AvalancheImg,
+} from "../../styles/sidebar.style";
+import { Exposition } from "../../utils";
 
 type Props = {
   aspects: TAspect[] | undefined;
   size: string;
 };
 
-export const ExpositionIcon = ({ aspects, size }: Props) => {
+const ExpositionIcon = ({ aspects, size }: Props) => {
   if (!aspects) {
     return null;
   }
@@ -38,3 +41,5 @@ export const ExpositionIcon = ({ aspects, size }: Props) => {
     </AvalancheImgContainer>
   );
 };
+
+export default ExpositionIcon;
