@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from "react";
-import { WarningLevels } from "../../utils";
+import { WarningLevels } from "../../utils/warning-levels.constants";
 import { TDualRiskLevel } from "../../models";
 import { HorizontalBar } from "../../styles/pages.style";
 import { ElevationContainer, IconContainer } from "../../styles/sidebar.style";

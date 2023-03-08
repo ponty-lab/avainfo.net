@@ -3,7 +3,7 @@ import {
   AvalancheImgContainer,
   AvalancheImg,
 } from "../../styles/sidebar.style";
-import { Exposition } from "../../utils";
+import { Exposition } from "../../utils/exposition.constants";
 
 type Props = {
   aspects: TAspect[] | undefined;

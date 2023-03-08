@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import ExpositionIcon from "./ExpositionIcon";
-import { WarningLevels } from "../../utils";
+import { WarningLevels } from "../../utils/warning-levels.constants";
 import {
   AvalancheBar,
   AvalancheContainer,
@@ -22,7 +22,7 @@ type Props = {
 const BulletinAvalancheProblems: React.FC<Props> = ({ problems }) => {
   const imgSize = `${SIZE * 1.2}px`;
 
-  if (!problems.length) {
+  if (problems.length === 0) {
     return null;
   }
 
