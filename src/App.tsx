@@ -2,8 +2,11 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/global.style";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lightTheme } from "./styles/theme";
-import Navbar from "./components/Navbar";
-import { Map, Docs, About, Privacy } from "./pages";
+import Navbar from "./components/navbar/Navbar";
+import Map from "./pages/map";
+import About from "./pages/about";
+import Docs from "./pages/docs";
+import Privacy from "./pages/privacy";
 
 const App = () => {
   return (

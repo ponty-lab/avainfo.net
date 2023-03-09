@@ -30,6 +30,16 @@ export const Title = styled.h1`
   margin-bottom: 12px;
 `;
 
+export const MediumTitle = styled.h1`
+  font-weight: 500;
+  margin-top: 30px;
+`;
+
+export const WhiteText = styled.p`
+  color: white;
+  margin-top: 12px;
+`;
+
 export const Footer = styled.div`
   &:before {
     background: gray;

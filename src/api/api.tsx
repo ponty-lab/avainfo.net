@@ -1,4 +1,4 @@
-export const fetchLatestTileDate = async (url: string) => {
+const fetchLatestTileDate = async (url: string) => {
   try {
     if (!url || typeof url !== "string") {
       throw new Error("Invalid URL");
@@ -16,3 +16,5 @@ export const fetchLatestTileDate = async (url: string) => {
     throw new Error(`Error fetching latest tile date: ${error.message}`);
   }
 };
+
+export default fetchLatestTileDate;
