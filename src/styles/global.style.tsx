@@ -15,6 +15,7 @@ export default createGlobalStyle`
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        overflow-y: hidden;
     }
 
     /* Typography */
@@ -68,6 +69,18 @@ export default createGlobalStyle`
 
     a {
         text-decoration: none;
+
+        &:link {
+            color: ${({ theme }) => theme.colors.primary};
+        }
+
+        &:hover {
+            color: ${({ theme }) => theme.colors.accent};
+        }
+        
+        &:visited {
+            color: ${({ theme }) => theme.colors.primary};
+        }
     }
 
     span {
@@ -123,6 +136,22 @@ export default createGlobalStyle`
     .ava-popup .mapboxgl-popup-tip {
         border-top-color: transparent;
     }
+
+    .markdown h1 {
+        font-size: 2.5rem;
+    }
+
+    .markdown h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .markdown h3 {
+        font-size: 1.5rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
 
     /* html {
     font-size: 16px;
