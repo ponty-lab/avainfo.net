@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Sketch } from "../../assets";
+import Sketch from "../../assets/sketch.jpeg";
 import { MediumTitle } from "../../styles/typography.style";
 
 const SIZE = 250;

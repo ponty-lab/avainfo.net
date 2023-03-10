@@ -57,7 +57,17 @@ export const Page = styled(Container)<styledPage>`
   margin-bottom: 10px;
   margin-left: 30px;
   margin-right: 20px;
-  height: auto;
+  height: calc(100vh - 60px);
+`;
+
+export const ScrollView = styled.div`
+  display: flex;
+  margin: 0px 0px 20px;
+  overflow-y: auto;
+
+  @media (max-width: 768px) {
+    margin: 0px 0px 0px;
+  }
 `;
 
 export const View = styled(Container)`
