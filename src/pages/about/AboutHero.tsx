@@ -9,7 +9,7 @@ const Hero = () => {
   );
 };
 
-export const HeroContainer = styled.div`
+const HeroContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 0.1;
@@ -20,14 +20,14 @@ export const HeroContainer = styled.div`
   text-align: center;
 `;
 
-export const HeroTitle = styled.h1`
+const HeroTitle = styled.h1`
   color: white;
   margin-top: 0px;
   font-weight: 400;
   margin-bottom: 10px;
 `;
 
-export const HeroSubtitle = styled(HeroTitle)`
+const HeroSubtitle = styled(HeroTitle)`
   font-weight: 600;
   font-size: 42px;
 `;
