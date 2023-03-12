@@ -8,7 +8,7 @@ The **AvaInfo Danger Map** is a Mapbox-hosted vector tileset that provides geome
 mapbox://avainfo.avalanche-map-${date}
 ```
 
-Use the tileset ID `avainfo.avalanche-map-en-${date}` in a request to [Mapbox Vector Tiles API](https://docs.mapbox.com/help/glossary/vector-tiles-api/). Replace `{date}` with the date format `yyyy-MM-dd`, for example: ` avainfo.avalanche-map-en-2022-02-26`.
+Use the tileset ID `avainfo.avalanche-map-en-${date}` in a request to [Mapbox Vector Tiles API](https://docs.mapbox.com/help/glossary/vector-tiles-api/). Replace `{date}` with the date format `yyyy-MM-dd`, for example: `avainfo.avalanche-map-en-2022-02-26`.
 
 To get the latest avalanche tileset date, use this URL:
 
