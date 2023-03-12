@@ -1,8 +1,5 @@
 import styled from "styled-components";
-
-interface styledPage {
-  height?: string;
-}
+import { device } from "../utils/constants";
 
 export const Container = styled.div`
   display: flex;
@@ -52,28 +49,17 @@ export const ImgContainer = styled.div<{ size: string }>`
   margin-right: 20px;
 `;
 
-export const Page = styled(Container)<styledPage>`
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 30px;
-  margin-right: 20px;
+export const ScrollView = styled(Container)`
+  overflow-y: auto;
   height: calc(100vh - 60px);
 `;
 
-export const ScrollView = styled.div`
-  display: flex;
-  margin: 0px 0px 20px;
-  overflow-y: auto;
+export const Wrapper = styled.div`
+  padding: 0 40px;
+  margin-top: 42px;
 
-  @media (max-width: 768px) {
-    margin: 0px 0px 0px;
-  }
-`;
-
-export const View = styled(Container)`
-  margin: 10px 15px 10px 0px;
-
-  @media (max-width: 768px) {
-    margin: 0px 0px;
+  @media screen and (${device.laptop}) {
+    max-width: 1200px;
+    margin: 0 auto;
   }
 `;
