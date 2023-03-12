@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Page, ScrollView, View } from "../../styles/pages.style";
+import { ScrollView, Wrapper } from "../../styles/pages.style";
 import readme from "./README.md";
 import rehypeRaw from "rehype-raw";
 
@@ -15,18 +15,18 @@ const Docs = () => {
   }, []);
 
   return (
-    <Page>
+    <div>
       <ScrollView>
-        <View>
+        <Wrapper>
           <ReactMarkdown
             children={markdown}
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
             className="markdown"
           />
-        </View>
+        </Wrapper>
       </ScrollView>
-    </Page>
+    </div>
   );
 };
 
