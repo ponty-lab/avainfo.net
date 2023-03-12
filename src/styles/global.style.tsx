@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { device } from "../utils/constants";
 
 export default createGlobalStyle`
 
@@ -21,23 +22,19 @@ export default createGlobalStyle`
     /* Typography */
 
     h1 {
-        font-size: 32px;
-        margin-top: 42px;
-        margin-bottom: 30px;
+        font-size: 2.5rem
     }
 
     h2 {
-        margin: 30px 0px 12px;
-        font-weight: 400;
-        font-size: 24px;
-        line-height: 30px;
-        padding-top: 0.2em;
+        font-size: 2rem;
+        line-height: 1.25;
+        margin-top: 3rem;
     }
 
     h3 {
-        font-weight: 600;
-        font-size: 18px;
-        line-height: 22px;
+        font-size: 1.5rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1.5rem;
     }
 
     h4 {
@@ -55,16 +52,18 @@ export default createGlobalStyle`
     }
 
     ul {
-        padding-inline-start: 17px;
-        margin-top: 0px;
+        margin-left: 0;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem
+
+        @media and screen and (${device.tablet}) {
+            margin-left: 2.5rem;
+        }
     }
 
     li {
-        margin-top: 6px;
-        margin-bottom: 6px;
-        font-size: 16px;
-        line-height: 22px;
-        word-wrap: break-word;
+         margin-bottom: 0.5rem;
+         line-height: 1.5em;
     }
 
     a {
@@ -136,34 +135,4 @@ export default createGlobalStyle`
     .ava-popup .mapboxgl-popup-tip {
         border-top-color: transparent;
     }
-
-    .markdown h1 {
-        font-size: 2.5rem;
-    }
-
-    .markdown h2 {
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .markdown h3 {
-        font-size: 1.5rem;
-        margin-top: 2.5rem;
-        margin-bottom: 1.5rem;
-    }
-
-
-    /* html {
-    font-size: 16px;
-    }
-    @media screen and (min-width: 320px) {
-    html {
-        font-size: calc(16px + 6 * ((100vw - 320px) / 680));
-    }
-    }
-    @media screen and (min-width: 1000px) {
-    html {
-        font-size: 22px;
-    }
-    } */
 `;
