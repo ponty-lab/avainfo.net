@@ -1,30 +1,24 @@
 import styled from "styled-components";
 import Legal from "../../components/legal";
-import { Page, ScrollView, View } from "../../styles/pages.style";
+import { contactEmail } from "../../utils/constants";
+import { ScrollView, Wrapper } from "../../styles/pages.style";
 
 const Privacy = () => {
+  const mailto = `mailto:${contactEmail}`;
   return (
     <div>
-      <ScrollView
-        style={{
-          height: "calc(100vh - 60px)",
-          marginLeft: 0,
-          marginRight: 0,
-          marginBottom: 0,
-          marginTop: 0,
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      <ScrollView>
         <Banner>
-          <H1 style={{ color: "white", fontSize: 42, fontWeight: 500 }}>
-            LEGAL
-          </H1>
+          <Wrapper>
+            <h1 style={{ color: "white", fontSize: 42, fontWeight: 500 }}>
+              LEGAL
+            </h1>
+          </Wrapper>
         </Banner>
-        <View style={{ marginLeft: 100, marginRight: 50 }}>
-          <H1>AvaInfo's Privacy Notice</H1>
+        <Wrapper>
+          <h1>AvaInfo's Privacy Notice</h1>
 
-          <div>
+          <div style={{ marginBottom: 36 }}>
             <p>Last updated 10 March 2023</p>
             <p>
               Thank you for choosing to be part of our community at AvaInfo (
@@ -32,7 +26,7 @@ const Privacy = () => {
               committed to protecting your personal information and your right
               to privacy. If you have any questions or concerns about this
               privacy notice, or our practices with regards to your personal
-              information, please contact us at avainfo.net@gmail.com.
+              information, please contact us at {contactEmail}.
             </p>
             <p>
               When you visit our website{" "}
@@ -60,8 +54,8 @@ const Privacy = () => {
               </b>
             </p>
 
-            <H2 id="collect">1 | What Infomation Do We Collect?</H2>
-            <H3>Personal information you disclose to us</H3>
+            <h2 id="collect">1 | What Infomation Do We Collect?</h2>
+            <h3>Personal information you disclose to us</h3>
             <Highlight>
               <p>
                 <b>In Short:</b>
@@ -81,21 +75,21 @@ const Privacy = () => {
               and the products and features you use. The personal information we
               collect may include the following:
             </p>
-            <ol>
-              <ul>
-                <li>
-                  <b>Personal Information Provided by You.</b> We collect names;
-                  email addresses; usernames; passwords; and other similar
-                  information.
-                </li>
-              </ul>
-            </ol>
+
+            <ul>
+              <li>
+                <b>Personal Information Provided by You.</b> We collect names;
+                email addresses; usernames; passwords; and other similar
+                information.
+              </li>
+            </ul>
+
             <p>
               All personal information that you provide to us must be true,
               complete and accurate, and you must notify us of any changes to
               such personal information.
             </p>
-            <H3>Information automatically collected </H3>
+            <h3>Information automatically collected </h3>
             <Highlight>
               <p>
                 <b>In Short:</b>
@@ -159,7 +153,7 @@ const Privacy = () => {
                 you may not be able to use certain aspects of the Services.
               </li>
             </ul>
-            <H3>Information collected through our App</H3>
+            <h3>Information collected through our App</h3>
             <Highlight>
               <p>
                 <b>In Short:</b>
@@ -173,7 +167,7 @@ const Privacy = () => {
             <p>
               If you use our App, we also collect the following information:
             </p>
-            <ol>
+            <ul>
               <li>
                 <i>Geo-Location Information.</i>
                 {"  "}We may request access or permission to and track
@@ -211,7 +205,7 @@ const Privacy = () => {
                 App, for troubleshooting and for our internal analytics and
                 reporting purposes.
               </li>
-            </ol>
+            </ul>
 
             <p>
               This information is primarily needed to maintain the security and
@@ -219,7 +213,7 @@ const Privacy = () => {
               analytics and reporting purposes.
             </p>
 
-            <H2 id="useinfo">2 | How Do We Use Your Information?</H2>
+            <h2 id="useinfo">2 | How Do We Use Your Information?</h2>
             <Highlight>
               <p>
                 <b>In Short:</b>
@@ -241,7 +235,7 @@ const Privacy = () => {
               we rely on next to each purpose listed below.
             </p>
             <p>We use the information we collect or receive:</p>
-            <ol>
+            <ul>
               <li>
                 <b>To facilitate account creation and logon process.</b>
                 {"  "}
@@ -260,13 +254,9 @@ const Privacy = () => {
                 information. Prior to posting a testimonial, we will obtain your
                 consent to use your name and the content of the testimonial. If
                 you wish to update, or delete your testimonial, please contact
-                us at{" "}
-                <a href="mailto:avainfo.net@gmail.com">
-                  {" "}
-                  avainfo.net@gmail.com{" "}
-                </a>{" "}
-                and be sure to include your name, testimonial location, and
-                contact information.
+                us at <a href={mailto}> {contactEmail} </a> and be sure to
+                include your name, testimonial location, and contact
+                information.
               </li>
               <li>
                 <b>Request feedback.</b>
@@ -346,8 +336,8 @@ const Privacy = () => {
                 personal information. We will not use identifiable personal
                 information without your consent.
               </li>
-            </ol>
-            <H2 id="share">3 | Will Your Information Be Shared With Anyone?</H2>
+            </ul>
+            <h2 id="share">3 | Will Your Information Be Shared With Anyone?</h2>
             <Highlight>
               <p>
                 <b>In Short:</b>
@@ -362,7 +352,7 @@ const Privacy = () => {
             <p>
               We may process or share data based on the following legal basis:
             </p>
-            <ol>
+            <ul>
               <li>
                 <b>Consent:</b>
                 {"  "}
@@ -401,12 +391,12 @@ const Privacy = () => {
                 person and illegal activities, or as evidence in litigation in
                 which we are involved.
               </li>
-            </ol>
+            </ul>
             <p>
               More specifically, we may need to process your data or share your
               personal information in the following situations:
             </p>
-            <ol>
+            <ul>
               <li>
                 <b>Business Transfers.</b>
                 {"  "}
@@ -442,11 +432,11 @@ const Privacy = () => {
                 data they hold on our behalf and to retain it for the period we
                 instruct.
               </li>
-            </ol>
+            </ul>
 
-            <H2 id="thirdparty">
+            <h2 id="thirdparty">
               4 | Who Will Your Information Be Shared With?
-            </H2>
+            </h2>
             <Highlight>
               <p>
                 <b>In Short:</b>
@@ -472,7 +462,7 @@ const Privacy = () => {
               <li>Website Hosting and Testing</li>
             </ul>
 
-            <H2 id="social">5 | How Do We Handle Your Social Logins?</H2>
+            <h2 id="social">5 | How Do We Handle Your Social Logins?</h2>
             <Highlight>
               <p>
                 <b>In Short:</b>
@@ -506,7 +496,7 @@ const Privacy = () => {
               can set your privacy preferences on their sites and apps.
             </p>
 
-            <H2 id="duration">6 | How Long Do We Keep Your Information?</H2>
+            <h2 id="duration">6 | How Long Do We Keep Your Information?</h2>
             <Highlight>
               <p>
                 <b>In Short:</b>
@@ -534,7 +524,7 @@ const Privacy = () => {
               further processing until deletion is possible.
             </p>
 
-            <H2 id="store">7 | How Do We Keep Your Information Safe?</H2>
+            <h2 id="store">7 | How Do We Keep Your Information Safe?</h2>
             <Highlight>
               <p>
                 <b>In Short:</b>
@@ -560,7 +550,7 @@ const Privacy = () => {
               You should only access the Services within a secure environment.
             </p>
 
-            <H2 id="rights">8 | What Are Your Privacy Rights?</H2>
+            <h2 id="rights">8 | What Are Your Privacy Rights?</h2>
             <Highlight>
               <p>
                 <b>In Short:</b>
@@ -610,11 +600,10 @@ const Privacy = () => {
             </p>
             <p>
               If you have questions or comments about your privacy rights, you
-              may email us at{" "}
-              <a href="mailto:avainfo.net@gmail.com">avainfo.net@gmail.com</a>
+              may email us at <a href={mailto}>{contactEmail}</a>
             </p>
 
-            <H3>Account Information</H3>
+            <h3>Account Information</h3>
             <p>
               If you would at any time like to review or change the information
               in your account or terminate your account, you can:
@@ -644,16 +633,16 @@ const Privacy = () => {
               need to send you service-related emails that are necessary for the
               administration and use of your account. To otherwise opt-out, you
               may:
-              <ol>
-                <li>Contact us using the contact information provided.</li>
-                <li>
-                  Use the unsubscribe link at the bottom of any marketing
-                  emails, newsletters, or other non-essential communications.
-                </li>
-              </ol>
             </p>
+            <ul>
+              <li>Contact us using the contact information provided.</li>
+              <li>
+                Use the unsubscribe link at the bottom of any marketing emails,
+                newsletters, or other non-essential communications.
+              </li>
+            </ul>
 
-            <H2 id="donottrack">9 | Controls For Do-Not-Track Features</H2>
+            <h2 id="donottrack">9 | Controls For Do-Not-Track Features</h2>
             <p>
               Most web browsers and some mobile operating systems and mobile
               applications include a Do-Not-Track (“DNT”) feature or setting you
@@ -668,9 +657,9 @@ const Privacy = () => {
               this privacy notice.
             </p>
 
-            <H2 id="california">
+            <h2 id="california">
               10 | Do California Residents Have Specific Privacy Rights?
-            </H2>
+            </h2>
             <Highlight>
               <p>
                 <b>In Short:</b>{" "}
@@ -704,7 +693,7 @@ const Privacy = () => {
               not be completely or comprehensively removed from our systems.
             </p>
 
-            <H2 id="updates">11 | Do We Make Updates To This Notice?</H2>
+            <h2 id="updates">11 | Do We Make Updates To This Notice?</h2>
             <Highlight>
               <p>
                 <b>In Short:</b>{" "}
@@ -725,28 +714,27 @@ const Privacy = () => {
               protecting your information.
             </p>
 
-            <H2 id="contact">12 | How Can You Contact Us About This Notice?</H2>
+            <h2 id="contact">12 | How Can You Contact Us About This Notice?</h2>
             <p>
               If you have questions or comments about this notice, you may email
-              us at{" "}
-              <a href="mailto:avainfo.net@gmail.com">avainfo.net@gmail.com</a>
+              us at <a href={mailto}>{contactEmail}</a>
             </p>
 
-            <H2 id="policy">
+            <h2 id="policy">
               13 | How Can You Review, Update, Or Delete The Data We Collect
               From You?
-            </H2>
+            </h2>
             <p>
               Based on the applicable laws of your country, you may have the
               right to request access to the personal information we collect
               from you, change that information, or delete it in some
               circumstances. To request to review, update, or delete your
               personal information, please you email us at{" "}
-              <a href="mailto:avainfo.net@gmail.com">avainfo.net@gmail.com</a>.
-              We will respond to your request within 30 days.
+              <a href={mailto}>{contactEmail}</a>. We will respond to your
+              request within 30 days.
             </p>
           </div>
-        </View>
+        </Wrapper>
         <Legal>
           <>
             This privacy policy was created using{" "}
@@ -762,12 +750,10 @@ const Privacy = () => {
 };
 
 const Banner = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 0.1;
-  width: 100%;
+  display: block;
   background: ${({ theme }) => theme.colors.primary};
-  padding: 0px 100px 42px;
+  padding-top: 36px;
+  padding-bottom: 12px;
 `;
 
 const Highlight = styled.div`
@@ -779,22 +765,6 @@ const Highlight = styled.div`
   border-radius: 3px;
   padding: 12px 12px 0px;
   margin-bottom: 12px;
-`;
-
-const H1 = styled.h1`
-  font-size: 2.5rem;
-  margin-left: 0px;
-`;
-
-const H2 = styled.h2`
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-`;
-
-const H3 = styled.h3`
-  font-size: 1.5rem;
-  margin-top: 2.5rem;
-  margin-bottom: 1.5rem;
 `;
 
 export default Privacy;
