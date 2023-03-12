@@ -22,7 +22,6 @@ const Docs = () => {
             children={markdown}
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
-            className="markdown"
           />
         </Wrapper>
       </ScrollView>
