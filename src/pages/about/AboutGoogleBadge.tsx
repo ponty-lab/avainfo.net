@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import GoogleBadge from "../../assets/badges/google-play-badge.png";
+import { device } from "../../utils/constants";
 
 const GOOGLE_PLAY_URL =
   "https://play.google.com/store/apps/details?id=net.avainfo&hl=en&gl=US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1";
@@ -15,7 +16,10 @@ const GoogleBadgeIcon = () => {
 export const GoogleLink = styled.a`
   width: 190px;
   height: auto;
-  margin-left: 20px;
+
+  @media screen and (${device.tablet}) {
+    margin-left: 20px;
+  }
 `;
 
 export const GoogleImg = styled.img`

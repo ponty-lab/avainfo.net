@@ -1,18 +1,22 @@
 import styled from "styled-components";
 
-const Hero = () => {
+type Props = {
+  flex?: string;
+};
+
+const Hero = ({ flex }: Props) => {
   return (
-    <HeroContainer>
+    <HeroContainer flex={flex}>
       <HeroTitle>Get the Latest Avalanche Information</HeroTitle>
       <HeroSubtitle>Anytime, Anywhere</HeroSubtitle>
     </HeroContainer>
   );
 };
 
-const HeroContainer = styled.div`
+const HeroContainer = styled.div<{ flex?: string }>`
   display: flex;
   flex-direction: column;
-  flex: 0.1;
+  flex: ${({ flex }) => flex || "auto"};
   width: 100%;
   background: ${({ theme }) => theme.colors.primary};
   padding: 72px 0px 42px;

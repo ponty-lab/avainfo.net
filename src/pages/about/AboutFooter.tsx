@@ -3,18 +3,26 @@ import GoogleBadgeIcon from "./AboutGoogleBadge";
 import AppleBadgeIcon from "./AboutAppleBadge";
 import { MediumTitle } from "../../styles/typography.style";
 import { MdOutlineEmail } from "react-icons/md";
+import { contactEmail, device } from "../../utils/constants";
 
-const Footer = () => {
+type Props = {
+  flex?: string;
+};
+
+const Footer = ({ flex }: Props) => {
+  const mailto = `mailto:${contactEmail}`;
   return (
-    <FooterContainer>
+    <FooterContainer flex={flex}>
       <LeftFooter>
         <MediumTitle>Say hello.</MediumTitle>
         <p>As a fellow mountain lover, I'm always happy to chat!</p>
         <EmailBar>
-          <MdOutlineEmail size={30} style={{ marginRight: "20px" }} />
-          <p style={{ marginBottom: 0 }}>
-            <strong>avainfo.net@gmail.com</strong>
-          </p>
+          <a href={mailto}>
+            <MdOutlineEmail size={30} style={{ marginRight: "20px" }} />
+          </a>
+          <span>
+            <strong>{contactEmail}</strong>
+          </span>
         </EmailBar>
       </LeftFooter>
       <RightFooter>
@@ -25,34 +33,55 @@ const Footer = () => {
   );
 };
 
-export const FooterColumn = styled.div`
+export const FooterContainer = styled.div<{ flex?: string }>`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: ${({ flex }) => flex || "auto"};
   background: #d3d3d3;
+  padding: 10px 0px 20px;
+
+  @media screen and (${device.tablet}) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  @media screen and (${device.laptop}) {
+    justify-content: space-evenly;
+  }
 `;
 
-export const FooterBar = styled.div`
+export const EmailBar = styled.div`
   display: flex;
   flex-direction: row;
-  background: #d3d3d3;
-`;
-
-export const FooterContainer = styled(FooterBar)`
-  flex: 0.5;
-`;
-
-export const EmailBar = styled(FooterBar)`
   align-items: center;
 `;
 
-export const LeftFooter = styled(FooterColumn)`
-  flex: 1;
-  margin-left: 35px;
+export const LeftFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0px 40px;
+
+  @media screen and (${device.laptop}) {
+    align-content: center;
+  }
 `;
 
-export const RightFooter = styled(FooterBar)`
-  flex: 1;
-  align-items: center;
+export const RightFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px 20px 0px 30px;
+
+  @media screen and (${device.tablet}) {
+    align-items: center;
+    margin-right: 40px;
+  }
+
+  @media screen and (${device.mobileM}) {
+    flex-direction: row;
+    margin-top: 0px;
+  }
 `;
 
 export default Footer;

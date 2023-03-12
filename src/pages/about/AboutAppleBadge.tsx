@@ -18,13 +18,24 @@ const AppleLink = styled.a`
   border-radius: 13px;
   width: 150px;
   height: auto;
+
+  @media screen and (max-width: 360px) {
+    margin-left: 10px;
+    width: 170px;
+    height: auto;
+  }
 `;
 
 const AppleImg = styled.img`
   border-radius: 13px;
-  width: 150px;
+  width: 155px;
   height: auto;
   margin: 12px 0px;
+
+  @media screen and (max-width: 360px) {
+    width: 170px;
+    height: auto;
+  }
 `;
 
 export default AppleBadgeIcon;

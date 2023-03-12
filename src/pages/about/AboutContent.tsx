@@ -1,13 +1,19 @@
 import styled from "styled-components";
 import Sketch from "../../assets/sketch.jpeg";
 import { MediumTitle } from "../../styles/typography.style";
+import { Wrapper } from "../../styles/pages.style";
+import { device } from "../../utils/constants";
 
 const SIZE = 250;
 
-const Content = () => {
+type Props = {
+  flex?: string;
+};
+
+const Content = ({ flex }: Props) => {
   return (
-    <ContentContainer>
-      <FlexContainer>
+    <ContentContainer flex={flex}>
+      <LeftContent>
         <MediumTitle>About</MediumTitle>
         <SketchContainer>
           <img
@@ -18,9 +24,9 @@ const Content = () => {
             }}
           />
         </SketchContainer>
-      </FlexContainer>
+      </LeftContent>
       <RightContent>
-        <h3>The App</h3>
+        <h3 style={{ marginTop: 26 }}>The App</h3>
         <p>
           Hey, I'm Carla. AvaInfo was inspired by my own love for backcountry
           skiing and my frustration with the limited availability of information
@@ -42,12 +48,16 @@ const Content = () => {
   );
 };
 
-const ContentContainer = styled.div`
+const ContentContainer = styled(Wrapper)<{ flex?: string }>`
   display: flex;
-  flex-direction: row;
-  flex: 0.4;
-  margin: 0px 30px 30px;
-  justify-content: space-around;
+  flex-direction: column;
+  flex: ${({ flex }) => flex || "auto"};
+  margin-bottom: 30px;
+  margin-top: 8px;
+
+  @media screen and (${device.tablet}) {
+    flex-direction: row;
+  }
 `;
 
 const FlexContainer = styled.div`
@@ -56,12 +66,16 @@ const FlexContainer = styled.div`
   flex-direction: column;
 `;
 
+export const LeftContent = styled(FlexContainer)`
+  justify-content: space-between;
+`;
+
 const SketchContainer = styled(FlexContainer)`
-  justify-content: "center";
+  justify-content: center;
 `;
 
 const RightContent = styled(FlexContainer)`
-  padding: 0px 10px;
+  flex: 1;
   margin-top: 20px;
 `;
 

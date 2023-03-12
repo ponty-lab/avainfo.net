@@ -9,17 +9,7 @@ import { ScrollView } from "../../styles/pages.style";
 const About = () => {
   return (
     <AboutPage>
-      <ScrollView
-        style={{
-          height: "calc(100vh - 60px)",
-          marginLeft: 0,
-          marginRight: 0,
-          marginBottom: 0,
-          marginTop: 0,
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      <ScrollView>
         <Hero />
         <Content />
         <Footer />
@@ -39,7 +29,6 @@ const AboutPage = styled.div`
   flex-direction: column;
   flex: 1;
   justify-content: space-between;
-  height: calc(100vh - 60px);
 `;
 
 export const PrivacyLink = styled(Link)`
