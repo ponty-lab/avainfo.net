@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { device } from "../utils/constants";
 
 interface styledNavProps {
   extendNavBar?: boolean;
@@ -16,11 +17,10 @@ export const Nav = styled.nav<styledNavProps>`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  box-shadow: 20px 4px 10px rgba(0, 0, 0, 0.05);
   border-bottom: 1px solid #eaecef;
   z-index: 20;
 
-  @media (min-width: 900px) {
+  @media screen and (${device.tablet}) {
     height: navHeight;
   }
 `;
@@ -36,10 +36,10 @@ export const RightContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-right: 25px;
+  margin-right: 10px;
 
-  @media (max-width: 414px) {
-    margin-right: 10px;
+  @media screen and (${device.mobileM}) {
+    margin-right: 25px;
   }
 `;
 
@@ -47,10 +47,10 @@ export const LeftContainer = styled.div`
   flex: 30%;
   display: flex;
   justify-content: flex-start;
-  margin-left: 20px;
+  margin-left: 10px;
 
-  @media (max-width: 414px) {
-    margin-left: 10px;
+  @media screen and (${device.mobileM}) {
+    margin-right: 20px;
   }
 `;
 
@@ -64,7 +64,7 @@ export const NavLink = styled(Link)`
   font-size: 1.25em;
   text-decoration: none;
   margin: 10px;
-  display: flex;
+  display: none;
   align-items: center;
 
   &:hover {
@@ -72,8 +72,8 @@ export const NavLink = styled(Link)`
     z-index: 1;
   }
 
-  @media (max-width: 900px) {
-    display: none;
+  @media screen and (${device.tablet}) {
+    display: flex;
   }
 `;
 
@@ -105,7 +105,6 @@ export const OpenLinkButton = styled.button<styledNavProps>`
   align-items: center;
   border: none;
   color: ${({ theme }) => theme.colors.primary};
-  //font-size: ${(props) => (props.extendNavBar ? "40px" : "45px")};
   cursor: pointer;
   animation-name: ${(props) => (props.animate ? "spin" : null)};
   animation-direction: ${(props) =>
@@ -127,7 +126,7 @@ export const OpenLinkButton = styled.button<styledNavProps>`
     }
   }
 
-  @media (min-width: 900px) {
+  @media screen and (${device.tablet}) {
     display: none;
   }
 `;
@@ -153,92 +152,11 @@ export const NavbarExtendedContainer = styled.div`
   margin: 10px;
   margin-left: 20px;
 
-  @media (min-width: 900px) {
+  @media screen and (${device.tablet}) {
     display: none;
   }
 `;
 
-// import { FaBars } from "react-icons/fa";
-// import { NavLink as Link } from "react-router-dom";
-// import styled from "styled-components";
-
-// export const Nav = styled.nav`
-//   background-color: rgba(35, 55, 75, 1);
-//   color: #fff;
-//   height: 38px;
-//   display: flex;
-//   justify-content: space-between;
-//   padding: 0.2rem calc((100vw - 1000px) / 2);
-//   z-index: 12;
-// `;
-
-// export const NavLink = styled(Link)`
-//   color: rgba(255, 255, 255, 1);
-//   display: flex;
-//   align-items: center;
-//   text-decoration: none;
-//   padding: 0 1rem;
-//   height: 100%;
-//   cursor: pointer;
-//   position: relative;
-//   transition: all s;
-//   &:after {
-//     position: absolute;
-//     bottom: 0;
-//     left: 0;
-//     right: 0;
-//     margin: auto;
-//     width: 0%;
-//     content: ".";
-//     color: transparent;
-//     background: #aaa;
-//     height: 1px;
-//     text-align: left;
-//     content: ".";
-//     margin: 0;
-//     opacity: 0;
-//   }
-//   &.active {
-//     color: rgba(255, 255, 255, 1);
-//   }
-//   &:hover {
-//     color: rgba(255, 255, 255, 0.5);
-//     z-index: 1;
-//   }
-//   &:hover:after {
-//     width: 100%;
-//     z-index: -10;
 //     animation: fill 1s forwards;
 //     -webkit-animation: fill 1s forwards;
 //     -moz-animation: fill 1s forwards;
-//     opacity: 1;
-//   }
-// `;
-
-// export const Bars = styled(FaBars)`
-//   display: none;
-//   @media screen and (max-width: 768px) {
-//     display: block;
-//     position: absolute;
-//     top: 0;
-//     right: 0;
-//     transform: translate(-100%, 75%);
-//     font-size: 1.8rem;
-//     cursor: pointer;
-//   }
-// `;
-
-// export const NavMenu = styled.div`
-//   color: #fff;
-//   display: flex;
-//   align-items: center;
-//   margin-right: -24px;
-//   /* Second Nav */
-//   /* margin-right: 24px; */
-//   /* Third Nav */
-//   /* width: 100vw;
-//   white-space: nowrap; */
-//   @media screen and (max-width: 768px) {
-//     display: none;
-//   }
-// `;
