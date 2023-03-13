@@ -18,7 +18,7 @@ const Footer: React.FC<FooterProps> = ({ url, pdfURL, source, issuedDate }) => {
     <FooterContainer>
       <Divider />
       <HorizontalBar style={{ justifyContent: "space-between" }}>
-        <Container>
+        <Container style={{ flex: 0.9 }}>
           <a href={url}>
             <ThemedCaption>Source: {source}</ThemedCaption>
           </a>
