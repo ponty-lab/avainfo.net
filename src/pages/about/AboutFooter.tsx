@@ -18,7 +18,7 @@ const Footer = ({ flex }: Props) => {
         <p>As a fellow mountain lover, I'm always happy to chat!</p>
         <EmailBar>
           <a href={mailto}>
-            <MdOutlineEmail size={30} style={{ marginRight: "20px" }} />
+            <MdOutlineEmail size={30} style={{ marginRight: "10px" }} />
           </a>
           <span>
             <strong>{contactEmail}</strong>
