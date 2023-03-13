@@ -20,18 +20,6 @@ export const lightTheme: DefaultTheme = {
     accent: "#F18D39",
     accent2: "#FFD3B5",
     background: "#ffffff",
-    // Mountain-inspired Palette
-    // primary: "#476E6F",
-    // accent: "#FFFFFF",
-    // background: "#D6D6D6",
-    // primary: "#31393C",
-    // background: "#F7F7F7",
-    // accent: "#FFA07A",
-    // accent2: "#00BFFF",
-    // primary: "#005A5B",
-    // background: "#FFFFFF",
-    // accent: "#F18D39",
-    // accent2: "#FFD3B5",
     text: "#0e2127",
   },
   dangerColors: {

@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/global.style";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { lightTheme } from "./styles/theme";
+import { lightTheme } from "./styles/theme.style";
 import Navbar from "./components/navbar/Navbar";
 import Map from "./pages/map";
 import About from "./pages/about";

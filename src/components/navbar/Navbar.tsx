@@ -11,7 +11,7 @@ import {
   OpenLinkButton,
   NavLinkExtended,
   IconContainer,
-} from "../../styles/navbar.style";
+} from "./navbar.style";
 import Icon from "../../assets/logo.png";
 import { GoMarkGithub } from "react-icons/go";
 import { VscChromeClose, VscDebugPause } from "react-icons/vsc";
