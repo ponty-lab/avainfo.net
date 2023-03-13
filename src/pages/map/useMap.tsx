@@ -67,11 +67,10 @@ export const useMap = (container: React.RefObject<HTMLDivElement>) => {
   const [featureId, setFeatureId] = useState<string | null>(null);
   const [tileDate, setTileDate] = useState<string | null>(null);
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
-  const [mapboxTileset, setMapboxTileset] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  let hoveredRegionId: string | null = null;
-  let clickedRegionId: string | null = null;
+  let hoveredRegionId: string | undefined = undefined;
+  let clickedRegionId: string | undefined = undefined;
 
   const popupRef = useRef<mapboxgl.Popup>(
     new mapboxgl.Popup({
@@ -81,38 +80,24 @@ export const useMap = (container: React.RefObject<HTMLDivElement>) => {
     })
   );
 
-  // Fetch the latest tileset date and set the mapbox tileset
-  useEffect(() => {
-    fetchLatestTileDate(URL).then((latestDate) => {
-      const dateString = parse(latestDate, "yyyy-MM-dd", new Date());
-      setTileDate(format(dateString, "dd MMMM yyyy"));
-      setMapboxTileset(`mapbox://avainfo.avalanche-map-en-${latestDate}`);
-    });
-  }, []);
-
   // Initialize the map
   useEffect(() => {
-    let _mapbox_tileset: string | null = null;
-
-    fetchLatestTileDate(URL).then((latestDate) => {
-      const dateString = parse(latestDate, "yyyy-MM-dd", new Date());
-      setTileDate(format(dateString, "dd MMMM yyyy"));
-      _mapbox_tileset = `mapbox://avainfo.avalanche-map-en-${latestDate}`;
-    });
-
+    // Initialize the map
     if (container.current) {
       const map = initMap(container.current);
       setMap(map);
-    }
-  }, []);
 
-  useEffect(() => {
-    if (map && mapboxTileset) {
       map.on("load", async () => {
+        // Fetch the latest tileset date and set the mapbox tileset
+        const latestDate = await fetchLatestTileDate(URL);
+        const dateString = parse(latestDate, "yyyy-MM-dd", new Date());
+        setTileDate(format(dateString, "dd MMMM yyyy"));
+        const _mapbox_tileset = `mapbox://avainfo.avalanche-map-en-${latestDate}`;
+
         // Add tileset data to the map as a layer
         map.addSource(_geojson_source, {
           type: "vector",
-          url: mapboxTileset,
+          url: _mapbox_tileset,
         });
 
         // Add fill layer to the map
@@ -273,7 +258,7 @@ export const useMap = (container: React.RefObject<HTMLDivElement>) => {
               { hover: false }
             );
 
-            hoveredRegionId = null;
+            hoveredRegionId = undefined;
           }
         });
 
@@ -281,7 +266,7 @@ export const useMap = (container: React.RefObject<HTMLDivElement>) => {
         return () => map.remove();
       });
     }
-  }, [mapboxTileset]);
+  }, []);
 
   // Update the paint property of the map trigerred
   // when the active state changes by changeState
@@ -314,7 +299,7 @@ export const useMap = (container: React.RefObject<HTMLDivElement>) => {
         id: featureId,
       });
     }
-    clickedRegionId = null;
+    clickedRegionId = undefined;
     setFeatureId(null);
   };
 
