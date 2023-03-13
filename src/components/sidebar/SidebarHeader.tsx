@@ -51,6 +51,7 @@ const Header: React.FC<Props> = ({ data, onPress, validDate }) => {
 const HeaderView = styled(View)`
   margin-top: 0px;
   padding-top: 10px;
+  z-index: 10;
 
   @media screen and ${device.tablet} {
     position: sticky;
