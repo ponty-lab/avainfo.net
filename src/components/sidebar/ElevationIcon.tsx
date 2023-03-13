@@ -7,20 +7,25 @@ const SIZE = 60;
 
 type IconProps = {
   elevation: any;
+  size?: number;
 };
 
 type TBounds = "middle" | "above" | "below";
 
-export const ElevationIcon: React.FC<IconProps> = ({ elevation }) => {
+export const ElevationIcon: React.FC<IconProps> = ({ elevation, size }) => {
   const [bounds, setBounds] = useState<string>("above");
   const elevationHigh = elevation?.lowerBound?.string;
   const elevationLow = elevation?.upperBound?.string;
+
+  const imgSize = size || SIZE;
 
   useEffect(() => {
     if (elevationHigh && elevationLow) {
       setBounds("middle");
     } else if (elevationLow) {
       setBounds("below");
+    } else if (elevationHigh) {
+      setBounds("above");
     }
   }, [elevationLow, elevationHigh]);
 
@@ -32,8 +37,8 @@ export const ElevationIcon: React.FC<IconProps> = ({ elevation }) => {
     <HorizontalBar>
       <img
         src={WarningLevels[bounds as TBounds].uri}
-        width={`${SIZE * 1.4}px`}
-        height={`${SIZE * 1.2}px`}
+        width={`${imgSize * 1.4}px`}
+        height={`${imgSize * 1.2}px`}
       />
       <ElevationContainer>
         <span>{elevationLow ? `below ${elevationLow}` : ""}</span>
