@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../utils/constants";
 
 interface styledCaptionProps {
   validDate?: boolean;
@@ -26,6 +27,7 @@ export const Label = styled(Caption)`
 
 export const Title = styled.h1`
   color: ${(props) => props.theme.colors.primary};
+  font-size: 32px;
   margin-top: 12px;
   margin-bottom: 12px;
 `;
@@ -40,14 +42,31 @@ export const WhiteText = styled.p`
   margin-top: 12px;
 `;
 
-export const Footer = styled.div`
-  &:before {
-    background: gray;
-    color: #fff;
-    display: block;
-    //font-size: 110%;
-    //font-weight: 700;
-    text-align: center;
-    margin-bottom: 40px;
+export const StyledH2 = styled.h2<{ marginTop?: string }>`
+  margin: 30px 0px 12px;
+  margin-top: ${(props) => props.marginTop};
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 30px;
+  padding-top: 0.2em;
+`;
+
+export const StyledH3 = styled.h3`
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  margin-top: 12px;
+`;
+
+export const StyledUL = styled.ul`
+  margin-left: 0;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem @media and screen and (${device.tablet}) {
+    margin-left: 2.5rem;
   }
+`;
+
+export const StyledLI = styled.li`
+  margin-bottom: 0.5rem;
+  line-height: 1.5em;
 `;

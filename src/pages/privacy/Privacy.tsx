@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Legal from "../../components/legal";
 import { contactEmail } from "../../utils/constants";
 import { ScrollView, Wrapper } from "../../styles/pages.style";
+import { StyledLI, StyledUL } from "../../styles/typography.style";
 
 const Privacy = () => {
   const mailto = `mailto:${contactEmail}`;
@@ -76,13 +77,13 @@ const Privacy = () => {
               collect may include the following:
             </p>
 
-            <ul>
-              <li>
+            <StyledUL>
+              <StyledLI>
                 <b>Personal Information Provided by You.</b> We collect names;
                 email addresses; usernames; passwords; and other similar
                 information.
-              </li>
-            </ul>
+              </StyledLI>
+            </StyledUL>
 
             <p>
               All personal information that you provide to us must be true,
@@ -114,8 +115,8 @@ const Privacy = () => {
               internal analytics and reporting purposes.
             </p>
             <p>The information we collect includes:</p>
-            <ul>
-              <li>
+            <StyledUL>
+              <StyledLI>
                 <i>Log and Usage Data.</i>
                 {"  "}Log and usage data is service-related, diagnostic, usage
                 and performance information our servers automatically collect
@@ -128,8 +129,8 @@ const Privacy = () => {
                 which features you use), device event information (such as
                 system activity, error reports (sometimes called 'crash dumps')
                 and hardware settings).
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <i>Device Data.</i>
                 {"  "}We collect device data such as information about your
                 computer, phone, tablet or other device you use to access the
@@ -138,8 +139,8 @@ const Privacy = () => {
                 device and application identification numbers, location, browser
                 type, hardware model Internet service provider and/or mobile
                 carrier, operating system and system configuration information.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <i>Location Data.</i>
                 {"  "}We collect location data such as information about your
                 device's location, which can be either precise or imprecise. How
@@ -151,8 +152,8 @@ const Privacy = () => {
                 refusing access to the information or by disabling your Location
                 setting on your device. Note however, if you choose to opt out,
                 you may not be able to use certain aspects of the Services.
-              </li>
-            </ul>
+              </StyledLI>
+            </StyledUL>
             <h3>Information collected through our App</h3>
             <Highlight>
               <p>
@@ -167,8 +168,8 @@ const Privacy = () => {
             <p>
               If you use our App, we also collect the following information:
             </p>
-            <ul>
-              <li>
+            <StyledUL>
+              <StyledLI>
                 <i>Geo-Location Information.</i>
                 {"  "}We may request access or permission to and track
                 location-based information from your mobile device, either
@@ -180,8 +181,8 @@ const Privacy = () => {
                 camera, storage, bluetooth, microphone, sensors, and other
                 features. If you wish to change our access or permissions, you
                 may do so in your device's settings.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <i>Mobile Device Data.</i>
                 {"  "}We automatically collect device information (such as your
                 mobile device ID, model and manufacturer), operating system,
@@ -194,8 +195,8 @@ const Privacy = () => {
                 mobile device's operating system or platform, the type of mobile
                 device you use, your mobile device's unique device ID and
                 information about the features of our App you accessed.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <i>Push Notifications.</i>
                 {"  "} We may request to send you push notifications regarding
                 your account or certain features of the App. If you wish to
@@ -204,8 +205,8 @@ const Privacy = () => {
                 primarily needed to maintain the security and operation of our
                 App, for troubleshooting and for our internal analytics and
                 reporting purposes.
-              </li>
-            </ul>
+              </StyledLI>
+            </StyledUL>
 
             <p>
               This information is primarily needed to maintain the security and
@@ -235,8 +236,8 @@ const Privacy = () => {
               we rely on next to each purpose listed below.
             </p>
             <p>We use the information we collect or receive:</p>
-            <ul>
-              <li>
+            <StyledUL>
+              <StyledLI>
                 <b>To facilitate account creation and logon process.</b>
                 {"  "}
                 If you choose to link your account with us to a third-party
@@ -246,8 +247,8 @@ const Privacy = () => {
                 performance of the contract. See the section below headed{" "}
                 <a href="social">"How Do We Handle Your Social Logins"</a> for
                 further information.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>To post testimonials.</b>
                 {"  "}
                 We post testimonials on our Services that may contain personal
@@ -257,75 +258,75 @@ const Privacy = () => {
                 us at <a href={mailto}> {contactEmail} </a> and be sure to
                 include your name, testimonial location, and contact
                 information.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>Request feedback.</b>
                 {"  "}
                 We may use your information to request feedback and to contact
                 you about your use of our Services.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>To enable user-to-user communications.</b>
                 {"  "}
                 We may use your information in order to enable user-to-user
                 communications with each user's consent.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>To manage user accounts.</b>
                 {"  "}
                 We may use your information for the purposes of managing our
                 account and keeping it in working order.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>To send administrative information to you.</b>
                 {"  "}
                 We may use your personal information to send you product,
                 service and new feature information and/or information about
                 changes to our terms, conditions, and policies.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>To protect our Services.</b>
                 {"  "}
                 We may use your information as part of our efforts to keep our
                 Services safe and secure (for example, for fraud monitoring and
                 prevention).
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>
                   To enforce our terms, conditions and policies for business
                   purposes, to comply with legal and regulatory requirements or
                   in connection with our contract.
                 </b>
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>To respond to legal requests and prevent harm.</b> If we
                 receive a subpoena or other legal request, we may need to
                 inspect the data we hold to determine how to respond.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>Fulfill and manage your orders.</b> We may use your
                 information to fulfill and manage your orders, payments,
                 returns, and exchanges made through the Services.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>Administer prize draws and competitions.</b> We may use your
                 information to administer prize draws and competitions when you
                 elect to participate in our competitions.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>
                   To deliver and facilitate delivery of services to the user.
                 </b>{" "}
                 We may use your information to provide you with the requested
                 service.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>To respond to user inquiries/offer support to users.</b> We
                 may use your information to respond to your inquiries and solve
                 any potential issues you might have with the use of our
                 Services.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>For other Business Purposes.</b> We may use your information
                 for other Business Purposes, such as data analysis, identifying
                 usage trends, determining the effectiveness of our promotional
@@ -335,8 +336,8 @@ const Privacy = () => {
                 associated with individual end users and does not include
                 personal information. We will not use identifiable personal
                 information without your consent.
-              </li>
-            </ul>
+              </StyledLI>
+            </StyledUL>
             <h2 id="share">3 | Will Your Information Be Shared With Anyone?</h2>
             <Highlight>
               <p>
@@ -352,26 +353,26 @@ const Privacy = () => {
             <p>
               We may process or share data based on the following legal basis:
             </p>
-            <ul>
-              <li>
+            <StyledUL>
+              <StyledLI>
                 <b>Consent:</b>
                 {"  "}
                 We may process your data if you have given us specific consent
                 to use your personal information in a specific purpose.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>Legitimate Interests:</b>
                 {"  "}
                 We may process your data when it is reasonably necessary to
                 achieve our legitimate business interests.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>Performance of a Contract:</b>
                 {"  "}
                 Where we have entered into a contract with you, we may process
                 your personal information to fulfill the terms of our contract.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>Legal Obligations:</b>
                 {"  "}
                 We may disclose your information where we are legally required
@@ -380,8 +381,8 @@ const Privacy = () => {
                 such as in response to a court order or a subpoena (including in
                 response to public authorities to meet national security or law
                 enforcement requirements).
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>Vital Interests:</b>
                 {"  "}
                 We may disclose your information where we believe it is
@@ -390,22 +391,22 @@ const Privacy = () => {
                 situations involving potential threats to the safety of any
                 person and illegal activities, or as evidence in litigation in
                 which we are involved.
-              </li>
-            </ul>
+              </StyledLI>
+            </StyledUL>
             <p>
               More specifically, we may need to process your data or share your
               personal information in the following situations:
             </p>
-            <ul>
-              <li>
+            <StyledUL>
+              <StyledLI>
                 <b>Business Transfers.</b>
                 {"  "}
                 We may share or transfer your information in connection with, or
                 during negotiations of, any merger, sale of company assets,
                 financing, or acquisition of all or a portion of our business to
                 another company.
-              </li>
-              <li>
+              </StyledLI>
+              <StyledLI>
                 <b>
                   Vendors, Consultants and Other Third-Party Service Providers.
                 </b>
@@ -431,8 +432,8 @@ const Privacy = () => {
                 any organization apart from us. They also commit to protect the
                 data they hold on our behalf and to retain it for the period we
                 instruct.
-              </li>
-            </ul>
+              </StyledLI>
+            </StyledUL>
 
             <h2 id="thirdparty">
               4 | Who Will Your Information Be Shared With?
@@ -455,12 +456,14 @@ const Privacy = () => {
               using the contact details provided in the section below titled{" "}
               <a href="contact">"How Can You Contact Us About This Notice?"</a>.
             </p>
-            <ul>
-              <li>Allow users to Connect To Third-Party Accounts</li>
-              <li>Functionality and Infrastructure Optimization</li>
-              <li>User Account Registration and Authentication</li>
-              <li>Website Hosting and Testing</li>
-            </ul>
+            <StyledUL>
+              <StyledLI>
+                Allow users to Connect To Third-Party Accounts
+              </StyledLI>
+              <StyledLI>Functionality and Infrastructure Optimization</StyledLI>
+              <StyledLI>User Account Registration and Authentication</StyledLI>
+              <StyledLI>Website Hosting and Testing</StyledLI>
+            </StyledUL>
 
             <h2 id="social">5 | How Do We Handle Your Social Logins?</h2>
             <Highlight>
@@ -608,12 +611,14 @@ const Privacy = () => {
               If you would at any time like to review or change the information
               in your account or terminate your account, you can:
             </p>
-            <ul>
-              <li>Contact us using the contact information provided.</li>
-              <li>
+            <StyledUL>
+              <StyledLI>
+                Contact us using the contact information provided.
+              </StyledLI>
+              <StyledLI>
                 Log in to your account settings and update your user account.
-              </li>
-            </ul>
+              </StyledLI>
+            </StyledUL>
             <p>
               Upon your request to terminate your account, we will deactivate or
               delete your account and information from our active databases.
@@ -634,13 +639,15 @@ const Privacy = () => {
               administration and use of your account. To otherwise opt-out, you
               may:
             </p>
-            <ul>
-              <li>Contact us using the contact information provided.</li>
-              <li>
+            <StyledUL>
+              <StyledLI>
+                Contact us using the contact information provided.
+              </StyledLI>
+              <StyledLI>
                 Use the unsubscribe link at the bottom of any marketing emails,
                 newsletters, or other non-essential communications.
-              </li>
-            </ul>
+              </StyledLI>
+            </StyledUL>
 
             <h2 id="donottrack">9 | Controls For Do-Not-Track Features</h2>
             <p>
