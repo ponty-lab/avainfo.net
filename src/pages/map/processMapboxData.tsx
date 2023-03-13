@@ -79,7 +79,7 @@ function processAvalancheProblems(avalancheProblem: any[]) {
             problem.validTimePeriod === "earlier"
               ? `${labels[0]}: `
               : problem.validTimePeriod === "later"
-              ? `${[1]}: `
+              ? `${labels[1]}: `
               : undefined,
         };
       } else return undefined;
@@ -141,8 +141,10 @@ function getRiskByElevation(
           elev: dangerRating.elevation.lowerBound.string,
         };
       } else {
-        // If there is no elevation, dangerRating is the same
-        // for the entire elevation range
+        /*
+        If there is no elevation, dangerRating is the same
+        for the entire elevation range
+        */
         val = {
           dangerRatingAbove: dangerRating.mainValue.numeric,
           dangerRatingBelow: dangerRating.mainValue.numeric,
