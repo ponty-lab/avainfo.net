@@ -16,10 +16,11 @@ const RiskLevel: React.FC<Props> = ({ dangerRatingInfo }) => {
   }
 
   return (
-    <HorizontalBar style={{ marginTop: 30 }}>
-      {dangerRatingInfo.map((info: any) => {
+    <HorizontalBar style={{ marginTop: 10 }}>
+      {dangerRatingInfo.map((info: any, index: number) => {
         return (
           <DangerIcon
+            key={`danger_${index}`}
             risk={info.dualRisk}
             label={info.label}
             timePeriod={info.timePeriod}
@@ -38,7 +39,7 @@ type DangerIconProps = {
 
 const DangerIcon: React.FC<DangerIconProps> = ({ risk, label, timePeriod }) => {
   return (
-    <IconContainer style={{ marginLeft: 15 }}>
+    <IconContainer style={{ marginLeft: "15px" }}>
       <h4>{timePeriod}</h4>
       <HorizontalBar style={{ marginLeft: "15px" }}>
         <img

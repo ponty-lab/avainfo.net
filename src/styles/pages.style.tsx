@@ -54,6 +54,20 @@ export const ScrollView = styled(Container)`
   height: calc(100vh - 60px);
 `;
 
+export const View = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 10px 15px;
+
+  @media screen and (${device.mobileL}) {
+    margin: 10px 30px;
+  }
+
+  @media screen and (${device.tablet}) {
+    margin: 10px 20px;
+  }
+`;
+
 export const Wrapper = styled.div`
   padding: 0 40px;
   margin-top: 42px;

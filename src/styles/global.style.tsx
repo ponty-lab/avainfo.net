@@ -52,18 +52,16 @@ export default createGlobalStyle`
     }
 
     ul {
-        margin-left: 0;
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem
-
-        @media and screen and (${device.tablet}) {
-            margin-left: 2.5rem;
-        }
+        padding-inline-start: 17px;
+        margin-top: 0px;
     }
 
     li {
-         margin-bottom: 0.5rem;
-         line-height: 1.5em;
+        margin-top: 6px;
+        margin-bottom: 6px;
+        font-size: 16px;
+        line-height: 22px;
+        word-wrap: break-word;
     }
 
     a {

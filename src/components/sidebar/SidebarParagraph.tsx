@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { Container } from "../../styles/pages.style";
+import { StyledH2 } from "../../styles/typography.style";
 
 type SummaryProps = {
   title?: string;
@@ -14,7 +15,7 @@ const Paragraph: React.FC<SummaryProps> = ({ title, content, marginTop }) => {
 
   return (
     <Container>
-      {title ? <h2 style={{ marginTop }}>{title}</h2> : null}
+      {title ? <StyledH2 marginTop={`${marginTop}px`}>{title}</StyledH2> : null}
       <p dangerouslySetInnerHTML={{ __html: content }} />
     </Container>
   );

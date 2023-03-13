@@ -22,7 +22,9 @@ const Footer: React.FC<FooterProps> = ({ url, pdfURL, source, issuedDate }) => {
           <a href={url}>
             <ThemedCaption>Source: {source}</ThemedCaption>
           </a>
-          {date ? <Label>Issued on: {date}</Label> : null}
+          {date ? (
+            <Label style={{ fontSize: 12 }}>Issued on: {date}</Label>
+          ) : null}
         </Container>
         <a href={pdfURL}>
           <PDFButton className="fa fa-file-pdf-o" />

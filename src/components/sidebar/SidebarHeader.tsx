@@ -1,10 +1,11 @@
 import React, { MouseEventHandler, memo } from "react";
 import styled from "styled-components";
 import { ThemedCaption, Title } from "../../styles/typography.style";
-import { HorizontalBar, Divider } from "../../styles/pages.style";
+import { HorizontalBar, Divider, View } from "../../styles/pages.style";
 import { formatDate } from "../../utils/formatDate";
 import { hexToRGB } from "../../utils/hexToRGB";
 import AvaColors from "../../styles/colors.style";
+import { device } from "../../utils/constants";
 
 type Props = {
   data: any;
@@ -33,7 +34,7 @@ const Header: React.FC<Props> = ({ data, onPress, validDate }) => {
     : "No Danger Rating";
 
   return (
-    <HeaderContainer>
+    <HeaderView>
       <HorizontalBar style={{ justifyContent: "flex-end" }}>
         <CloseButton onClick={onPress} />
       </HorizontalBar>
@@ -43,17 +44,18 @@ const Header: React.FC<Props> = ({ data, onPress, validDate }) => {
         <DangerText level={level}>{text}</DangerText>
       </DangerBanner>
       <Divider />
-    </HeaderContainer>
+    </HeaderView>
   );
 };
 
-const HeaderContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-right: 15px;
+const HeaderView = styled(View)`
+  margin-top: 0px;
+  padding-top: 10px;
 
-  @media (max-width: 768px) {
-    margin-right: 0px;
+  @media screen and ${device.tablet} {
+    position: sticky;
+    top: 0;
+    background: white;
   }
 `;
 

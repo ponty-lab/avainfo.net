@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { Container, HorizontalBar, Icon } from "../../styles/pages.style";
 import { toTitleCase } from "../../utils/toTitleCase";
 import { TWeather } from "../../models";
+import { StyledH2, StyledH3 } from "../../styles/typography.style";
 
 type WeatherProps = {
   weather: TWeather[] | undefined;
@@ -22,30 +23,33 @@ const Weather: React.FC<WeatherProps> = ({ weather }) => {
 
   return (
     <div>
-      <h2>Weather</h2>
+      <StyledH2>Weather</StyledH2>
       {weather.map((w, index: number) => {
         return (
           <div key={`div_${index}`} style={{ marginBottom: 12 }}>
-            <h3>{w.highlight}</h3>
+            <StyledH3>{w.highlight}</StyledH3>
             <p>{w.comment}</p>
             {conditions.map((key, index: number) => {
               const value = w[key];
               if (value !== "-") {
                 return (
-                  <HorizontalBar key={`conditionsbar_${index}`}>
-                    <Icon
-                      className={`${icons[key]}`}
-                      size="20px"
-                      color="theme"
-                      marginTop="2px"
-                    />
-                    <Container>
+                  <Container key={`conditionscontainer_${index}`}>
+                    <HorizontalBar key={`conditionsbar_${index}`}>
+                      <Icon
+                        className={`${icons[key]}`}
+                        size="20px"
+                        color="theme"
+                        marginTop="2px"
+                      />
                       <p>
                         <strong>{toTitleCase(key)}</strong>
                       </p>
-                      <p dangerouslySetInnerHTML={{ __html: value }} />
-                    </Container>
-                  </HorizontalBar>
+                    </HorizontalBar>
+                    <p
+                      style={{ marginLeft: 15 }}
+                      dangerouslySetInnerHTML={{ __html: value }}
+                    />
+                  </Container>
                 );
               }
             })}

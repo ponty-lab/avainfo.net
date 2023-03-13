@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 import { TRiskTrend } from "../../models";
-import { Caption } from "../../styles/typography.style";
+import { Caption, StyledH3 } from "../../styles/typography.style";
 import { Icon, IconContainer } from "../../styles/pages.style";
 import { toTitleCase } from "../../utils/toTitleCase";
 import { formatDate } from "../../utils/formatDate";
@@ -34,16 +34,16 @@ const Tendency: React.FC<Props> = ({ tendency, validDate }) => {
   }
 
   return (
-    <IconContainer>
-      <h3> TENDENCY: {trendDate}</h3>
+    <IconContainer style={{ marginTop: 15 }}>
+      <StyledH3> TENDENCY: {trendDate}</StyledH3>
       <TendencyIconContainer>
         <Icon
           rotate={RiskTrend[trendData]}
           className="fa fa-arrow-right-long"
           size="36px"
-          style={{ flex: 0.3 }}
+          style={{ flex: 0.25 }}
         />
-        <Caption style={{ flex: 0.7 }}>
+        <Caption style={{ flex: 0.85 }}>
           {toTitleCase(trendData)} avalanche danger
         </Caption>
       </TendencyIconContainer>

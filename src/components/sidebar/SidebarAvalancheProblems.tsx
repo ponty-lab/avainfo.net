@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ExpositionIcon from "./ExpositionIcon";
 import { ElevationIcon } from "./ElevationIcon";
 import { Container, ImgContainer } from "../../styles/pages.style";
-import { Label } from "../../styles/typography.style";
+import { Label, StyledH2 } from "../../styles/typography.style";
 import { TAvalancheProblem } from "../../models";
 
 const SIZE = 36;
@@ -21,11 +21,11 @@ const AvalancheProblems: React.FC<Props> = ({ problems }) => {
 
   return (
     <AvalancheContainer>
-      <h2>Avalanche Problems</h2>
+      <StyledH2 style={{ marginBottom: 0 }}>Avalanche Problems</StyledH2>
       <>
         {problems.map((problem, index: number) => {
           return (
-            <Container key={`problem_${index}`}>
+            <Container style={{ marginLeft: 10 }} key={`problem_${index}`}>
               <AvalancheLabel>
                 {problem.labelDay} {problem.labelType}
               </AvalancheLabel>
@@ -34,7 +34,7 @@ const AvalancheProblems: React.FC<Props> = ({ problems }) => {
                   <img src={problem.uri} width={imgSize} height={imgSize} />
                 </ImgContainer>
                 <ExpositionIcon aspects={problem.aspects} size={imgSize} />
-                <ElevationIcon elevation={problem.elevation} />
+                <ElevationIcon elevation={problem.elevation} size={SIZE} />
               </AvalancheBar>
             </Container>
           );
@@ -49,7 +49,7 @@ const AvalancheContainer = styled.div`
 `;
 
 const AvalancheLabel = styled(Label)`
-  margin-top: 10;
+  margin: 20px 0px 10px;
 `;
 
 const AvalancheBar = styled.div`

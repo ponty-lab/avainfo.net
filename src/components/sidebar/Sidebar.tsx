@@ -11,6 +11,7 @@ import Stability from "./SidebarStability";
 import Tendency from "./SidebarTendency";
 import RiskLevel from "./SidebarRiskLevel";
 import Paragraph from "./SidebarParagraph";
+import { device } from "../../utils/constants";
 
 type Props = {
   data: Record<string, any> | null;
@@ -43,9 +44,9 @@ const Sidebar: React.FC<Props> = ({ data, onPress, visible }) => {
   return (
     <SidebarContainer show={visible}>
       <SideBarView validDate={validDate}>
-        <Header data={data} onPress={onPress} validDate={validDate} />
-        {validDate ? (
-          <ScrollView ref={scrollRef}>
+        <ScrollView ref={scrollRef}>
+          <Header data={data} onPress={onPress} validDate={validDate} />
+          {validDate ? (
             <View>
               <HorizontalBar style={{ flex: 0 }}>
                 <ColorColumn dangerColor={dangerColor} />
@@ -74,8 +75,8 @@ const Sidebar: React.FC<Props> = ({ data, onPress, visible }) => {
                 source={data?.source}
               />
             </View>
-          </ScrollView>
-        ) : null}
+          ) : null}
+        </ScrollView>
       </SideBarView>
     </SidebarContainer>
   );
@@ -109,49 +110,38 @@ const fadeIn = keyframes`
 
 const SidebarContainer = styled.div<{ show: boolean }>`
   display: flex;
+  flex: 1;
   flex-direction: column;
   background-color: ${(props) => props.theme.colors.background};
   position: absolute;
-  top: 15px;
-  left: 15px;
-  width: 380px;
-  border-radius: 4px 4px;
+  width: 100%;
+  border-radius: 0px;
+  top: 0px;
+  left: 0px;
   animation: ${(props) => (props.show ? fadeIn : fadeOut)} 1000ms 1 forwards;
   z-index: 2;
 
-  @media (max-width: 768px) {
-    width: 100vw;
-    border-radius: 0px;
-    top: 0px;
-    left: 0px;
+  @media screen and (${device.tablet}) {
+    top: 15px;
+    left: 15px;
+    width: 380px;
+    border-radius: 4px 4px;
   }
 `;
 
-const SideBarView = styled(View)<{ validDate: Date | undefined }>`
-  height: ${(props) => (props.validDate ? "calc(100vh - 115px)" : "auto")};
-  margin: 10px 0px 10px 20px;
-
-  @media (max-width: 768px && min-width: 414px) {
-    margin: 10px 70px;
-  }
-
-  @media (max-width: 414px) {
-    margin: 10px 15px 10px 20px;
-  }
-
-  @media (max-width: 768px) {
-    height: auto;
-  }
-`;
-
-export const ScrollView = styled.div`
+const SideBarView = styled.div<{ validDate: Date | undefined }>`
   display: flex;
-  margin: 0px 0px 20px;
-  overflow-y: auto;
+  flex-direction: column;
+  margin-bottom: 20px;
+  height: ${(props) => (props.validDate ? "calc(100vh - 60px)" : "auto")};
 
-  @media (max-width: 768px) {
-    margin: 0px 0px 0px;
+  @media screen and (${device.tablet}) {
+    height: ${(props) => (props.validDate ? "calc(100vh - 110px)" : "auto")};
   }
+`;
+
+const ScrollView = styled.div`
+  overflow-y: auto;
 `;
 
 export default memo(Sidebar);
