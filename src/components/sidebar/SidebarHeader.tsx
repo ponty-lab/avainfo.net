@@ -56,7 +56,7 @@ const HeaderView = styled(View)`
   @media screen and ${device.tablet} {
     position: sticky;
     top: 0;
-    background: white;
+    background: ${(props) => props.theme.colors.background};
   }
 `;
 
