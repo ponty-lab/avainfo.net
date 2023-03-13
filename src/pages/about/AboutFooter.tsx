@@ -80,7 +80,7 @@ export const RightFooter = styled.div`
 
   @media screen and (${device.mobileM}) {
     flex-direction: row;
-    margin-top: 0px;
+    margin-top: 10px;
   }
 `;
 
