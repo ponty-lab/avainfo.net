@@ -6,7 +6,7 @@ import Sidebar from "../../components/sidebar";
 import DateLoadingIndicator from "./MapDateLoadingIndicator";
 
 const Map: React.FC = () => {
-  const mapContainer = useRef<HTMLDivElement>(null);
+  const mapContainer = useRef<HTMLDivElement | null>(null);
 
   const {
     tileDate,
