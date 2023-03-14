@@ -4,6 +4,7 @@ import { Label, ThemedCaption } from "../../styles/typography.style";
 import { formatDate } from "../../utils/formatDate";
 import styled from "styled-components";
 import { hexToRGB } from "../../utils/hexToRGB";
+import { FaFilePdf } from "react-icons/fa";
 
 type FooterProps = {
   url: string;
@@ -13,6 +14,7 @@ type FooterProps = {
 };
 
 const Footer: React.FC<FooterProps> = ({ url, pdfURL, source, issuedDate }) => {
+  const pdfSize = 40;
   const date = formatDate(issuedDate, "gmt");
   return (
     <FooterContainer>
@@ -27,7 +29,7 @@ const Footer: React.FC<FooterProps> = ({ url, pdfURL, source, issuedDate }) => {
           ) : null}
         </Container>
         <a href={pdfURL}>
-          <PDFButton className="fa fa-file-pdf-o" />
+          <PDFButton size={pdfSize} />
         </a>
       </HorizontalBar>
     </FooterContainer>
@@ -44,19 +46,14 @@ const FooterContainer = styled.div`
   }
 `;
 
-const PDFButton = styled.i`
-  background-color: ${(props) => hexToRGB(props.theme.colors.accent, "1")};
-  border: none;
-  color: white;
-  padding: 12px 16px;
-  font-size: 16px;
-  border-radius: 4px;
+const PDFButton = styled(FaFilePdf)`
+  color: ${(props) => hexToRGB(props.theme.colors.accent, "1")};
   margin: 15px 0px 0px 0px;
   cursor: pointer;
 
-  /* Darker background on mouse-over */
+  /* Lighter color on mouse-over */
   &:hover {
-    background-color: ${(props) => props.theme.colors.accent};
+    color: ${(props) => hexToRGB(props.theme.colors.accent, "0.8")};
   }
 `;
 

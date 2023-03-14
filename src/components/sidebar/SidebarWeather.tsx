@@ -1,21 +1,33 @@
 import React, { memo } from "react";
-import { Container, HorizontalBar, Icon } from "../../styles/pages.style";
+import styled, { useTheme } from "styled-components";
+import { Container, HorizontalBar } from "../../styles/pages.style";
 import { toTitleCase } from "../../utils/toTitleCase";
-import { TWeather } from "../../models";
+import { TWeather, TWeatherCondition } from "../../models";
 import { StyledH2, StyledH3 } from "../../styles/typography.style";
+import { WiSnow, WiThermometer, WiWindy } from "react-icons/wi";
 
 type WeatherProps = {
   weather: TWeather[] | undefined;
 };
 
-const Weather: React.FC<WeatherProps> = ({ weather }) => {
-  const conditions: (keyof TWeather)[] = ["snow", "wind", "temp"];
+function WeatherIcon({ condition }: { condition: TWeatherCondition }) {
+  const theme = useTheme();
+  const color = theme.colors.primary;
+  const size = 35;
 
-  const icons: Record<string, string> = {
-    snow: "fa-regular fa-snowflake",
-    wind: "fa-solid fa-wind",
-    temp: "fa-solid fa-temperature-half",
-  };
+  if (condition === "snow") {
+    return <WiSnow size={size} color={color} />;
+  } else if (condition === "wind") {
+    return <WiWindy size={size} color={color} />;
+  } else if (condition === "temp") {
+    return <WiThermometer size={size} color={color} />;
+  } else {
+    return null;
+  }
+}
+
+const Weather: React.FC<WeatherProps> = ({ weather }) => {
+  const conditions: TWeatherCondition[] = ["snow", "wind", "temp"];
 
   if (!weather) {
     return null;
@@ -26,38 +38,64 @@ const Weather: React.FC<WeatherProps> = ({ weather }) => {
       <StyledH2>Weather</StyledH2>
       {weather.map((w, index: number) => {
         return (
-          <div key={`div_${index}`} style={{ marginBottom: 12 }}>
+          <WeatherContainer key={`div_${index}`}>
             <StyledH3>{w.highlight}</StyledH3>
             <p>{w.comment}</p>
-            {conditions.map((key, index: number) => {
-              const value = w[key];
+            {conditions.map((condition, index: number) => {
+              const value = w[condition];
               if (value !== "-") {
                 return (
                   <Container key={`conditionscontainer_${index}`}>
-                    <HorizontalBar key={`conditionsbar_${index}`}>
-                      <Icon
-                        className={`${icons[key]}`}
-                        size="20px"
-                        color="theme"
-                        marginTop="2px"
-                      />
-                      <p>
-                        <strong>{toTitleCase(key)}</strong>
-                      </p>
-                    </HorizontalBar>
-                    <p
-                      style={{ marginLeft: 15 }}
+                    <IconBar>
+                      <WeatherIcon condition={condition} />
+                      <IconTitle>{toTitleCase(condition)}</IconTitle>
+                    </IconBar>
+                    <Paragraph
                       dangerouslySetInnerHTML={{ __html: value }}
+                      condition={condition}
                     />
                   </Container>
                 );
               }
+              return null;
             })}
-          </div>
+          </WeatherContainer>
         );
       })}
     </div>
   );
 };
+
+const IconBar = styled(HorizontalBar)`
+  align-items: center;
+  margin-bottom: 12px;
+`;
+
+const IconTitle = styled.span`
+  margin-left: 10px;
+  font-weight: 700;
+`;
+
+const Paragraph = styled.p<{ condition: TWeatherCondition }>`
+  margin-left: 10px;
+
+  & > ul {
+    margin-left: ${(props) => (props.condition === "temp" ? "5px" : "10px")};
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+    & > li {
+      margin-top: 12px;
+
+      &:first-child {
+        margin-top: ${(props) => (props.condition === "temp" ? "0px" : "12px")};
+      }
+    }
+  }
+`;
+
+const WeatherContainer = styled.div`
+  margin-bottom: 12px;
+`;
 
 export default memo(Weather);
