@@ -45,6 +45,7 @@ const DangerIcon: React.FC<DangerIconProps> = ({ risk, label, timePeriod }) => {
         <img
           src={WarningLevels[risk].uri}
           style={{ width: SIZE * 1.2, height: SIZE }}
+          alt="DangerRating Icon"
         />
         {label ? (
           <ElevationContainer>

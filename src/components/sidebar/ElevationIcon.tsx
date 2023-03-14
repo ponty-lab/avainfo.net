@@ -39,6 +39,7 @@ export const ElevationIcon: React.FC<IconProps> = ({ elevation, size }) => {
         src={WarningLevels[bounds as TBounds].uri}
         width={`${imgSize * 1.4}px`}
         height={`${imgSize * 1.2}px`}
+        alt="Elevation Icon"
       />
       <ElevationContainer>
         <span>{elevationLow ? `below ${elevationLow}` : ""}</span>

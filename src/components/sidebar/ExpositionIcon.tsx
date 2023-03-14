@@ -21,6 +21,7 @@ const ExpositionIcon = ({ aspects, size }: Props) => {
           width={size}
           height={size}
           style={{ position: "absolute" }}
+          alt="Exposition Icon"
         />
       );
     })
@@ -34,6 +35,7 @@ const ExpositionIcon = ({ aspects, size }: Props) => {
         height={size}
         width={size}
         style={{ position: "absolute" }}
+        alt="Exposition Icon"
       />
     </ImgContainer>
   );

@@ -31,7 +31,12 @@ const AvalancheProblems: React.FC<Props> = ({ problems }) => {
               </AvalancheLabel>
               <AvalancheBar>
                 <ImgContainer size={imgSize}>
-                  <img src={problem.uri} width={imgSize} height={imgSize} />
+                  <img
+                    src={problem.uri}
+                    width={imgSize}
+                    height={imgSize}
+                    alt="AvalancheProblem Icon"
+                  />
                 </ImgContainer>
                 <ExpositionIcon aspects={problem.aspects} size={imgSize} />
                 <ElevationIcon elevation={problem.elevation} size={SIZE} />
@@ -45,7 +50,7 @@ const AvalancheProblems: React.FC<Props> = ({ problems }) => {
 };
 
 const AvalancheContainer = styled.div`
-  margin-bottom: 18;
+  margin-bottom: 18px;
 `;
 
 const AvalancheLabel = styled(Label)`
@@ -55,8 +60,8 @@ const AvalancheLabel = styled(Label)`
 const AvalancheBar = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 10;
-  margin-left: 15;
+  margin-top: 10px;
+  margin-left: 15px;
 `;
 
 export default memo(AvalancheProblems);

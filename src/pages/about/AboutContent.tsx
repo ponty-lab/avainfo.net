@@ -22,6 +22,7 @@ const Content = ({ flex }: Props) => {
               width: SIZE * 1.32,
               height: SIZE,
             }}
+            alt="Sketch of man ski-touring"
           />
         </SketchContainer>
       </LeftContent>
