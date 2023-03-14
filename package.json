@@ -4,7 +4,6 @@
   "homepage": "https://ponty-lab.github.io",
   "private": true,
   "dependencies": {
-    "@primer/octicons-react": "^17.5.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -17,14 +16,21 @@
     "react-loader-spinner": "^5.3.4",
     "react-markdown": "^8.0.3",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
+    "source-map-explorer": "^2.5.3",
     "styled-components": "^5.3.5",
-    "typescript": "^4.8.2",
+    "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsxjson,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "predeploy": "yarn run build",
     "serve": "serve -s build",
     "deploy": "gh-pages -d build",
@@ -39,11 +45,20 @@
       "react-app/jest"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "not safari < 10",
+      "not chrome < 51",
+      "not android < 5",
+      "not ie < 12"
     ],
     "development": [
       "last 1 chrome version",
@@ -52,15 +67,17 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^29.0.0",
+    "@types/jest": "^27.0.1",
     "@types/mapbox-gl": "^2.7.5",
-    "@types/node": "^18.7.14",
-    "@types/react": "^18.0.18",
-    "@types/react-dom": "^18.0.6",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "@types/styled-components": "^5.1.26",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "gh-pages": "^4.0.0",
-    "prettier": "^2.7.1"
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.4"
   }
 }
