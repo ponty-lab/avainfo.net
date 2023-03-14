@@ -5,7 +5,6 @@ declare module "styled-components" {
     colors: {
       primary: string;
       accent: string;
-      accent2?: string;
       background: string;
       text: string;
     };
@@ -18,7 +17,6 @@ export const lightTheme: DefaultTheme = {
     //AvaInfo theme colors
     primary: "#286882",
     accent: "#F18D39",
-    accent2: "#FFD3B5",
     background: "#ffffff",
     text: "#0e2127",
   },
