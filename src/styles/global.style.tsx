@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import { device } from "../utils/constants";
 
 export default createGlobalStyle`
 
@@ -16,7 +15,6 @@ export default createGlobalStyle`
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        overflow-y: hidden;
     }
 
     /* Typography */
