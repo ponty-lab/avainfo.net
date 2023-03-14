@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
-import { initMap } from "../../utils/initMap";
 import AvaColors from "../../styles/colors.style";
 import fetchLatestTileDate from "../../api";
 import { format, parse } from "date-fns";
@@ -15,44 +14,49 @@ const _layer_name = "avalanche-danger-ratings";
 const URL =
   "https://us-central1-avainfo-net.cloudfunctions.net/fetchLatestTilesetDate";
 
-const paintColor = [
-  "case",
-  ["boolean", ["feature-state", "click"], false],
-  "rgba(0,0,0,0.5)",
-  ["boolean", ["feature-state", "hover"], false],
-  "rgba(0,0,0,0.3)",
-  [
-    "interpolate",
-    ["linear"],
-    ["get", "maxDangerRating_earlier_numeric"],
-    -1,
-    AvaColors["-1"],
-    1,
-    AvaColors["1"],
-    2,
-    AvaColors["2"],
-    3,
-    AvaColors["3"],
-    4,
-    AvaColors["4"],
-    5,
-    AvaColors["5"],
-  ],
-];
+const paintColor = (property: string) => {
+  return [
+    "case",
+    ["boolean", ["feature-state", "click"], false],
+    "rgba(0,0,0,0.5)",
+    ["boolean", ["feature-state", "hover"], false],
+    "rgba(0,0,0,0.3)",
+    [
+      "interpolate",
+      ["linear"],
+      ["get", `maxDangerRating_${property}_numeric`],
+      -1,
+      AvaColors["-1"],
+      1,
+      AvaColors["1"],
+      2,
+      AvaColors["2"],
+      3,
+      AvaColors["3"],
+      4,
+      AvaColors["4"],
+      5,
+      AvaColors["5"],
+    ],
+  ];
+};
 
 type OptionProps = {
   name: string;
   property: string;
+  paint: any;
 };
 
 const options: OptionProps[] = [
   {
     name: "AM",
     property: "earlier",
+    paint: paintColor("earlier"),
   },
   {
     name: "PM",
     property: "later",
+    paint: paintColor("later"),
   },
 ];
 
@@ -61,17 +65,19 @@ const PopupDescription = (feature: any) => {
   return `${property.regionName} | ${property.maxDangerRating_allDay_string}`;
 };
 
-export const useMap = (container: React.RefObject<HTMLDivElement>) => {
+export const useMap = (
+  mapContainer: React.RefObject<HTMLDivElement | null>
+) => {
   const [active, setActive] = useState<OptionProps>(options[0]);
   const [bulletin, setBulletin] = useState<Record<string, any> | null>(null);
   const [featureId, setFeatureId] = useState<string | null>(null);
   const [tileDate, setTileDate] = useState<string | null>(null);
-  const [map, setMap] = useState<mapboxgl.Map | null>(null);
+  const [baseMap, setBaseMap] = useState<mapboxgl.Map | null>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [mapReady, setBaseMapReady] = useState<boolean>(false);
 
-  let hoveredRegionId: string | undefined = undefined;
-  let clickedRegionId: string | undefined = undefined;
-
+  let hoveredRegionId = useRef<string | undefined>(undefined);
+  let clickedRegionId = useRef<string | undefined>(undefined);
   const popupRef = useRef<mapboxgl.Popup>(
     new mapboxgl.Popup({
       className: "ava-popup",
@@ -80,12 +86,31 @@ export const useMap = (container: React.RefObject<HTMLDivElement>) => {
     })
   );
 
-  // Initialize the map
+  type MapProps = {
+    setBaseMap: React.Dispatch<React.SetStateAction<mapboxgl.Map | null>>;
+    mapContainer: React.RefObject<HTMLDivElement | null>;
+  };
+
   useEffect(() => {
-    // Initialize the map
-    if (container.current) {
-      const map = initMap(container.current);
-      setMap(map);
+    const initialiseMap = ({ setBaseMap, mapContainer }: MapProps) => {
+      const sw = new mapboxgl.LngLat(-2, 37);
+      const ne = new mapboxgl.LngLat(20, 49);
+      const llb: mapboxgl.LngLatBounds = new mapboxgl.LngLatBounds(sw, ne);
+      const map = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: "mapbox://styles/mapbox/light-v10?optimize=true",
+        pitchWithRotate: false,
+        dragRotate: false,
+        center: llb.getCenter(),
+        bounds: llb,
+        accessToken: process.env.REACT_APP_MAPBOX_TOKEN,
+      });
+
+      map.on("load", () => {
+        setBaseMap(map);
+        map.touchZoomRotate.disableRotation();
+        map.resize();
+      });
 
       map.on("load", async () => {
         // Fetch the latest tileset date and set the mapbox tileset
@@ -142,7 +167,8 @@ export const useMap = (container: React.RefObject<HTMLDivElement>) => {
         });
 
         // Set the paint color
-        map.setPaintProperty(__id, "fill-color", paintColor);
+        map.setPaintProperty(__id, "fill-color", paintColor("earlier"));
+        setBaseMapReady(true);
 
         // Check if the user has clicked on a region.
         map.on("click", __id, (e: any) => {
@@ -159,26 +185,25 @@ export const useMap = (container: React.RefObject<HTMLDivElement>) => {
 
               // Process the polygon feature data into a JSON object and set modal state
               const data = processMapboxData(feature.properties);
-              console.log("bulletin: ", data);
               setBulletin(data);
               setModalOpen(true);
 
               // Remove the previous feature state
-              if (clickedRegionId) {
+              if (clickedRegionId.current) {
                 map.removeFeatureState({
                   source: _geojson_source,
                   sourceLayer: _layer_name,
-                  id: clickedRegionId,
+                  id: clickedRegionId.current,
                 });
               }
 
               // Set the new feature state
-              clickedRegionId = feature.id;
+              clickedRegionId.current = feature.id;
               map.setFeatureState(
                 {
                   source: _geojson_source,
                   sourceLayer: _layer_name,
-                  id: clickedRegionId,
+                  id: clickedRegionId.current,
                 },
                 { click: true }
               );
@@ -189,11 +214,11 @@ export const useMap = (container: React.RefObject<HTMLDivElement>) => {
 
         map.on("click", (e: any) => {
           if (e.defaultPrevented === false) {
-            if (clickedRegionId) {
+            if (clickedRegionId.current) {
               map.removeFeatureState({
                 source: _geojson_source,
                 sourceLayer: _layer_name,
-                id: clickedRegionId,
+                id: clickedRegionId.current,
               });
             }
           }
@@ -209,24 +234,24 @@ export const useMap = (container: React.RefObject<HTMLDivElement>) => {
             const feature = e.features[0];
 
             // Remove the previous feature state
-            if (hoveredRegionId) {
+            if (hoveredRegionId.current) {
               map.setFeatureState(
                 {
                   source: _geojson_source,
                   sourceLayer: _layer_name,
-                  id: hoveredRegionId,
+                  id: hoveredRegionId.current,
                 },
                 { hover: false }
               );
             }
 
             // Set the new feature state
-            hoveredRegionId = feature.id;
+            hoveredRegionId.current = feature.id;
             map.setFeatureState(
               {
                 source: _geojson_source,
                 sourceLayer: _layer_name,
-                id: hoveredRegionId,
+                id: hoveredRegionId.current,
               },
               { hover: true }
             );
@@ -248,38 +273,36 @@ export const useMap = (container: React.RefObject<HTMLDivElement>) => {
 
           // Remove the popup
           popupRef.current.remove();
-          if (hoveredRegionId) {
+          if (hoveredRegionId.current) {
             map.setFeatureState(
               {
                 source: _geojson_source,
                 sourceLayer: _layer_name,
-                id: hoveredRegionId,
+                id: hoveredRegionId.current,
               },
               { hover: false }
             );
 
-            hoveredRegionId = undefined;
+            hoveredRegionId.current = undefined;
           }
         });
-
-        // cleanup function to remove the map
-        return () => map.remove();
       });
+    };
+    if (!baseMap) initialiseMap({ setBaseMap, mapContainer });
+  }, [baseMap, mapContainer]);
+
+  // Function to update the paint property of the map
+  const paint = useCallback(() => {
+    if (baseMap && mapReady) {
+      baseMap.setPaintProperty(__id, "fill-color", active.paint);
     }
-  }, []);
+  }, [baseMap, active.paint, mapReady]);
 
   // Update the paint property of the map trigerred
   // when the active state changes by changeState
   useEffect(() => {
     paint();
-  }, [active]);
-
-  // Function to update the paint property of the map
-  const paint = () => {
-    if (map) {
-      map.setPaintProperty(__id, "fill-color", paintColor);
-    }
-  };
+  }, [active, paint]);
 
   // Callback for when the user toggles between AM and PM
   // danger ratings
@@ -293,13 +316,13 @@ export const useMap = (container: React.RefObject<HTMLDivElement>) => {
 
     // Remove the click state from the map
     if (featureId) {
-      map.removeFeatureState({
+      baseMap.removeFeatureState({
         source: _geojson_source,
         sourceLayer: _layer_name,
         id: featureId,
       });
     }
-    clickedRegionId = undefined;
+    clickedRegionId.current = undefined;
     setFeatureId(null);
   };
 
