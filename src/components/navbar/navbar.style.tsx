@@ -86,10 +86,12 @@ export const NavLinkExtended = styled(Link)`
 `;
 
 export const Logo = styled.img`
+  display: block;
   margin: 10px 10px;
-  width: 120px;
-  height: 38px;
   max-width: 125px;
+  max-height: 40px;
+  width: auto;
+  height: auto;
 
   &:hover {
     text-decoration: underline;
