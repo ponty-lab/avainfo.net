@@ -6,7 +6,6 @@ type tBulletinMapbox = Record<string, string>;
 
 export function processMapboxData(report: tBulletinMapbox) {
   const bulletin = bulletinFromMapboxTileset(report);
-  console.log("bulletin", bulletin);
   try {
     return {
       ...bulletin,
