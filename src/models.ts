@@ -68,11 +68,9 @@ export type TStability = {
   highlight: string;
 };
 
-export type TWeather = TStability & {
-  snow: string;
-  wind: string;
-  temp: string;
-};
+export type TWeatherCondition = "snow" | "wind" | "temp";
+
+export type TWeather = TStability & Record<TWeatherCondition, string>;
 
 export type TAvalancheProblem = {
   type: TProblemType;
