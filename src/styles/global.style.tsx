@@ -15,6 +15,7 @@ export default createGlobalStyle`
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        overflow-y: hidden;
     }
 
     /* Typography */
