@@ -17,8 +17,8 @@ const Stability: React.FC<Props> = ({ stability }) => {
       <StyledH2>Snow Stability</StyledH2>
       {stability.map((activity, index: number) => (
         <div key={`stability_${index}`}>
-          {activity.highlight ? (
-            <StyledH3 key={`h3_${index}`}>{activity.highlight}</StyledH3>
+          {activity.highlights ? (
+            <StyledH3 key={`h3_${index}`}>{activity.highlights}</StyledH3>
           ) : null}
           <Paragraph key={`para_${index}`} content={activity.comment} />
         </div>

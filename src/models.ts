@@ -51,8 +51,8 @@ export type TRiskTrend = "decreasing" | "steady" | "increasing" | "n/a";
 export type TValidTimePeriod = "allDay" | "earlier" | "later";
 export type TAvalancheSize = -1 | 0 | 1 | 2 | 3 | 4 | 5;
 type TSnowpackStability = "very_poor" | "poor" | "fair" | "good";
-export type TProblemType = typeof ProblemType[number];
-export type TAspect = typeof Aspects[number];
+export type TProblemType = (typeof ProblemType)[number];
+export type TAspect = (typeof Aspects)[number];
 export type TAvalancheSituations = {
   aspects: TAspect[];
   avalancheSituation: TProblemType;
@@ -65,12 +65,15 @@ export type TTimePeriod = "AM" | "PM";
 
 export type TStability = {
   comment: string;
-  highlight: string;
+  highlights: string;
 };
 
 export type TWeatherCondition = "snow" | "wind" | "temp";
 
-export type TWeather = TStability & Record<TWeatherCondition, string>;
+export type TWeather = Record<TWeatherCondition, string> & {
+  comment: string;
+  highlight: string;
+};
 
 export type TAvalancheProblem = {
   type: TProblemType;
