@@ -27,13 +27,17 @@ const Navbar = () => {
     setExtendNavBar((curr) => !curr);
   };
 
+  const onClickLogo = () => {
+    setExtendNavBar(false);
+  };
+
   const theme = useTheme();
 
   return (
     <Nav extendNavBar={extendNavBar}>
       <NavbarInnerContainer>
         <LeftContainer>
-          <Link to="/" onClick={onClick}>
+          <Link to="/" onClick={onClickLogo}>
             <Logo src={Icon} alt="AvaInfo logo"></Logo>
           </Link>
         </LeftContainer>
