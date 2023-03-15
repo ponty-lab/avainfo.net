@@ -22,10 +22,8 @@ const paintColor = (property: string) => {
     ["boolean", ["feature-state", "hover"], false],
     "rgba(0,0,0,0.3)",
     [
-      "interpolate",
-      ["linear"],
+      "step",
       ["get", `maxDangerRating_${property}_numeric`],
-      -1,
       AvaColors["-1"],
       1,
       AvaColors["1"],
@@ -287,8 +285,13 @@ export const useMap = (
           }
         });
       });
+
+      return () => map.remove();
     };
-    if (!baseMap) initialiseMap({ setBaseMap, mapContainer });
+
+    if (!baseMap) {
+      initialiseMap({ setBaseMap, mapContainer });
+    }
   }, [baseMap, mapContainer]);
 
   // Function to update the paint property of the map
@@ -315,11 +318,11 @@ export const useMap = (
     setModalOpen(false);
 
     // Remove the click state from the map
+
     if (featureId) {
       baseMap.removeFeatureState({
         source: _geojson_source,
         sourceLayer: _layer_name,
-        id: featureId,
       });
     }
     clickedRegionId.current = undefined;
