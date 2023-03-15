@@ -87,6 +87,8 @@ function processAvalancheProblems(avalancheProblem: any[]) {
 }
 
 function processDangerRatings(dangerRatings: any[]) {
+  if (dangerRatings === undefined) return [];
+
   const labels: Record<string, string> = {
     earlier: "AM",
     later: "PM",
