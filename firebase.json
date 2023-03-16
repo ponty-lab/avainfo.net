@@ -5,15 +5,12 @@
     "appAssociation": "AUTO",
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/index.html"
-      },
-      {
         "source": "/share/**",
         "dynamicLinks": true
       },
       {
-        "source": "/share**"
+        "source": "/share**",
+        "dynamicLinks": true
       }
     ]
   }
