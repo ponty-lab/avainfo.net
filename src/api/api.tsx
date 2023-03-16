@@ -1,7 +1,20 @@
+const cache = new Map();
+const CACHE_EXPIRATION_MS = 10 * 60 * 1000; // 10 minutes
+
 const fetchLatestTileDate = async (url: string) => {
   try {
     if (!url || typeof url !== "string") {
-      throw new Error("Invalid URL");
+      throw new Error(`Invalid URL: ${url}`);
+    }
+
+    //Check if the data is already cached
+    const cachedData = cache.get(url);
+    if (cachedData) {
+      const { data, timestamp } = cachedData;
+      const ageMs = Date.now() - timestamp;
+      if (ageMs < CACHE_EXPIRATION_MS) {
+        return data;
+      }
     }
 
     const response = await fetch(url);
@@ -10,9 +23,13 @@ const fetchLatestTileDate = async (url: string) => {
         `Fetch failed for URL: ${url}, Status: ${response.statusText}`
       );
     }
-    return await response.text();
+    const data = await response.text();
+
+    // Cache the data
+    cache.set(url, { data, timestamp: Date.now() });
+
+    return data;
   } catch (error: any) {
-    //console.error(error);
     throw new Error(`Error fetching latest tile date: ${error.message}`);
   }
 };
