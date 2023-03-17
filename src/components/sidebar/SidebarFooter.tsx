@@ -8,19 +8,19 @@ import { FaFilePdf } from "react-icons/fa";
 
 type FooterProps = {
   url: string;
-  pdfURL: string;
   source: string;
   issuedDate: string;
+  pdfURL?: string;
 };
 
-const Footer: React.FC<FooterProps> = ({ url, pdfURL, source, issuedDate }) => {
+const Footer: React.FC<FooterProps> = ({ url, source, issuedDate, pdfURL }) => {
   const pdfSize = 40;
   const date = formatDate(issuedDate, "gmt");
   return (
     <FooterContainer>
       <Divider />
       <HorizontalBar style={{ justifyContent: "space-between" }}>
-        <Container style={{ flex: 0.9 }}>
+        <Container style={{ flex: pdfURL ? 0.9 : 1 }}>
           <a href={url}>
             <ThemedCaption>Source: {source}</ThemedCaption>
           </a>
@@ -28,9 +28,11 @@ const Footer: React.FC<FooterProps> = ({ url, pdfURL, source, issuedDate }) => {
             <Label style={{ fontSize: 12 }}>Issued on: {date}</Label>
           ) : null}
         </Container>
-        <a href={pdfURL}>
-          <PDFButton size={pdfSize} />
-        </a>
+        {pdfURL ? (
+          <a href={pdfURL}>
+            <PDFButton size={pdfSize} />
+          </a>
+        ) : null}
       </HorizontalBar>
     </FooterContainer>
   );

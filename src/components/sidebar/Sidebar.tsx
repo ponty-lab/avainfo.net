@@ -12,6 +12,7 @@ import Tendency from "./SidebarTendency";
 import RiskLevel from "./SidebarRiskLevel";
 import Paragraph from "./SidebarParagraph";
 import { device } from "../../utils/constants";
+import { formatDate } from "../../utils/formatDate";
 
 type Props = {
   data: Record<string, any> | null;
@@ -25,8 +26,14 @@ const Sidebar: React.FC<Props> = ({ data, onPress, visible }) => {
   const validDate = data?.validEndTime
     ? new Date(data?.validEndTime)
     : undefined;
+  const lastBulletinDate = formatDate(data?.lastBulletinDate, "gmt");
+  const hasLastBulletinDate = data?.lastBulletinDate.length > 0;
 
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log("data", data);
+  }, [data]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -46,36 +53,63 @@ const Sidebar: React.FC<Props> = ({ data, onPress, visible }) => {
       <SideBarView validDate={validDate}>
         <ScrollView ref={scrollRef}>
           <Header data={data} onPress={onPress} validDate={validDate} />
-          {validDate ? (
-            <View>
-              <HorizontalBar style={{ flex: 0 }}>
-                <ColorColumn dangerColor={dangerColor} />
-                <Paragraph
-                  title="Summary"
-                  content={data?.highlights}
-                  marginTop="20px"
+
+          <View>
+            {validDate ? (
+              <>
+                <HorizontalBar style={{ flex: 0 }}>
+                  <ColorColumn dangerColor={dangerColor} />
+                  <Paragraph
+                    title="Summary"
+                    content={data?.highlights}
+                    marginTop="20px"
+                  />
+                </HorizontalBar>
+                <RiskLevel dangerRatingInfo={data?.dangerRatingImageInfo} />
+                <Tendency
+                  tendency={data?.tendencyType}
+                  validDate={data?.validEndTime}
                 />
-              </HorizontalBar>
-              <RiskLevel dangerRatingInfo={data?.dangerRatingImageInfo} />
-              <Tendency
-                tendency={data?.tendencyType}
-                validDate={data?.validEndTime}
-              />
-              <Stability stability={data?.avalancheActivity} />
-              <AvalancheProblems problems={data?.avalancheProblem} />
-              <Paragraph
-                title="Snow Quality"
-                content={data?.snowpackStructureComment}
-              />
-              <Weather weather={data?.weather} />
-              <Footer
-                url={data?.bulletinURI}
-                pdfURL={data?.pdfURI}
-                issuedDate={data?.publicationTime}
-                source={data?.source}
-              />
-            </View>
-          ) : null}
+                <Stability stability={data?.avalancheActivity} />
+                <AvalancheProblems problems={data?.avalancheProblem} />
+                <Paragraph
+                  title="Snow Quality"
+                  content={data?.snowpackStructureComment}
+                />
+                <Weather weather={data?.weather} />
+                <Footer
+                  url={data?.bulletinURI}
+                  pdfURL={data?.pdfURI}
+                  issuedDate={data?.publicationTime}
+                  source={data?.source}
+                />
+              </>
+            ) : (
+              <>
+                <p>
+                  {hasLastBulletinDate
+                    ? `The most recent avalanche bulletin from ${data?.source} issued on ${lastBulletinDate} is no longer valid. `
+                    : null}{" "}
+                </p>
+                <p>
+                  Currently there is no up to date avalanche information
+                  available
+                  {!hasLastBulletinDate ? ` from ${data?.source}` : null}. Visit
+                  their website for any further updates, or check back later.
+                </p>
+
+                <p>
+                  Be careful when traveling in the backcountry and stay safe.
+                </p>
+                <Footer
+                  url={data?.bulletinURI}
+                  pdfURL={data?.pdfURI}
+                  issuedDate={data?.publicationTime}
+                  source={data?.source}
+                />
+              </>
+            )}
+          </View>
         </ScrollView>
       </SideBarView>
     </SidebarContainer>
