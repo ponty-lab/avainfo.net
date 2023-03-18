@@ -1,17 +1,8 @@
 {
-  "hosting": {
-    "public": "build",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "appAssociation": "AUTO",
-    "rewrites": [
-      {
-        "source": "/share/**",
-        "dynamicLinks": true
-      },
-      {
-        "source": "/share**",
-        "dynamicLinks": true
-      }
+  "functions": {
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" run lint",
+      "npm --prefix \"$RESOURCE_DIR\" run build"
     ]
   }
 }

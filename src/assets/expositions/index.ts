@@ -1,9 +1,0 @@
-export { default as expoBG } from "./exposition_bg.png";
-export { default as expoN } from "./exposition_n.png";
-export { default as expoNE } from "./exposition_ne.png";
-export { default as expoE } from "./exposition_e.png";
-export { default as expoSE } from "./exposition_se.png";
-export { default as expoS } from "./exposition_s.png";
-export { default as expoSW } from "./exposition_sw.png";
-export { default as expoW } from "./exposition_w.png";
-export { default as expoNW } from "./exposition_nw.png";
