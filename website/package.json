@@ -1,0 +1,82 @@
+{
+  "name": "avainfo",
+  "version": "0.1.0",
+  "homepage": "https://ponty-lab.github.io",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "date-fns": "^2.29.3",
+    "mapbox-gl": "^2.10.0",
+    "node-fetch": "^3.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "react-loader-spinner": "^5.3.4",
+    "react-markdown": "^8.0.3",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
+    "rehype-raw": "^6.1.1",
+    "remark-gfm": "^3.0.1",
+    "source-map-explorer": "^2.5.3",
+    "styled-components": "^5.3.5",
+    "typescript": "^4.4.2",
+    "web-vitals": "^2.1.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsxjson,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "serve": "serve -s build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "not safari < 10",
+      "not chrome < 51",
+      "not android < 5",
+      "not ie < 12"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "@types/mapbox-gl": "^2.7.5",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/styled-components": "^5.1.26",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "gh-pages": "^4.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.4"
+  }
+}
