@@ -12,5 +12,21 @@ typings/
 node_modules/
 
 # Ignore artifacts:
-build
-coverage
+lib/
+coverage/
+
+# Logs
+.DS_Store
+npm-debug.log*
+firebase-debug.log
+firebase-debug.*.log
+ui-debug.log
+yarn-debug.log*
+yarn-error.log*
+
+# Firebase cache
+.firebase/
+.firebaserc
+
+# dotenv environment variables file
+.env
