@@ -1,5 +1,5 @@
 const findKey = (obj: Record<string, any>, val: string): string | null => {
-  if (typeof obj === 'object') {
+  if (typeof obj === "object") {
     for (const key in obj) {
       if (obj[key] === val) {
         return key;

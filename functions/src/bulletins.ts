@@ -12,7 +12,7 @@ const ProblemType = [
   "favourable_situation",
 ] as const;
 
-export type TAspects = typeof Aspects[number];
+export type TAspects = (typeof Aspects)[number];
 export type TAvalancheSize = -1 | 0 | 1 | 2 | 3 | 4 | 5;
 export type TDangerRatingValue =
   | "no_rating"
@@ -23,7 +23,7 @@ export type TDangerRatingValue =
   | "high"
   | "very_high";
 type TFrequency = "few" | "some" | "many";
-type TProblemType = typeof ProblemType[number];
+type TProblemType = (typeof ProblemType)[number];
 type TSnowpackStability = "very_poor" | "poor" | "fair" | "good";
 type TTendencyType = "decreasing" | "steady" | "increasing";
 export type TValidTimePeriod = "allDay" | "earlier" | "later";

@@ -1,18 +1,23 @@
-import { FeatureCollection } from 'geojson';
+import { FeatureCollection } from "geojson";
 
 export const IT57GeoJson = {
-  type: 'FeatureCollection',
-  name: 'IT-57_micro-regions',
+  type: "FeatureCollection",
+  name: "IT-57_micro-regions",
   crs: {
-    type: 'name',
-    properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' },
+    type: "name",
+    properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" },
   },
   features: [
     {
-      type: 'Feature',
-      properties: { id: 'IT-57-MC-01', provider: 'IT', start_date: '2022-03-04', end_date: null },
+      type: "Feature",
+      properties: {
+        id: "IT-57-MC-01",
+        provider: "IT",
+        start_date: "2022-03-04",
+        end_date: null,
+      },
       geometry: {
-        type: 'MultiPolygon',
+        type: "MultiPolygon",
         coordinates: [
           [
             [
@@ -5181,10 +5186,15 @@ export const IT57GeoJson = {
       },
     },
     {
-      type: 'Feature',
-      properties: { id: 'IT-57-AP-01', provider: 'IT', start_date: '2022-03-04', end_date: null },
+      type: "Feature",
+      properties: {
+        id: "IT-57-AP-01",
+        provider: "IT",
+        start_date: "2022-03-04",
+        end_date: null,
+      },
       geometry: {
-        type: 'MultiPolygon',
+        type: "MultiPolygon",
         coordinates: [
           [
             [
@@ -11013,10 +11023,15 @@ export const IT57GeoJson = {
       },
     },
     {
-      type: 'Feature',
-      properties: { id: 'IT-57-MC-02', provider: 'IT', start_date: '2022-03-04', end_date: null },
+      type: "Feature",
+      properties: {
+        id: "IT-57-MC-02",
+        provider: "IT",
+        start_date: "2022-03-04",
+        end_date: null,
+      },
       geometry: {
-        type: 'MultiPolygon',
+        type: "MultiPolygon",
         coordinates: [
           [
             [
@@ -14093,10 +14108,15 @@ export const IT57GeoJson = {
       },
     },
     {
-      type: 'Feature',
-      properties: { id: 'IT-57-PU-01', provider: 'IT', start_date: '2022-03-04', end_date: null },
+      type: "Feature",
+      properties: {
+        id: "IT-57-PU-01",
+        provider: "IT",
+        start_date: "2022-03-04",
+        end_date: null,
+      },
       geometry: {
-        type: 'MultiPolygon',
+        type: "MultiPolygon",
         coordinates: [
           [
             [
