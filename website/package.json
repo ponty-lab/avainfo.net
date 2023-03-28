@@ -1,8 +1,15 @@
 {
   "name": "avainfo",
-  "version": "0.1.0",
-  "homepage": "https://ponty-lab.github.io",
-  "private": true,
+  "version": "1.0.0",
+  "description": "Website showcasing mapbox vector tiles of avalanche danger ratings for the Alps and Pyrenees.",
+  "homepage": "https://avainfo.net",
+  "licence": "GPL-3.0-or-later",
+  "author": "Carla Pont <avainfo.net@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ponty-lab/avainfo.net",
+    "directory": "website"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -78,5 +85,6 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.4"
-  }
+  },
+  "private": true
 }

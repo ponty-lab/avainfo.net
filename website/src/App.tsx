@@ -7,6 +7,7 @@ import Map from "./pages/map";
 import About from "./pages/about";
 import Docs from "./pages/docs";
 import Privacy from "./pages/privacy";
+import Terms from "./pages/terms";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/docs" element={<Docs />} />
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
         </Routes>
       </Router>
     </ThemeProvider>

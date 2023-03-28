@@ -15,8 +15,9 @@ const About = () => {
         <Footer />
         <Legal>
           <>
-            Site design / logo @ 2023 AvaInfo |{" "}
-            <PrivacyLink to="/privacy">Privacy Policy</PrivacyLink>
+            Copyright © 2023 Carla Pont |{" "}
+            <PrivacyLink to="/privacy">Privacy Policy</PrivacyLink> |{" "}
+            <PrivacyLink to="/terms">Terms of Use</PrivacyLink>
           </>
         </Legal>
       </ScrollView>

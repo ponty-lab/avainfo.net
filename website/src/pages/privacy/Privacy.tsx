@@ -3,6 +3,7 @@ import Legal from "../../components/legal";
 import { contactEmail } from "../../utils/constants";
 import { ScrollView, Wrapper } from "../../styles/pages.style";
 import { StyledLI, StyledUL } from "../../styles/typography.style";
+import { Link } from "react-router-dom";
 
 const Privacy = () => {
   const mailto = `mailto:${contactEmail}`;
@@ -747,7 +748,8 @@ const Privacy = () => {
             This privacy policy was created using{" "}
             <a href="https://termly.io/products/privacy-policy-generator/?ftseo">
               {" "}
-              Termly's Privacy Policy Generator
+              Termly's Privacy Policy Generator |{" "}
+              <PrivacyLink to="/terms">Terms of Use</PrivacyLink>
             </a>
           </>
         </Legal>
@@ -772,6 +774,10 @@ const Highlight = styled.div`
   border-radius: 3px;
   padding: 12px 12px 0px;
   margin-bottom: 12px;
+`;
+
+export const PrivacyLink = styled(Link)`
+  color: white;
 `;
 
 export default Privacy;

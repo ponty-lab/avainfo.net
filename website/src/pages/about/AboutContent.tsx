@@ -41,8 +41,8 @@ const Content = ({ flex }: Props) => {
           The AvaInfo Danger Map tileset provides an easy-to-use source for
           avalanche danger ratings pulled from various weather forecasters
           across Europe, updated daily to ensure you always have the latest
-          information. The tileset is available for free and can be used in any
-          non-commercial project.
+          information. You can download the tileset and use it in your own app
+          or website.
         </p>
       </RightContent>
     </ContentContainer>

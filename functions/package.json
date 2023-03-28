@@ -1,5 +1,15 @@
 {
   "name": "functions",
+  "version": "1.0.0",
+  "description": "Firebase cloud functions to create a mapbox vector tiles of avalanche danger ratings for the Alps and Pyrenees.",
+  "homepage": "https://github.com/ponty-lab/avainfo.net#readme",
+  "licence": "GPL-3.0-or-later",
+  "author": "Carla Pont <avainfo.net@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ponty-lab/avainfo.net",
+    "directory": "functions"
+  },
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "build": "tsc",
