@@ -168,7 +168,7 @@ export const bulletinUrls: Record<string, any> = {
     url: {
       xml: "https://bollettini.aineva.it/albina_files/latest/${lang}.xml",
       bulletin:
-        "https://bollettini-${lang}.aineva.it/bulletin/${date}?region=${id}",
+        "https://bollettini-${lang}.aineva.it/bulletin/${date}?region=${regionID}",
       pdf: "https://bollettini.aineva.it/albina_files/${date}/${date}_${regionID}_${lang}.pdf",
       latest: "https://bollettini.aineva.it/bulletin/latest?region=${id}",
     },
