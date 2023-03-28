@@ -19,6 +19,7 @@ module.exports = {
   },
   ignorePatterns: [
     "/lib/**/*", // Ignore built files.
+    "/assets/mapbox/**.geojson.ts", // Ignore mapbox geojson files.
   ],
   plugins: ["@typescript-eslint", "import"],
   rules: {
