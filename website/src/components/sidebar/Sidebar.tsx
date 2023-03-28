@@ -47,7 +47,7 @@ const Sidebar: React.FC<Props> = ({ data, onPress, visible }) => {
   return (
     <SidebarContainer show={visible}>
       <SideBarView validDate={validDate}>
-        <ScrollView ref={scrollRef}>
+        <ScrollView ref={scrollRef} style={{ paddingBottom: "15px" }}>
           <Header data={data} onPress={onPress} validDate={validDate} />
 
           <View>
@@ -90,8 +90,11 @@ const Sidebar: React.FC<Props> = ({ data, onPress, visible }) => {
                 <p>
                   Currently there is no up to date avalanche information
                   available
-                  {!hasLastBulletinDate ? ` from ${data?.source}` : null}. Visit
-                  their website for any further updates, or check back later.
+                  {!hasLastBulletinDate && data?.source
+                    ? ` from ${data?.source}`
+                    : null}
+                  . Visit their website for any further updates, or check back
+                  later.
                 </p>
 
                 <p>
