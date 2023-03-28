@@ -4,6 +4,9 @@ import remarkGfm from "remark-gfm";
 import { ScrollView, Wrapper } from "../../styles/pages.style";
 import readme from "./README.md";
 import rehypeRaw from "rehype-raw";
+import Legal from "../../components/legal";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const Docs = () => {
   const [markdown, setMarkdown] = useState("");
@@ -17,16 +20,27 @@ const Docs = () => {
   return (
     <div>
       <ScrollView>
-        <Wrapper>
+        <Wrapper style={{ marginBottom: "20px" }}>
           <ReactMarkdown
             children={markdown}
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
           />
         </Wrapper>
+        <Legal>
+          <>
+            Copyright © 2023 Carla Pont |{" "}
+            <PrivacyLink to="/privacy">Privacy Policy</PrivacyLink> |{" "}
+            <PrivacyLink to="/terms">Terms of Use</PrivacyLink>
+          </>
+        </Legal>
       </ScrollView>
     </div>
   );
 };
+
+export const PrivacyLink = styled(Link)`
+  color: white;
+`;
 
 export default Docs;

@@ -21,7 +21,7 @@ export const LegalBar = styled.div<{ flex?: string }>`
   background: hsl(210, 8%, 12%);
   justify-content: center;
   align-items: center;
-  padding: 0px 40px;
+  padding: 0px 40px 25px 40px;
   flex: ${({ flex }) => flex || "auto"};
 `;
 

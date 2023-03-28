@@ -16,6 +16,11 @@ type FooterProps = {
 const Footer: React.FC<FooterProps> = ({ url, source, issuedDate, pdfURL }) => {
   const pdfSize = 40;
   const date = formatDate(issuedDate, "gmt");
+
+  if (!source) {
+    return null;
+  }
+
   return (
     <FooterContainer>
       <Divider />
