@@ -111,9 +111,11 @@ AvaInfo Danger Map vector layers are published during the winter season only.
 
 Avalanche Warning Services typically issue a bulletin report at 17:00/18:00 each day, with additional updates at 8:00/9:00 the following morning and on rare occasions at other times. Changes to the bulletin reports are regularly monitored throughout the day, and the tilesets are updated to reflect the latest information.
 
-### Attribution
+### Licence
 
-If you use AvaInfo vector tiles, you must display proper attribution when you make your work public.
+GNU General Public License v3.0 or later
+
+See [COPYING](https://github.com/ponty-lab/avainfo.net/blob/main/COPYING.txt) to see the full text.
 
 ## Warning
 
