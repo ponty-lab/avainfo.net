@@ -115,7 +115,7 @@ Avalanche Warning Services typically issue a bulletin report at 17:00/18:00 each
 
 GNU General Public License v3.0 or later
 
-See [COPYING](https://github.com/ponty-lab/avainfo.net/blob/main/COPYING.txt) to see the full text.
+See [COPYING](https://github.com/ponty-lab/avainfo.net/blob/firebase_functions/COPYING.txt) to see the full text.
 
 ## Warning
 
