@@ -1,4 +1,4 @@
-// import * as admin from "firebase-admin";
+import * as admin from "firebase-admin";
 
 export * from "./fetchBulletinAlbina";
 export * from "./fetchBulletinAndorra";
@@ -11,4 +11,4 @@ export * from "./fetchBulletinSlovenia";
 export * from "./uploadMapbox";
 export * from "./website";
 
-// admin.initializeApp();
+admin.initializeApp();
