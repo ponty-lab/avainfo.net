@@ -172,6 +172,21 @@ export function processRegionalBulletins(
                 pdfID = match[1];
               }
             }
+            let shortenedRegionID = regionID;
+            if (provider == "Albina") {
+              console.log("regionID: ", regionID);
+              const match = regionID.match(/(IT-32-\w+)/);
+              console.log(match);
+              if (match) {
+                shortenedRegionID = match?.[0];
+              }
+            } else if (provider === "IT") {
+              const match = regionID.match(/(IT-\w+)/);
+              if (match) {
+                shortenedRegionID = match?.[0];
+              }
+            }
+
             return {
               ...report,
               lang,
@@ -181,17 +196,15 @@ export function processRegionalBulletins(
               regionName: regionNames[regionID],
               pdfURI: bulletinUrls[provider].url.pdf
                 .replace(/\${date}/g, bulletinDate)
-                .replace(
-                  "${regionID}",
-                  regionID.match(/(IT-32)-\w+/)?.[1] ?? regionID
-                )
+                .replace("${regionID}", shortenedRegionID)
                 .replace("${id}", pdfID)
                 .replace("${lang}", lang)
                 .replace("${dateTime}", dateTime),
               bulletinURI: bulletinUrls[provider].url.bulletin
                 .replace("${lang}", lang)
                 .replace("${date}", bulletinDate)
-                .replace("${id}", bulletinID),
+                .replace("${id}", bulletinID)
+                .replace("${regionID", shortenedRegionID),
               provider,
             };
           } else {
@@ -307,7 +320,7 @@ export function getValidTimePeriod(bulletin: Bulletin): TValidTimePeriod {
   if (
     // returns later for bulletins issued after 9:00
     startTime.match(regex)?.[1] > 9 &&
-    startTime.match(regex)?.[1] < 16 &&
+    startTime.match(regex)?.[1] < 14 &&
     endTime.match(regex)?.[1] > 14
   ) {
     return "later";

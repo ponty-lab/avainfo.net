@@ -19,7 +19,7 @@ export const bulletinUrls: Record<string, any> = {
     url: {
       xml: "https://avalanche.report/albina_files/latest/${lang}.xml",
       bulletin: "https://avalanche.report/bulletin/${date}?region=${id}",
-      pdf: "https://static.avalanche.report/bulletin/${date}/${date}_${regionID}_${lang}.pdf",
+      pdf: "https://static.avalanche.report/bulletins/${date}/${date}_${regionID}_${lang}.pdf",
       latest: "https://avalanche.report/bulletin/$latest?region=${id}",
     },
   },
@@ -170,7 +170,7 @@ export const bulletinUrls: Record<string, any> = {
       bulletin:
         "https://bollettini-${lang}.aineva.it/bulletin/${date}?region=${regionID}",
       pdf: "https://bollettini.aineva.it/albina_files/${date}/${date}_${regionID}_${lang}.pdf",
-      latest: "https://bollettini.aineva.it/bulletin/latest?region=${id}",
+      latest: "https://bollettini.aineva.it/bulletin/latest?region=${regionID}",
     },
   },
   SI: {
