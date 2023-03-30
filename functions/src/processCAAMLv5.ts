@@ -174,9 +174,7 @@ export function processRegionalBulletins(
             }
             let shortenedRegionID = regionID;
             if (provider == "Albina") {
-              console.log("regionID: ", regionID);
               const match = regionID.match(/(IT-32-\w+)/);
-              console.log(match);
               if (match) {
                 shortenedRegionID = match?.[0];
               }
