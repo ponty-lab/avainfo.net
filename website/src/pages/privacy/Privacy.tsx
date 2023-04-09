@@ -751,6 +751,7 @@ const Privacy = () => {
               Termly's Privacy Policy Generator |{" "}
               <PrivacyLink to="/terms">Terms of Use</PrivacyLink>
             </a>
+            {""}
           </>
         </Legal>
       </ScrollView>

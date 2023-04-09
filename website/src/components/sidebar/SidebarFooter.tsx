@@ -38,6 +38,7 @@ const Footer: React.FC<FooterProps> = ({ url, source, issuedDate, pdfURL }) => {
             <PDFButton size={pdfSize} />
           </a>
         ) : null}
+        {""}
       </HorizontalBar>
     </FooterContainer>
   );

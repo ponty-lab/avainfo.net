@@ -120,3 +120,5 @@ See [COPYING](https://github.com/ponty-lab/avainfo.net/blob/firebase_functions/C
 ## Warning
 
 The Avalanche Danger tilesets are generated from third-party data and may be outdated or inaccurate.Using the tileset for any purpose is at your own risk, and AvaInfo is not responsible for any actions you take based on any information contained in this tileset. If you have any concerns about the accuracy or currency of the information in the tileset, please refer to the original bulletin reports.
+
+##
